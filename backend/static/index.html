@@ -975,11 +975,16 @@
             <span data-i18n="relatedDocs">Related Docs</span>
         </div>
         <div class="drawer-item" onclick="navigateTo('hse-kpi')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
+            </svg>
             <span data-i18n="hseKpi">HSE KPI</span>
         </div>
         <div class="drawer-item" onclick="navigateTo('ll-indicator')">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+            </svg>
             <span>LL Indicator</span>
         </div>
         <div class="drawer-item" onclick="downloadReport()">
@@ -2493,16 +2498,21 @@
     <section class="screen" id="screen-hse-kpi" style="overflow-y: auto; height: calc(100vh - 130px);">
         <!-- Header -->
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #27ae60, #2ecc71); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">📊</div>
+            <div
+                style="width: 48px; height: 48px; background: linear-gradient(135deg, #27ae60, #2ecc71); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">
+                📊</div>
             <div>
                 <h2 style="font-size: 20px; font-weight: 700; margin: 0;">HSE KPI Dashboard</h2>
                 <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Key Performance Indicators</p>
             </div>
             <div style="margin-left: auto; display: flex; gap: 8px; align-items: center;">
                 <div class="admin-only">
-                    <button onclick="showAddKPIYearModal()" style="padding: 8px 14px; border: none; border-radius: 8px; background: var(--netflix-red); color: white; cursor: pointer; font-weight: 600; font-size: 12px;">+ Add Year</button>
+                    <button onclick="showAddKPIYearModal()"
+                        style="padding: 8px 14px; border: none; border-radius: 8px; background: var(--netflix-red); color: white; cursor: pointer; font-weight: 600; font-size: 12px;">+
+                        Add Year</button>
                 </div>
-                <select id="kpi-download-year" style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); font-size: 12px;">
+                <select id="kpi-download-year"
+                    style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); font-size: 12px;">
                     <option value="all">All Years</option>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
@@ -2510,29 +2520,42 @@
                     <option value="2024">2024</option>
                     <option value="2025">2025</option>
                 </select>
-                <button onclick="downloadKPIExcel(document.getElementById('kpi-download-year').value)" style="padding: 8px 14px; border: none; border-radius: 8px; background: #27ae60; color: white; cursor: pointer; font-weight: 600; font-size: 12px;">📥 Download</button>
+                <button onclick="downloadKPIExcel(document.getElementById('kpi-download-year').value)"
+                    style="padding: 8px 14px; border: none; border-radius: 8px; background: #27ae60; color: white; cursor: pointer; font-weight: 600; font-size: 12px;">📥
+                    Download</button>
             </div>
         </div>
 
         <!-- Year Selector Tabs -->
         <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
-            <button class="kpi-year-tab" data-year="2021" onclick="selectKPIYear(2021)" style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; font-weight: 500;">2021</button>
-            <button class="kpi-year-tab" data-year="2022" onclick="selectKPIYear(2022)" style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; font-weight: 500;">2022</button>
-            <button class="kpi-year-tab" data-year="2023" onclick="selectKPIYear(2023)" style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; font-weight: 500;">2023</button>
-            <button class="kpi-year-tab" data-year="2024" onclick="selectKPIYear(2024)" style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; font-weight: 500;">2024</button>
-            <button class="kpi-year-tab active" data-year="2025" onclick="selectKPIYear(2025)" style="padding: 8px 16px; border: 2px solid var(--netflix-red); border-radius: 8px; background: var(--netflix-red); color: white; cursor: pointer; font-weight: 600;">2025</button>
+            <button class="kpi-year-tab" data-year="2021" onclick="selectKPIYear(2021)"
+                style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; font-weight: 500;">2021</button>
+            <button class="kpi-year-tab" data-year="2022" onclick="selectKPIYear(2022)"
+                style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; font-weight: 500;">2022</button>
+            <button class="kpi-year-tab" data-year="2023" onclick="selectKPIYear(2023)"
+                style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; font-weight: 500;">2023</button>
+            <button class="kpi-year-tab" data-year="2024" onclick="selectKPIYear(2024)"
+                style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); color: var(--text-primary); cursor: pointer; font-weight: 500;">2024</button>
+            <button class="kpi-year-tab active" data-year="2025" onclick="selectKPIYear(2025)"
+                style="padding: 8px 16px; border: 2px solid var(--netflix-red); border-radius: 8px; background: var(--netflix-red); color: white; cursor: pointer; font-weight: 600;">2025</button>
         </div>
 
         <!-- Summary Cards -->
-        <div id="kpi-summary-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;"></div>
+        <div id="kpi-summary-cards"
+            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;"></div>
 
         <!-- KPI Table -->
-        <div style="background: var(--bg-secondary); border-radius: 12px; padding: 16px; margin-bottom: 20px; overflow-x: auto;">
+        <div
+            style="background: var(--bg-secondary); border-radius: 12px; padding: 16px; margin-bottom: 20px; overflow-x: auto;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-            <h3 style="font-size: 16px; margin: 0; color: var(--text-primary);">📈 Performance Metrics</h3>
-            <button class="admin-only" onclick="openAddKPIMetric()" style="padding: 6px 12px; border: none; border-radius: 6px; background: #27ae60; color: white; cursor: pointer; font-size: 12px; font-weight: 600; margin-right: 8px;">➕ Add</button>
-            <button class="admin-only" id="kpi-edit-btn" onclick="toggleKPIEditMode()" style="padding: 6px 12px; border: 1px solid var(--netflix-red); border-radius: 6px; background: transparent; color: var(--netflix-red); cursor: pointer; font-size: 12px; font-weight: 600;">✏️ Edit</button>
-        </div>
+                <h3 style="font-size: 16px; margin: 0; color: var(--text-primary);">📈 Performance Metrics</h3>
+                <button class="admin-only" onclick="openAddKPIMetric()"
+                    style="padding: 6px 12px; border: none; border-radius: 6px; background: #27ae60; color: white; cursor: pointer; font-size: 12px; font-weight: 600; margin-right: 8px;">➕
+                    Add</button>
+                <button class="admin-only" id="kpi-edit-btn" onclick="toggleKPIEditMode()"
+                    style="padding: 6px 12px; border: 1px solid var(--netflix-red); border-radius: 6px; background: transparent; color: var(--netflix-red); cursor: pointer; font-size: 12px; font-weight: 600;">✏️
+                    Edit</button>
+            </div>
             <table id="kpi-table" style="width: 100%; border-collapse: collapse; font-size: 13px;">
                 <thead id="kpi-table-head"></thead>
                 <tbody id="kpi-table-body"></tbody>
@@ -2542,9 +2565,12 @@
         <!-- Formula Reference -->
         <div style="background: var(--bg-secondary); border-radius: 12px; padding: 16px;">
             <h3 style="font-size: 14px; margin-bottom: 12px; color: var(--text-muted);">📐 Formula Reference</h3>
-            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">• <strong>TRIR</strong> = (Number of Recordable Incidents × 1,000,000) / Man-Hours</p>
-            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">• <strong>2025 TRIR Target</strong> = 50% of 2024 TRIR Result (0.44)</p>
-            <p style="font-size: 12px; color: var(--text-secondary);">• <strong>TVSIR</strong> = (Volume of Spill / Number of Spill) / MH</p>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">• <strong>TRIR</strong> =
+                (Number of Recordable Incidents × 1,000,000) / Man-Hours</p>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">• <strong>2025 TRIR
+                    Target</strong> = 50% of 2024 TRIR Result (0.44)</p>
+            <p style="font-size: 12px; color: var(--text-secondary);">• <strong>TVSIR</strong> = (Volume of Spill /
+                Number of Spill) / MH</p>
         </div>
     </section>
 
@@ -2552,34 +2578,53 @@
     <section class="screen" id="screen-ll-indicator" style="overflow-y: auto; height: calc(100vh - 130px);">
         <!-- Header -->
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #e74c3c, #27ae60); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">📈</div>
+            <div
+                style="width: 48px; height: 48px; background: linear-gradient(135deg, #e74c3c, #27ae60); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">
+                📈</div>
             <div style="flex: 1;">
                 <h2 style="font-size: 18px; font-weight: 700; margin: 0;" id="ll-year-title">2025 LL Indicator</h2>
                 <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Lagging & Leading Indicators</p>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
-                <button class="admin-only" id="ll-edit-btn" onclick="toggleLLEditMode()" style="padding: 6px 12px; border: 1px solid var(--netflix-red); border-radius: 6px; background: transparent; color: var(--netflix-red); cursor: pointer; font-size: 12px; font-weight: 600;">✏️ Edit</button>
-                <button onclick="downloadLLIndicator()" style="padding: 6px 12px; border: none; border-radius: 6px; background: #27ae60; color: white; cursor: pointer; font-size: 12px; font-weight: 600;">📥 Download</button>
+                <button class="admin-only" id="ll-edit-btn" onclick="toggleLLEditMode()"
+                    style="padding: 6px 12px; border: 1px solid var(--netflix-red); border-radius: 6px; background: transparent; color: var(--netflix-red); cursor: pointer; font-size: 12px; font-weight: 600;">✏️
+                    Edit</button>
+                <button onclick="downloadLLIndicator()"
+                    style="padding: 6px 12px; border: none; border-radius: 6px; background: #27ae60; color: white; cursor: pointer; font-size: 12px; font-weight: 600;">📥
+                    Download</button>
             </div>
         </div>
 
         <!-- LAGGING INDICATORS Section -->
         <div style="background: var(--bg-secondary); border-radius: 12px; margin-bottom: 16px; overflow: hidden;">
-            <div onclick="toggleLLSection('lagging')" style="background: linear-gradient(135deg, #c0392b, #e74c3c); padding: 12px 16px; cursor: pointer; display: flex; align-items: center; justify-content: between;">
+            <div onclick="toggleLLSection('lagging')"
+                style="background: linear-gradient(135deg, #c0392b, #e74c3c); padding: 12px 16px; cursor: pointer; display: flex; align-items: center; justify-content: between;">
                 <span style="font-weight: 700; color: white; flex: 1;">⚠️ LAGGING INDICATORS</span>
-                <button class="admin-only" onclick="event.stopPropagation();openAddLLIndicator('lagging')" style="padding: 4px 10px; border: none; border-radius: 4px; background: rgba(255,255,255,0.2); color: white; cursor: pointer; font-size: 11px; font-weight: 600;">➕ Add</button>
+                <button class="admin-only" onclick="event.stopPropagation();openAddLLIndicator('lagging')"
+                    style="padding: 4px 10px; border: none; border-radius: 4px; background: rgba(255,255,255,0.2); color: white; cursor: pointer; font-size: 11px; font-weight: 600;">➕
+                    Add</button>
                 <span id="ll-lagging-arrow" style="color: white; font-size: 14px;">▼</span>
             </div>
             <div id="ll-lagging-content" style="padding: 12px;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
                     <thead>
                         <tr style="background: var(--bg-tertiary);">
-                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border); width: 30px;">#</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">Indicator</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 80px;">Target</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 80px;">Actual</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 50px;">Status</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">Intent</th>
+                            <th
+                                style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border); width: 30px;">
+                                #</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">
+                                Indicator</th>
+                            <th
+                                style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 80px;">
+                                Target</th>
+                            <th
+                                style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 80px;">
+                                Actual</th>
+                            <th
+                                style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 50px;">
+                                Status</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">Intent
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="ll-lagging-body"></tbody>
@@ -2589,21 +2634,34 @@
 
         <!-- LEADING INDICATORS Section -->
         <div style="background: var(--bg-secondary); border-radius: 12px; margin-bottom: 16px; overflow: hidden;">
-            <div onclick="toggleLLSection('leading')" style="background: linear-gradient(135deg, #27ae60, #2ecc71); padding: 12px 16px; cursor: pointer; display: flex; align-items: center; justify-content: between;">
+            <div onclick="toggleLLSection('leading')"
+                style="background: linear-gradient(135deg, #27ae60, #2ecc71); padding: 12px 16px; cursor: pointer; display: flex; align-items: center; justify-content: between;">
                 <span style="font-weight: 700; color: white; flex: 1;">✅ LEADING INDICATORS</span>
-                <button class="admin-only" onclick="event.stopPropagation();openAddLLIndicator('leading')" style="padding: 4px 10px; border: none; border-radius: 4px; background: rgba(255,255,255,0.2); color: white; cursor: pointer; font-size: 11px; font-weight: 600;">➕ Add</button>
+                <button class="admin-only" onclick="event.stopPropagation();openAddLLIndicator('leading')"
+                    style="padding: 4px 10px; border: none; border-radius: 4px; background: rgba(255,255,255,0.2); color: white; cursor: pointer; font-size: 11px; font-weight: 600;">➕
+                    Add</button>
                 <span id="ll-leading-arrow" style="color: white; font-size: 14px;">▼</span>
             </div>
             <div id="ll-leading-content" style="padding: 12px;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
                     <thead>
                         <tr style="background: var(--bg-tertiary);">
-                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border); width: 30px;">#</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">Indicator</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 100px;">Target</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 80px;">Actual</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 50px;">Status</th>
-                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">Intent</th>
+                            <th
+                                style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border); width: 30px;">
+                                #</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">
+                                Indicator</th>
+                            <th
+                                style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 100px;">
+                                Target</th>
+                            <th
+                                style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 80px;">
+                                Actual</th>
+                            <th
+                                style="padding: 10px; text-align: center; border-bottom: 1px solid var(--border); width: 50px;">
+                                Status</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid var(--border);">Intent
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="ll-leading-body"></tbody>
@@ -2741,15 +2799,23 @@
     </div>
     <div class="nav-item" onclick="navigateTo('hse-kpi')">
         <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
         </svg>
         <span data-i18n="hseKpi">KPI</span>
     </div>
     <div class="nav-item" onclick="navigateTo('ll-indicator')">
         <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            <path
+                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
         </svg>
         <span>LL</span>
+    </div>
+    <div class="nav-item" onclick="navigateTo('hse-otp')">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z" />
+        </svg>
+        <span>OTP</span>
     </div>
     <div class="nav-item" onclick="navigateTo('related-docs')">
         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -2764,34 +2830,45 @@
 
 <!-- Icon Gallery Modal -->
 <div class="modal-overlay" id="icon-gallery-modal" onclick="if(event.target===this)closeIconGallery()">
-    <div class="modal-content" style="max-width: 400px; background: var(--bg-secondary); border-radius: 16px; padding: 20px;">
+    <div class="modal-content"
+        style="max-width: 400px; background: var(--bg-secondary); border-radius: 16px; padding: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
             <h3 style="font-size: 16px; font-weight: 700;">🎨 Select Icon</h3>
-            <button onclick="closeIconGallery()" style="background: none; border: none; color: var(--text-primary); font-size: 20px; cursor: pointer;">×</button>
+            <button onclick="closeIconGallery()"
+                style="background: none; border: none; color: var(--text-primary); font-size: 20px; cursor: pointer;">×</button>
         </div>
-        <div id="icon-gallery-grid" style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; max-height: 300px; overflow-y: auto;">
+        <div id="icon-gallery-grid"
+            style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; max-height: 300px; overflow-y: auto;">
         </div>
     </div>
 </div>
 
 <!-- Add/Edit KPI Metric Modal -->
 <div class="modal-overlay" id="kpi-metric-modal" onclick="if(event.target===this)closeKPIMetricModal()">
-    <div class="modal-content" style="max-width: 350px; background: var(--bg-secondary); border-radius: 16px; padding: 20px;">
+    <div class="modal-content"
+        style="max-width: 350px; background: var(--bg-secondary); border-radius: 16px; padding: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
             <h3 style="font-size: 16px; font-weight: 700;" id="kpi-metric-modal-title">Add KPI Metric</h3>
-            <button onclick="closeKPIMetricModal()" style="background: none; border: none; color: var(--text-primary); font-size: 20px; cursor: pointer;">×</button>
+            <button onclick="closeKPIMetricModal()"
+                style="background: none; border: none; color: var(--text-primary); font-size: 20px; cursor: pointer;">×</button>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 12px;">
-                <button id="kpi-metric-icon-btn" onclick="openIconGallery('kpi')" style="width: 50px; height: 50px; font-size: 28px; border: 2px dashed var(--border); border-radius: 8px; background: var(--bg-tertiary); cursor: pointer;">📊</button>
+                <button id="kpi-metric-icon-btn" onclick="openIconGallery('kpi')"
+                    style="width: 50px; height: 50px; font-size: 28px; border: 2px dashed var(--border); border-radius: 8px; background: var(--bg-tertiary); cursor: pointer;">📊</button>
                 <span style="color: var(--text-muted); font-size: 12px;">Click to change icon</span>
             </div>
-            <input type="text" id="kpi-metric-name" placeholder="Metric Name" style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 14px;">
+            <input type="text" id="kpi-metric-name" placeholder="Metric Name"
+                style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 14px;">
             <input type="hidden" id="kpi-metric-id">
             <div style="display: flex; gap: 8px;">
-                <button id="kpi-metric-delete-btn" onclick="deleteKPIMetric()" style="flex: 1; padding: 10px; border: none; border-radius: 8px; background: #e74c3c; color: white; cursor: pointer; font-weight: 600; display: none;">🗑️ Delete</button>
-                <button onclick="closeKPIMetricModal()" style="flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text-primary); cursor: pointer;">Cancel</button>
-                <button onclick="saveKPIMetric()" style="flex: 1; padding: 10px; border: none; border-radius: 8px; background: var(--netflix-red); color: white; cursor: pointer; font-weight: 600;">Save</button>
+                <button id="kpi-metric-delete-btn" onclick="deleteKPIMetric()"
+                    style="flex: 1; padding: 10px; border: none; border-radius: 8px; background: #e74c3c; color: white; cursor: pointer; font-weight: 600; display: none;">🗑️
+                    Delete</button>
+                <button onclick="closeKPIMetricModal()"
+                    style="flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text-primary); cursor: pointer;">Cancel</button>
+                <button onclick="saveKPIMetric()"
+                    style="flex: 1; padding: 10px; border: none; border-radius: 8px; background: var(--netflix-red); color: white; cursor: pointer; font-weight: 600;">Save</button>
             </div>
         </div>
     </div>
@@ -2799,25 +2876,35 @@
 
 <!-- Add/Edit LL Indicator Modal -->
 <div class="modal-overlay" id="ll-indicator-modal" onclick="if(event.target===this)closeLLIndicatorModal()">
-    <div class="modal-content" style="max-width: 400px; background: var(--bg-secondary); border-radius: 16px; padding: 20px;">
+    <div class="modal-content"
+        style="max-width: 400px; background: var(--bg-secondary); border-radius: 16px; padding: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
             <h3 style="font-size: 16px; font-weight: 700;" id="ll-indicator-modal-title">Add Indicator</h3>
-            <button onclick="closeLLIndicatorModal()" style="background: none; border: none; color: var(--text-primary); font-size: 20px; cursor: pointer;">×</button>
+            <button onclick="closeLLIndicatorModal()"
+                style="background: none; border: none; color: var(--text-primary); font-size: 20px; cursor: pointer;">×</button>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 12px;">
-                <button id="ll-indicator-icon-btn" onclick="openIconGallery('ll')" style="width: 50px; height: 50px; font-size: 28px; border: 2px dashed var(--border); border-radius: 8px; background: var(--bg-tertiary); cursor: pointer;">📊</button>
+                <button id="ll-indicator-icon-btn" onclick="openIconGallery('ll')"
+                    style="width: 50px; height: 50px; font-size: 28px; border: 2px dashed var(--border); border-radius: 8px; background: var(--bg-tertiary); cursor: pointer;">📊</button>
                 <span style="color: var(--text-muted); font-size: 12px;">Click to change icon</span>
             </div>
-            <input type="text" id="ll-indicator-name" placeholder="Indicator Name" style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 14px;">
-            <input type="text" id="ll-indicator-target" placeholder="Target (e.g., 0, 100%, Quarterly)" style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 14px;">
-            <textarea id="ll-indicator-intent" placeholder="Intent / Description" rows="2" style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 14px; resize: none;"></textarea>
+            <input type="text" id="ll-indicator-name" placeholder="Indicator Name"
+                style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 14px;">
+            <input type="text" id="ll-indicator-target" placeholder="Target (e.g., 0, 100%, Quarterly)"
+                style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 14px;">
+            <textarea id="ll-indicator-intent" placeholder="Intent / Description" rows="2"
+                style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-size: 14px; resize: none;"></textarea>
             <input type="hidden" id="ll-indicator-id">
             <input type="hidden" id="ll-indicator-type">
             <div style="display: flex; gap: 8px;">
-                <button id="ll-indicator-delete-btn" onclick="deleteLLIndicator()" style="flex: 1; padding: 10px; border: none; border-radius: 8px; background: #e74c3c; color: white; cursor: pointer; font-weight: 600; display: none;">🗑️ Delete</button>
-                <button onclick="closeLLIndicatorModal()" style="flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text-primary); cursor: pointer;">Cancel</button>
-                <button onclick="saveLLIndicator()" style="flex: 1; padding: 10px; border: none; border-radius: 8px; background: var(--netflix-red); color: white; cursor: pointer; font-weight: 600;">Save</button>
+                <button id="ll-indicator-delete-btn" onclick="deleteLLIndicator()"
+                    style="flex: 1; padding: 10px; border: none; border-radius: 8px; background: #e74c3c; color: white; cursor: pointer; font-weight: 600; display: none;">🗑️
+                    Delete</button>
+                <button onclick="closeLLIndicatorModal()"
+                    style="flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text-primary); cursor: pointer;">Cancel</button>
+                <button onclick="saveLLIndicator()"
+                    style="flex: 1; padding: 10px; border: none; border-radius: 8px; background: var(--netflix-red); color: white; cursor: pointer; font-weight: 600;">Save</button>
             </div>
         </div>
     </div>
@@ -4946,8 +5033,9 @@
         // Load specific screen data
         if (screen === 'statistics') updateStatistics();
         if (screen === 'calendar') {
-        if (screen === 'hse-kpi') renderKPIDashboard();
-        if (screen === 'll-indicator') { loadLLData(); renderLLIndicator(); }
+            if (screen === 'hse-kpi') renderKPIDashboard();
+            if (screen === 'll-indicator') { loadLLData(); renderLLIndicator(); }
+            if (screen === 'hse-otp') { if (typeof renderOTPScreen === 'function') renderOTPScreen(); }
             renderMeetingCalendar();
             renderProjectCalendar();
         }
@@ -7699,7 +7787,7 @@
 
     // ===== HSE KPI DASHBOARD =====
     let selectedKPIYear = 2025;
-    
+
     const kpiData = {
         2021: { fatality: { kpi: 0, result: 0 }, trir: { kpi: 0, result: 0 }, pvir: { kpi: 0, result: 0 }, environment: { kpi: 0, result: 0 }, fire: { kpi: 0, result: 0 }, firstaid: { kpi: 0, result: 0 }, occupational: { kpi: 0, result: 0 } },
         2022: { fatality: { kpi: 0, result: 0 }, trir: { kpi: 0, result: 3.53 }, pvir: { kpi: 0, result: 0 }, environment: { kpi: 0, result: 0 }, fire: { kpi: 0, result: 0 }, firstaid: { kpi: 0, result: 0 }, occupational: { kpi: 0, result: 0 } },
@@ -7707,7 +7795,7 @@
         2024: { fatality: { kpi: 0, result: 0 }, trir: { kpi: 0, result: 0.89 }, pvir: { kpi: 0, result: 0 }, environment: { kpi: 0, result: 0 }, fire: { kpi: 0, result: 0 }, firstaid: { kpi: 0, result: 0 }, occupational: { kpi: 0, result: 0 } },
         2025: { fatality: { kpi: 0, result: 0 }, trir: { kpi: 0.44, result: 0 }, pvir: { kpi: 0, result: 0 }, environment: { kpi: 0, result: 0 }, fire: { kpi: 0, result: 0 }, firstaid: { kpi: 0, result: 0 }, occupational: { kpi: 0, result: 0 } }
     };
-    
+
     const kpiLabels = {
         fatality: 'Fatality',
         trir: 'Total Recordable Injury Rate (TRIR)',
@@ -7717,7 +7805,7 @@
         firstaid: 'First Aid Case',
         occupational: 'Occupational Health Incident'
     };
-    
+
     function selectKPIYear(year) {
         selectedKPIYear = year;
         document.querySelectorAll('.kpi-year-tab').forEach(btn => {
@@ -7729,7 +7817,7 @@
         });
         renderKPIDashboard();
     }
-    
+
 
     // Load KPI data from backend API
     async function loadKPIFromAPI() {
@@ -7754,9 +7842,9 @@
             }
         } catch (e) { console.error('[KPI] Load error:', e); }
     }
-    
+
     let kpiManHours = { 2021: 0, 2022: 283286, 2023: 0, 2024: 0, 2025: 0 };
-    
+
     // Save KPI update to backend (admin only)
     async function saveKPIUpdate(year, metric, field, value) {
         if (!isAdmin) return;
@@ -7774,7 +7862,7 @@
             }
         } catch (e) { console.error('[KPI] Save error:', e); }
     }
-    
+
     // Save Man-Hours update
     async function saveManHours(year, value) {
         if (!isAdmin) return;
@@ -7796,12 +7884,12 @@
         const currentData = kpiData[currentYear];
         const prevYear = currentYear - 1;
         const prevData = kpiData[prevYear];
-        
+
         if (!currentData || !currentData[metric]) return { icon: '−', color: '#888', bg: 'rgba(128,128,128,0.1)' };
-        
+
         const currentResult = currentData[metric].result || 0;
         const prevResult = prevData && prevData[metric] ? prevData[metric].result || 0 : 0;
-        
+
         if (currentResult === 0) {
             return { icon: '✓', color: '#27ae60', bg: 'linear-gradient(135deg, rgba(39,174,96,0.2), rgba(46,204,113,0.1))' };
         } else if (currentResult > prevResult) {
@@ -7812,14 +7900,14 @@
             return { icon: '−', color: '#888', bg: 'rgba(128,128,128,0.1)' };
         }
     }
-    
+
     let kpiEditMode = false;
-    
+
     function toggleKPIEditMode() {
         kpiEditMode = !kpiEditMode;
         renderKPIDashboard();
     }
-    
+
     function renderKPIDashboard() {
         const yearData = kpiData[selectedKPIYear] || kpiData[2025];
         const prevYear = selectedKPIYear - 1;
@@ -7835,7 +7923,7 @@
             'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
             'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
         ];
-        
+
         // 6 Modern Summary cards with gradients
         let cardsHtml = '';
         metrics6.forEach((key, i) => {
@@ -7853,7 +7941,7 @@
             `;
         });
         document.getElementById('kpi-summary-cards').innerHTML = cardsHtml;
-        
+
         // Dynamic Table Header with Previous Year column
         const theadHtml = `
             <tr style="background: var(--bg-tertiary);">
@@ -7865,7 +7953,7 @@
             </tr>
         `;
         document.getElementById('kpi-table-head').innerHTML = theadHtml;
-        
+
         // Table body with Previous Year comparison
         let tableHtml = '';
         const allMetrics = Object.keys(kpiLabels);
@@ -7873,7 +7961,7 @@
             const values = yearData[key] || { kpi: 0, result: 0 };
             const prevValues = prevYearData[key] || { kpi: 0, result: 0 };
             const status = getKPITrendStatus(key, selectedKPIYear);
-            
+
             if (kpiEditMode && isAdmin) {
                 tableHtml += `
                     <tr style="transition: background 0.2s;" onmouseover="this.style.background='rgba(229,9,20,0.05)'" onmouseout="this.style.background='transparent'">
@@ -7927,19 +8015,19 @@
             }
         });
         document.getElementById('kpi-table-body').innerHTML = tableHtml;
-        
+
         // Update edit button
         const editBtn = document.getElementById('kpi-edit-btn');
         if (editBtn) editBtn.innerHTML = kpiEditMode ? '✓ Done' : '✏️ Edit';
     }
-    
+
     function showAddKPIYearModal() {
         const newYear = prompt('Enter new year (e.g., 2026):');
         if (newYear && !isNaN(newYear) && parseInt(newYear) > 2020) {
             addNewKPIYear(parseInt(newYear));
         }
     }
-    
+
     async function addNewKPIYear(year) {
         kpiData[year] = {
             fatality: { kpi: 0, result: 0 }, trir: { kpi: 0, result: 0 }, pvir: { kpi: 0, result: 0 },
@@ -7956,13 +8044,13 @@
             location.reload(); // Reload to show new year tab
         } catch (e) { console.error('[KPI] Add year error:', e); showToast('Error adding year', 'error'); }
     }
-    
+
     // Excel Download Feature
     function downloadKPIExcel(year) {
         const data = year === 'all' ? kpiData : { [year]: kpiData[year] };
         let csvContent = 'HSE KPI Report\n';
         csvContent += 'Year,Metric,Target,Result,Status\n';
-        
+
         Object.keys(data).forEach(yr => {
             const yearData = data[yr];
             if (yearData) {
@@ -7973,7 +8061,7 @@
                 });
             }
         });
-        
+
         // Create download
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
@@ -8037,7 +8125,7 @@
 
     function renderLLIndicator() {
         document.getElementById('ll-year-title').textContent = `${llData.year} LL Indicator`;
-        
+
         // Render Lagging Indicators
         let laggingHtml = '';
         (llData.lagging || []).forEach((ind, i) => {
@@ -8113,7 +8201,7 @@
         // Update edit button
         const editBtn = document.getElementById('ll-edit-btn');
         if (editBtn) editBtn.innerHTML = llEditMode ? '✓ Done' : '✏️ Edit';
-        
+
     }
 
     async function saveLLUpdate(type, id, field, value) {
@@ -8122,7 +8210,7 @@
         const indicators = llData[type] || [];
         const ind = indicators.find(i => i.id === id);
         if (ind) ind[field] = value;
-        
+
         try {
             const res = await fetch(`${API_BASE}/ll-indicator`, {
                 method: 'PUT',
@@ -8145,7 +8233,7 @@
             const status = getLLStatus(ind.target, ind.actual);
             csv += `${ind.id},"${ind.name}","${ind.target}",${ind.actual},${status.icon}\n`;
         });
-        
+
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -8202,14 +8290,14 @@
         // Nature Hazards
         '☢️', '☣️', '⚛️', '🧫', '🧿', '💎', '🪨', '⛰️', '🌋', '❄️'
     ];
-    
+
     let iconGalleryCallback = null;
     let iconGalleryTarget = null;
 
     function openIconGallery(target) {
         iconGalleryTarget = target;
         const grid = document.getElementById('icon-gallery-grid');
-        grid.innerHTML = HSE_ICONS.map(icon => 
+        grid.innerHTML = HSE_ICONS.map(icon =>
             `<button onclick="selectIcon('${icon}')" style="width: 40px; height: 40px; font-size: 22px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-tertiary); cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='scale(1.1)';this.style.borderColor='var(--netflix-red)'" onmouseout="this.style.transform='scale(1)';this.style.borderColor='var(--border)'">${icon}</button>`
         ).join('');
         document.getElementById('icon-gallery-modal').classList.add('active');
@@ -8242,7 +8330,7 @@
         const yearData = kpiData[selectedKPIYear] || {};
         const metric = yearData[key];
         if (!metric) return;
-        
+
         document.getElementById('kpi-metric-modal-title').textContent = 'Edit KPI Metric';
         const icons = { fatality: '💀', trir: '🩹', pvir: '🚗', environment: '🌿', fire: '🔥', firstaid: '🩺', occupational: '⚕️' };
         document.getElementById('kpi-metric-icon-btn').textContent = icons[key] || '📊';
@@ -8260,21 +8348,21 @@
         const icon = document.getElementById('kpi-metric-icon-btn').textContent;
         const name = document.getElementById('kpi-metric-name').value.trim();
         const id = document.getElementById('kpi-metric-id').value;
-        
+
         if (!name) { showToast('Please enter metric name', 'error'); return; }
-        
+
         const key = id || name.toLowerCase().replace(/[^a-z0-9]/g, '_');
-        
+
         if (!kpiData[selectedKPIYear]) kpiData[selectedKPIYear] = {};
         if (!kpiData[selectedKPIYear][key]) {
             kpiData[selectedKPIYear][key] = { kpi: 0, result: 0 };
         }
-        
+
         kpiLabels[key] = name;
         // Store icon mapping (we'll need to persist this)
         if (!window.kpiIcons) window.kpiIcons = {};
         window.kpiIcons[key] = icon;
-        
+
         closeKPIMetricModal();
         renderKPIDashboard();
         showToast(id ? 'Metric updated!' : 'Metric added!', 'success');
@@ -8283,7 +8371,7 @@
     function deleteKPIMetric() {
         const id = document.getElementById('kpi-metric-id').value;
         if (!id) return;
-        
+
         if (confirm('Delete this metric?')) {
             if (kpiData[selectedKPIYear]) delete kpiData[selectedKPIYear][id];
             delete kpiLabels[id];
@@ -8310,7 +8398,7 @@
         const indicators = llData[type] || [];
         const ind = indicators.find(i => i.id === id);
         if (!ind) return;
-        
+
         document.getElementById('ll-indicator-modal-title').textContent = 'Edit ' + (type === 'lagging' ? 'Lagging' : 'Leading') + ' Indicator';
         document.getElementById('ll-indicator-icon-btn').textContent = ind.icon || '📊';
         document.getElementById('ll-indicator-name').value = ind.name || '';
@@ -8333,11 +8421,11 @@
         const intent = document.getElementById('ll-indicator-intent').value.trim();
         const id = document.getElementById('ll-indicator-id').value;
         const type = document.getElementById('ll-indicator-type').value;
-        
+
         if (!name) { showToast('Please enter indicator name', 'error'); return; }
-        
+
         if (!llData[type]) llData[type] = [];
-        
+
         if (id) {
             const ind = llData[type].find(i => i.id === parseInt(id));
             if (ind) {
@@ -8350,7 +8438,7 @@
             const newId = Math.max(0, ...llData[type].map(i => i.id)) + 1;
             llData[type].push({ id: newId, name, icon, target, actual: '0', intent });
         }
-        
+
         closeLLIndicatorModal();
         renderLLIndicator();
         showToast(id ? 'Indicator updated!' : 'Indicator added!', 'success');
@@ -8359,7 +8447,7 @@
     function deleteLLIndicator() {
         const id = parseInt(document.getElementById('ll-indicator-id').value);
         const type = document.getElementById('ll-indicator-type').value;
-        
+
         if (confirm('Delete this indicator?')) {
             llData[type] = (llData[type] || []).filter(i => i.id !== id);
             closeLLIndicatorModal();
@@ -8448,6 +8536,7 @@
     const _origLoadData = loadData;
     loadData = async function () { await _origLoadData.apply(this, arguments); renderAnnualPlanMatrix(); };
 </script>
+<script src="otp.js"></script>
 </body>
 
 </html>
