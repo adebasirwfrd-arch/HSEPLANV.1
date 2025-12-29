@@ -1,34 +1,28 @@
 ---
-title: HSE Plan Management System
-emoji: 🦺
+title: HSE Plan V.2
+emoji: 🛡️
 colorFrom: red
-colorTo: yellow
+colorTo: gray
 sdk: docker
 pinned: false
-license: mit
 ---
 
-# HSE Plan Management System
+# HSE Plan Management System V.2
 
-A comprehensive HSE (Health, Safety, and Environment) Plan Management application for HSE Managers to track and manage HSE programs including Leading and Lagging Indicators.
+A comprehensive Health, Safety & Environment (HSE) program management system.
 
 ## Features
 
-- **HSE Programs Management**: Create, track, and manage HSE programs
-- **Leading Indicators**: HSE Training, Emergency Drills, Observation Cards (RADAR)
-- **Lagging Indicators**: Safe Manhours, LTI, MTC, TRIR, MVIR
-- **Email Reminders**: Automated reminders 1 month and 2 weeks before program dates
-- **Dashboard**: Real-time statistics and program status overview
+- **Dashboard** - Overview of HSE programs and statistics
+- **HSE Programs** - Track planned vs actual dates
+- **HSE OTP** - Monthly objective tracking with 12-month grid
+- **HSE KPI** - Key performance indicators
+- **LL Indicator** - Lagging & Leading indicators
+- **Calendar** - Meeting and project scheduling
+- **CSMS PB** - Contractor safety management
 
-## API Endpoints
+## Technology Stack
 
-- `GET /` - Main application
-- `GET /programs` - List all programs
-- `POST /programs` - Create new program
-- `GET /statistics` - Dashboard statistics
-- `POST /test-reminder` - Test email reminder system
-
-## Environment Variables
-
-- `RESEND_API_KEY` - API key for email notifications (optional)
-# Force rebuild Mon Dec 29 23:07:16 WIB 2025
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: FastAPI (Python)
+- **Database**: SQLite
