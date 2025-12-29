@@ -5266,6 +5266,18 @@
             renderMeetingCalendar();
             renderProjectCalendar();
         }
+        if (screen === 'schedule') {
+            populateProjectDropdown();
+            loadSchedules();
+        }
+        if (screen === 'csms-pb') {
+            populatePBProjectDropdown();
+            loadPBRecords();
+        }
+        if (screen === 'related-docs') {
+            populateDocProjectDropdown();
+            loadRelatedDocs();
+        }
     }
 
     function toggleDrawer() {
@@ -7188,40 +7200,6 @@
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     }
 
-    // Update navigateTo to load schedules
-    const originalNavigateTo = navigateTo;
-    navigateTo = function (screen) {
-        // Update screens
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(`screen-${screen}`).classList.add('active');
-
-        // Update nav
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        document.querySelectorAll('.drawer-item').forEach(n => n.classList.remove('active'));
-
-        const navScreens = ['home', 'projects', 'tasks', 'statistics', 'schedule', 'csms-pb', 'related-docs'];
-        document.querySelectorAll('.nav-item')[navScreens.indexOf(screen)]?.classList.add('active');
-
-        // Close drawer
-        document.querySelector('.drawer').classList.remove('active');
-        document.querySelector('.drawer-overlay').classList.remove('active');
-
-        // Load specific screen data
-        if (screen === 'statistics') updateStatistics();
-        if (screen === 'schedule') {
-            populateProjectDropdown();
-            loadSchedules();
-        }
-        if (screen === 'csms-pb') {
-            populatePBProjectDropdown();
-            loadPBRecords();
-        }
-        if (screen === 'related-docs') {
-            populateDocProjectDropdown();
-            loadRelatedDocs();
-        }
-    }
-
     // ===== CSMS PB Functions =====
     function populatePBProjectDropdown() {
         const select = document.getElementById('pb-project-select');
@@ -9036,7 +9014,6 @@
     const _origLoadData = loadData;
     loadData = async function () { await _origLoadData.apply(this, arguments); renderAnnualPlanMatrix(); };
 </script>
-<script src="/static/otp.js"></script>
 </body>
 
 </html>
