@@ -2516,10 +2516,17 @@
                 </select>
                 <select id="otp-year-select" onchange="changeOTPYear(this.value)"
                     style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); font-size: 12px;">
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
                     <option value="2024">2024</option>
                     <option value="2025">2025</option>
                     <option value="2026" selected>2026</option>
                     <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
                 </select>
                 <button class="admin-only" onclick="openCreateOTPModal()"
                     style="padding: 6px 12px; border: none; border-radius: 6px; background: var(--netflix-red); color: white; cursor: pointer; font-size: 12px; font-weight: 600;">➕
@@ -8386,24 +8393,25 @@
     }
 
     function downloadOTPReport() {
-        // Create CSV
+        // Create CSV with WPTS ID columns
         let csv = 'No,Program Name,Plan Type,';
-        csv += MONTH_LABELS.map(m => `${m}_Plan,${m}_Actual`).join(',');
+        csv += MONTH_LABELS.map(m => `${m}_Plan,${m}_Actual,${m}_WPTS`).join(',');
         csv += ',Progress\n';
 
         (otpData.programs || []).forEach((prog, idx) => {
             csv += `${idx + 1},"${prog.name.replace(/"/g, '""')}","${prog.plan_type || ''}",`;
             MONTHS.forEach(month => {
-                const m = prog.months?.[month] || { plan: 0, actual: 0 };
-                csv += `${m.plan},${m.actual},`;
+                const m = prog.months?.[month] || { plan: 0, actual: 0, wpts_id: '' };
+                csv += `${m.plan},${m.actual},"${(m.wpts_id || '').replace(/"/g, '""')}",`;
             });
             csv += `${prog.progress || 0}%\n`;
         });
 
+        const regionLabel = currentOTPRegion === 'asia' ? 'ASIA' : 'Indonesia';
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = `HSE_OTP_${otpData.year}.csv`;
+        link.download = `HSE_OTP_${regionLabel}_${otpData.year}.csv`;
         link.click();
         showToast('OTP report downloaded!', 'success');
     }
