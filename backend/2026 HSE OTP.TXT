@@ -1,0 +1,61 @@
+2025 HSE PROGRAM	PLAN		JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC		"PROGRESS 
+(%)"
+		"DUE
+DATE"	JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC		
+			PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	
+Provide weekly Driver driving performance report (RAG) fro review	4 report/Month																										
+Conduct Driver and Vehilce Safety Standard Audit for Duri, Narogong & Balikpapan	3 Base in a Year	31-Dec-25	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4		92%
+Conduct vehilce compliance spot check for Duri and Narogong	Monthly	14-Feb-25	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	0	0	0	0	0	0	0		100%
+Driving Safety Campaign for All Indonesia Base (Duri, Narogong & Balikpapan)	One times in year	31-Dec-25	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2		96%
+Review Driver Driving performance for all driver in Indonesia	Monthly	1-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0		100%
+Conduct Driver Coaching (offline or Online Meeting) for Yellow and Red Driver in Indonesia	Quarterly	31-Dec-25	1	1	1	1	1	1	1	2	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		100%
+Motor Vehilce Safety Training  / Commentary Drive 	Quarterly	31-Dec-25	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	0	0		100%
+Submit RADAR Card intervention (average 2 RADAR / emp / month, Based on WPTS Report)	24 cards/employee/year	31-Dec-25	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	1	0		100%
+Conduct HSE Monthly Meeting per Base	Monthly / Base	31-Dec-25	2	2	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2		96%
+Conduct Facility Inspection (combined report for Indonesia / month)	Monthly	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Conduct Field Inspection / MWT (the report is combined from Leadership in Indonesia)	Quarterly	31-Dec-25	1	2	1	3	1	3	1	2	1	2	1	2	1	2	1	2	1	1	1	1	1	1	1		100%
+Leadership Safety Engagement (LSE) to cover 3 Bases (Duri, Narogong, Balikpapan)	Quarterly	31-Dec-25	1	3	0	3	0	4	1	1	0	1	0	1	1	2	0	2	0	1	1	2	0	2	0		100%
+HSE Reward program for best employees in Indonesia	3 reward/month/base	31-Dec-25	1	1	0	1	0	1	0	1	1	1	0	1	0	0	0	1	1	1	0	1	0	2	0		100%
+Conduct HSE induction/orientation training for new visitors and new hired employes/contractors	100% new visitors and new comer are inducted	31-Dec-25	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		92%
+Conduct Contractor Audit for High Risk Contractors 	Annually 	31-Dec-25	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		92%
+Conduct Contractor SQM Meeting for High Risk Contractors and Discuss progress HSE KPI for high risk contractor	Annually 	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1	0	0	0	0	0		100%
+Conduct Management Review Meeting	Annually 	31-Dec-25	0	0	0	0	0	0	0	0	1	1	0	0	0	1	0	0	0	0	0	0	0	0	0		100%
+Conduct P2K3 / safety committee team meeting for each Base in Indonesia	3 times / Month / Base	31-Aug-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0		100%
+Provide P2K3 report to Disnaker Provinsi Riau, Jawa Barat and Kalimatan Timur	3 report / Quarter / Base	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Conduct Facility device inspection such as FE, FAK, Eye wash, Emergency light, strectcher, Smoke Detector, Spill Kit, etc for 3 Base per month	Monthly / Base	31-Dec-25	3	3	0	0	0	0	3	3	0	0	0	0	3	3	0	0	0	0	3	3	0	0	0		100%
+Conduct facility hazard hunt / Workshop inspection for 3 Base (the report is combined report from Manager / Supv)	Monthly / Base	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Annual maintenance of Firex for 3 Bases	Annually / Base	31-Dec-25	3	3	3	3	3	4	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		94%
+Annual Tool Rack Inspection for 3 Base	Annually / Base	30-Dec-25	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	1	1	0		100%
+Conduct DROPS Survey for 3 Bases (per Semester)	Per Semester / Base	1-Nov-25	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0		100%
+Conduct Facility Safety Standard Audit for 3 Bases	Annually / Base	31-Dec-25	3	3	0	0	0	0	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0		100%
+Conduct Safety 101, HSE Orientation & Minimum Training (participants from 3 Base, Online or Offline Meeting) 	Per Semester / Base	14-Feb-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0		100%
+Conduct DAMKAR D Training for fire team for Duri Base (Disnaker certification)	Annually / Base	31-Dec-25	1	1	0	0	0	1	1	1	1	1	0	0	0	0	0	1	0	0	0	1	0	0	0		100%
+Manual Handling Training and Pratical review on field site	Annually / Base	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		100%
+Refresh First Aid Training by 3rd party (Dsinaker Certification) participants are first aider from 3 Base (Offline class training)	Annually / Base	30-Jun-25	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	1	0	1	0	0	0		100%
+Internal Basic Fire Training (annually / Base)	Annually / Base	31-Dec-25	0	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	1		67%
+DROPS Object Awareness Training (annually per Base)	Annualy / Base	31-Dec-25	1	1	0	0	0	1	1	1	0	0	0	0	0	0	0	1	0	0	1	1	0	0	0		100%
+Lifting & Rigging Operator Coaching (Duri Operation)	Quarterly / Base	30-Jun-25	0	0	0	0	0	0	0	0	0	0	1	1	0	0	1	1	1	1	0	0	0	0	0		100%
+Hand and Finger Injury Prevention Training (annualy per Base)	Annualy / Base	30-Jun-25	0	0	1	1	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0		100%
+Review Legal Business and Client Requirment matrix 	Annualy / Base	30-Jun-25	1	1	1	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		100%
+Review of Generic Risk Assessment (TRA) for Indonesia	Annualy / Base	30-Dec-25	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		100%
+Review Emergency Response Procedure for 3 Base	Annualy / Base	15-Mar-25	0	0	0	0	1	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0		100%
+Review RADAR Observation and closing action item for 3 Base	Monthly / Base	5-Aug-25	0	0	3	3	0	3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		100%
+Provide HSE Campaign Banner (3 banner / quarter / Base), Following quarterly campaign program in Indonesia	Quarterly / Base	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Conduct Emergency Drill for 3 Base (refer to Drill plan 2025 Indonesia)	Quarterly / Base	31-Dec-25	0	0	1	1	0	0	0	0	1	1	0	0	0	0	1	1	0	0	0	0	1	1	0		100%
+Conduct Lifting gear/accessories  inspection (as per Lifting color code) per semester	Per Semester	31-Dec-25	1	2	1	3	1	3	1	3	1	1	1	1	1	1	1	2	1	1	1	1	1	1	1		100%
+Lifting Gear Inspection report (monthly per Base)	Monthly / Base	31-Dec-25	1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0		100%
+SQM Meeting with TMC crane supplier (Duri Base)	Annualy	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Lifting Awareness Campaign for 3 base	Annualy / Base	31-Dec-25	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0		100%
+Refresh Mechanical Lifting SWC Training for 3 base	Annualy / Base	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	3	3	0	0	0	0	0	0	0	0	0		100%
+Lifting Equipment and Operation Standard Audit for 3 Base	Annualy / Base	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	0	0	0	0	0	0	1		67%
+Review Current Chemical MSDS base on Chemical Inventory data for 3 base 	Annualy / Base	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	0	0	1	1	0	0	0		100%
+Conduct Monthly waste water analysis for 3 Base	Monthly / Base	31-Dec-25	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0		100%
+Conduct Environmental Monitoring Program for 3 Base	Per Semester / Base	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Dispose Hazardous waste to Approved disposal company for 3 Base	Per Semester / Base	30-Dec-25	0	0	0	0	0	0	0	0	0	0	3	3	0	0	0	0	0	0	0	0	0	0	3		50%
+Conduct Industrial Hygiene Test for 3 Base	Annualy / Base	31-Dec-25	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	1	1	0		100%
+Indonesia Environment Improvement Plan 2025 	Annual report / year	30-Sep-25	0	0	0	0	0	0	0	0	0	0	3	3	0	0	0	0	0	0	0	0	0	0	0		100%
+Conduct Emergency Spill Drill for 3 Base	Annualy / Base	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0		100%
+Conduct Medical Check-Up (tracking report only for Duri Operation, for Narogong and Balikpapan, Supv should track the MCU progress for their employees)	Annualy	1-Dec-25	0	0	1	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		100%
+Required by PHR_Drug and Alcohol test (sampling min 10% peoples from total employees) for Duri Operation	Annualy	31-Dec-25	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		100%
+Conduct Health Campaign for 3 base (online or offline meeting)	Per Semester	1-May-25	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		100%
+		30-Aug-25	0	0	0	0	2	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		100%

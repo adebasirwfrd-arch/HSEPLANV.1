@@ -649,6 +649,177 @@ def update_ll_year(year: int):
     save_ll_data(data)
 
 
+# ===== OTP DATA PERSISTENCE =====
+OTP_DATA_FILE = Path(__file__).parent / "data" / "otp_data.json"
+
+def load_otp_data():
+    """Load OTP data from JSON file."""
+    if OTP_DATA_FILE.exists():
+        with open(OTP_DATA_FILE, 'r') as f:
+            return json.load(f)
+    return {"year": 2026, "programs": []}
+
+def save_otp_data(data):
+    """Save OTP data to JSON file."""
+    OTP_DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with open(OTP_DATA_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
+def calculate_progress(program):
+    """Calculate progress percentage for an OTP program."""
+    total_plan = 0
+    total_actual = 0
+    for month_data in program.get("months", {}).values():
+        total_plan += month_data.get("plan", 0)
+        total_actual += month_data.get("actual", 0)
+    if total_plan == 0:
+        return 100 if total_actual >= 0 else 0
+    return min(100, round((total_actual / total_plan) * 100))
+
+
+@app.get("/otp")
+def get_otp_data():
+    """Get all OTP data."""
+    data = load_otp_data()
+    # Calculate progress for each program
+    for prog in data.get("programs", []):
+        prog["progress"] = calculate_progress(prog)
+    return data
+
+
+@app.get("/otp/{program_id}")
+def get_otp_program(program_id: int):
+    """Get a specific OTP program by ID."""
+    data = load_otp_data()
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            prog["progress"] = calculate_progress(prog)
+            return prog
+    raise HTTPException(status_code=404, detail="OTP program not found")
+
+
+class OTPMonthUpdate(BaseModel):
+    plan: Optional[int] = None
+    actual: Optional[int] = None
+
+
+@app.put("/otp/{program_id}/month/{month}")
+def update_otp_month(program_id: int, month: str, update: OTPMonthUpdate):
+    """Update Plan/Actual values for a specific month of an OTP program."""
+    valid_months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+    if month.lower() not in valid_months:
+        raise HTTPException(status_code=400, detail=f"Invalid month. Must be one of: {valid_months}")
+    
+    data = load_otp_data()
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            if "months" not in prog:
+                prog["months"] = {}
+            if month.lower() not in prog["months"]:
+                prog["months"][month.lower()] = {"plan": 0, "actual": 0}
+            
+            if update.plan is not None:
+                prog["months"][month.lower()]["plan"] = update.plan
+            if update.actual is not None:
+                prog["months"][month.lower()]["actual"] = update.actual
+            
+            prog["progress"] = calculate_progress(prog)
+            save_otp_data(data)
+            return {"message": f"OTP program {program_id} month {month} updated", "program": prog}
+    
+    raise HTTPException(status_code=404, detail="OTP program not found")
+
+
+class OTPProgramCreate(BaseModel):
+    name: str
+    plan_type: Optional[str] = "Annually"
+    due_date: Optional[str] = None
+
+
+@app.post("/otp")
+def create_otp_program(program: OTPProgramCreate):
+    """Create a new OTP program."""
+    data = load_otp_data()
+    
+    # Generate new ID
+    max_id = max([p.get("id", 0) for p in data.get("programs", [])], default=0)
+    new_id = max_id + 1
+    
+    new_program = {
+        "id": new_id,
+        "name": program.name,
+        "plan_type": program.plan_type,
+        "due_date": program.due_date,
+        "months": {
+            "jan": {"plan": 0, "actual": 0},
+            "feb": {"plan": 0, "actual": 0},
+            "mar": {"plan": 0, "actual": 0},
+            "apr": {"plan": 0, "actual": 0},
+            "may": {"plan": 0, "actual": 0},
+            "jun": {"plan": 0, "actual": 0},
+            "jul": {"plan": 0, "actual": 0},
+            "aug": {"plan": 0, "actual": 0},
+            "sep": {"plan": 0, "actual": 0},
+            "oct": {"plan": 0, "actual": 0},
+            "nov": {"plan": 0, "actual": 0},
+            "dec": {"plan": 0, "actual": 0}
+        },
+        "progress": 0
+    }
+    
+    data["programs"].append(new_program)
+    save_otp_data(data)
+    return {"message": "OTP program created successfully", "program": new_program}
+
+
+class OTPProgramUpdate(BaseModel):
+    name: Optional[str] = None
+    plan_type: Optional[str] = None
+    due_date: Optional[str] = None
+
+
+@app.put("/otp/{program_id}")
+def update_otp_program(program_id: int, update: OTPProgramUpdate):
+    """Update an OTP program's metadata."""
+    data = load_otp_data()
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            if update.name is not None:
+                prog["name"] = update.name
+            if update.plan_type is not None:
+                prog["plan_type"] = update.plan_type
+            if update.due_date is not None:
+                prog["due_date"] = update.due_date
+            
+            save_otp_data(data)
+            return {"message": f"OTP program {program_id} updated", "program": prog}
+    
+    raise HTTPException(status_code=404, detail="OTP program not found")
+
+
+@app.delete("/otp/{program_id}")
+def delete_otp_program(program_id: int):
+    """Delete an OTP program."""
+    data = load_otp_data()
+    original_count = len(data.get("programs", []))
+    data["programs"] = [p for p in data.get("programs", []) if p.get("id") != program_id]
+    
+    if len(data["programs"]) == original_count:
+        raise HTTPException(status_code=404, detail="OTP program not found")
+    
+    save_otp_data(data)
+    return {"message": f"OTP program {program_id} deleted successfully"}
+
+
+@app.put("/otp/year/{year}")
+def update_otp_year(year: int):
+    """Update the OTP year."""
+    data = load_otp_data()
+    data["year"] = year
+    save_otp_data(data)
+    return {"message": f"OTP year updated to {year}"}
+
+
 @app.post("/test-reminder")
 def test_reminder():
     """Manually trigger reminder check (for testing)."""
@@ -659,3 +830,4 @@ def test_reminder():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=7860)
+

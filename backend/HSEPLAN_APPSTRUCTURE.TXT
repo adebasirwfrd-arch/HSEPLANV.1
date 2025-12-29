@@ -1,0 +1,719 @@
+================================================================================
+                 HSE PLAN MANAGEMENT SYSTEM - COMPLETE APPLICATION STRUCTURE
+                              Deep Analysis & Architecture Documentation
+================================================================================
+                           Generated: 2025-12-29
+================================================================================
+
+TABLE OF CONTENTS
+-----------------
+1.  PROJECT OVERVIEW
+2.  DIRECTORY STRUCTURE
+3.  BACKEND ARCHITECTURE
+4.  FRONTEND ARCHITECTURE
+5.  DATA MODELS
+6.  API ENDPOINTS
+7.  SCREENS & FEATURES
+8.  DOCKER & DEPLOYMENT
+9.  TECHNOLOGY STACK SUMMARY
+10. ADDITIONAL FILES
+
+================================================================================
+1. PROJECT OVERVIEW
+================================================================================
+
+Application Name: HSE Plan Management System
+Version: 2.0.0
+Purpose: Health, Safety, and Environment (HSE) program management with 
+         automated reminders, KPI tracking, and comprehensive dashboards.
+         
+Deployment Target: Hugging Face Spaces (Port 7860)
+API Base URL: https://ade-basirwfrd-hseplanv-1.hf.space
+
+Core Functionality:
+  - HSE Program lifecycle management (Plan vs Actual tracking)
+  - Automated email reminders (30-day and 14-day warnings)
+  - KPI dashboard with multi-year metrics
+  - Leading & Lagging indicators tracking
+  - Project/Task management with status workflows
+  - Calendar and scheduling system
+  - CSMS Performance Board audits
+  - Multi-language support (i18n ready)
+  - Admin mode with role-based access
+
+================================================================================
+2. DIRECTORY STRUCTURE
+================================================================================
+
+/hse-management-system/
+│
+├── Dockerfile                    # Root Docker configuration
+├── README.md                     # Project documentation
+├── requirements.txt              # Python dependencies (root)
+│
+├── backend/                      # MAIN APPLICATION DIRECTORY
+│   ├── Dockerfile               # Backend-specific Docker config
+│   ├── app.py                   # PRIMARY API SERVER (662 lines)
+│   ├── main.py                  # Alternative API server (339 lines)
+│   ├── models.py                # SQLModel data models (29 lines)
+│   ├── requirements.txt         # Backend dependencies
+│   ├── hse_management.db        # SQLite database file
+│   ├── MASTER_REFACTOR_PLAN.md  # Architecture refactoring docs
+│   ├── README.md                # Backend documentation
+│   │
+│   ├── data/                    # JSON data persistence
+│   │   ├── kpi_data.json        # KPI metrics storage (3.7KB)
+│   │   └── ll_indicator.json    # Leading/Lagging indicators (5.5KB)
+│   │
+│   └── static/                  # Static frontend assets
+│       ├── index.html           # MAIN SPA FRONTEND (473KB, 8542 lines)
+│       └── otp.js               # OTP validation logic (31KB)
+│
+├── frontend/                    # React Native / TypeScript Layer
+│   ├── screens/
+│   │   └── HSEProgramScreen.tsx # React Native HSE screen (468 lines)
+│   │
+│   └── services/
+│       └── api.ts               # TypeScript API client (109 lines)
+│
+├── legacy-app/                  # Original application backup
+│   └── index.html               # Legacy monolithic app (483KB)
+│
+├── hse-manager/                 # Additional management module (empty/WIP)
+│
+└── .agent/                      # AI agent configuration
+    └── workflows/               # Agent workflow definitions
+
+================================================================================
+3. BACKEND ARCHITECTURE
+================================================================================
+
+FRAMEWORK: FastAPI 
+ORM: SQLModel (SQLAlchemy + Pydantic hybrid)
+DATABASE: SQLite (file: hse_management.db)
+SCHEDULER: APScheduler (BackgroundScheduler)
+EMAIL SERVICE: Resend API
+
+-------------------------------------------------------------------------------
+3.1 MAIN APPLICATION FILE: app.py (662 lines)
+-------------------------------------------------------------------------------
+
+Configuration:
+  - DATABASE_URL: sqlite:///./hse_management.db
+  - RESEND_API_KEY: Environment variable for email service
+  - Port: 7860 (Hugging Face Spaces default)
+
+Key Components:
+
+  1. Lifespan Context Manager (lines 136-157)
+     - Creates database tables on startup
+     - Initializes APScheduler with daily cron job at 08:00
+     - Graceful shutdown handling
+
+  2. CORS Middleware
+     - Allows all origins (*)
+     - Full method and header access
+
+  3. Static File Mounting
+     - Serves /static directory for frontend assets
+     - Root "/" serves index.html (SPA entry point)
+
+-------------------------------------------------------------------------------
+3.2 PYDANTIC REQUEST MODELS
+-------------------------------------------------------------------------------
+
+ProgramUpdate:
+  - actual_date: datetime
+  - status: str
+  - wpts_number: str (required)
+  - evidence_link: Optional[str]
+
+ProgramCreate:
+  - title: str
+  - program_type: Optional[str] = "hse_plan"
+  - planned_date: datetime
+  - pic_name: Optional[str]
+  - manager_email: Optional[str] = "ade.basirwfrd@gmail.com"
+
+ProgramFullUpdate:
+  - All fields optional for partial updates
+
+LegacyProjectCreate:
+  - name, title, category, well_name, kontrak_no
+  - status, start_date, end_date, rig_down
+  - assigned_to, pic_email, pic_manager_email
+
+TaskCreate:
+  - project_id, code, title
+  - implementation_date, frequency, pic_name, pic_email, status
+
+KPIYearUpdate:
+  - man_hours, fatality_target/result, trir_target/result
+  - pvir_target/result, environment_target/result
+  - fire_target/result, firstaid_target/result
+  - occupational_target/result
+
+LLIndicatorUpdate:
+  - indicator_type: "lagging" | "leading"
+  - indicator_id: int
+  - target, actual: Optional[str]
+
+-------------------------------------------------------------------------------
+3.3 EMAIL REMINDER SYSTEM
+-------------------------------------------------------------------------------
+
+Function: check_and_send_reminders()
+Execution: Daily at 08:00 via APScheduler cron
+
+Logic 1: 1-Month Warning
+  - Finds programs with planned_date exactly 30 days from today
+  - Sends informational reminder email
+
+Logic 2: 2-Week Urgent Warning
+  - Finds programs due in 14 days that are NOT "Closed"
+  - Sends URGENT reminder to manager_email
+
+Email Provider: Resend API
+From Address: HSE System <onboarding@resend.dev>
+
+================================================================================
+4. FRONTEND ARCHITECTURE
+================================================================================
+
+-------------------------------------------------------------------------------
+4.1 MAIN SPA: backend/static/index.html (8542 lines, 473KB)
+-------------------------------------------------------------------------------
+
+Single HTML file containing embedded CSS, HTML, and JavaScript.
+Design System: Netflix-inspired dark theme with Weatherford branding.
+
+CSS Variables (Root):
+  --netflix-red: #C41E3A
+  --netflix-red-dark: #9A1830
+  --weatherford-red: #C41E3A
+  --bg-primary: #141414
+  --bg-secondary: #1F1F1F
+  --bg-tertiary: #2A2A2A
+  --text-primary: #FFFFFF
+  --text-secondary: #B3B3B3
+  --text-muted: #757575
+  --success: #46D369
+  --warning: #F5A623
+  --border: #333333
+
+Typography: Inter font family (Google Fonts)
+
+-------------------------------------------------------------------------------
+4.2 UI COMPONENTS
+-------------------------------------------------------------------------------
+
+HEADER (Fixed, 60px height)
+  - Hamburger menu button (toggleDrawer)
+  - Title display area
+  - User actions area
+
+SIDE DRAWER (280px width, slide-in navigation)
+  - Weatherford logo
+  - User profile section
+  - Navigation items:
+    * Home
+    * HSE Programs
+    * Tasks
+    * Statistics
+    * Schedule
+    * Calendar
+    * CSMS PB
+    * Related Docs
+    * HSE KPI
+    * LL Indicator
+    * Download Report
+    * Admin Login/Logout
+    * Settings
+  - Version footer
+
+BOTTOM NAVIGATION (Hidden in code, 60px)
+  - Scrollable navigation items
+  - Active state indicators
+
+MODAL SYSTEM
+  - Full-screen overlay pattern
+  - Modal header with back button
+  - Scrollable modal body
+  - Footer with action buttons
+
+-------------------------------------------------------------------------------
+4.3 SCREEN IDS & NAVIGATION
+-------------------------------------------------------------------------------
+
+screen-home          # Dashboard with stats, indicators, posts
+screen-hse-programs  # HSE Programs list with filters
+screen-tasks         # Task management view
+screen-statistics    # KPI charts and analytics
+screen-schedule      # Schedule/Calendar view
+screen-calendar      # Monthly calendar view
+screen-csms-pb       # CSMS Performance Board
+screen-related-docs  # Documentation links
+screen-hse-kpi       # KPI editing interface
+screen-ll-indicator  # Leading/Lagging indicators
+
+Navigation Function: navigateTo(screenId)
+
+-------------------------------------------------------------------------------
+4.4 REACT NATIVE LAYER (frontend/)
+-------------------------------------------------------------------------------
+
+HSEProgramScreen.tsx (468 lines)
+  - Functional component with hooks
+  - Features:
+    * Program list with FlatList
+    * Pull-to-refresh functionality
+    * Modal for status updates
+    * Date picker integration
+    * Form validation
+    * Loading/Error states
+  
+  State Management:
+    - programs: HSEProgram[]
+    - loading, submitting: boolean
+    - isModalVisible: boolean
+    - selectedProgram: HSEProgram | null
+    - Form fields: actualDate, status, wptsNumber, evidenceUrl
+
+api.ts (109 lines)
+  TypeScript API client with interfaces:
+  
+  Interfaces:
+    - HSEProgram (id, title, planned_date, actual_date, status, etc.)
+    - ProgramUpdate (actual_date, status, wpts_number, evidence_link)
+    - ProgramCreate (title, planned_date, manager_email)
+  
+  Methods:
+    - getPrograms(): Promise<HSEProgram[]>
+    - getProgram(id): Promise<HSEProgram>
+    - createProgram(data): Promise<HSEProgram>
+    - updateProgram(id, data): Promise<HSEProgram>
+    - testReminder(): Promise<{ message: string }>
+
+================================================================================
+5. DATA MODELS
+================================================================================
+
+-------------------------------------------------------------------------------
+5.1 HSEProgram (SQLModel)
+-------------------------------------------------------------------------------
+
+Table: hseprogram
+
+Fields:
+  id: Optional[int]           # Primary key, auto-increment
+  title: str                  # Program title (indexed)
+  program_type: str           # Category (indexed, default: "hse_plan")
+  planned_date: datetime      # Scheduled date
+  actual_date: Optional[datetime]  # Implementation date
+  status: str                 # Workflow status (default: "pending")
+  wpts_number: Optional[str]  # Work Permit Tracking System ID
+  evidence_link: Optional[str] # URL to evidence/documentation
+  pic_name: Optional[str]     # Person In Charge name
+  manager_email: str          # Notification recipient
+  created_at: datetime        # Record creation timestamp
+
+-------------------------------------------------------------------------------
+5.2 PROGRAM_TYPES Dictionary
+-------------------------------------------------------------------------------
+
+{
+  "hse_plan":       {label: "📋 HSE Plan",       color: "#e67e22"},
+  "hse_committee":  {label: "🏢 HSE Committee",  color: "#9b59b6"},
+  "spr":            {label: "📊 SPR Meeting",    color: "#1abc9c"},
+  "hazid_hazop":    {label: "⚠️ HAZID/HAZOP",   color: "#e74c3c"},
+  "safety_training":{label: "🎓 Safety Training",color: "#3498db"},
+  "inspection":     {label: "🔍 Inspection",     color: "#27ae60"}
+}
+
+-------------------------------------------------------------------------------
+5.3 JSON Data Structures
+-------------------------------------------------------------------------------
+
+kpi_data.json:
+{
+  "man_hours": { "2021": 0, "2022": 0, ... },
+  "kpi": {
+    "2025": {
+      "fatality": { "target": 0, "result": 0 },
+      "trir": { "target": 0.5, "result": 0 },
+      "pvir": { "target": 0, "result": 0 },
+      "environment": { "target": 0, "result": 0 },
+      "fire": { "target": 0, "result": 0 },
+      "firstaid": { "target": 0, "result": 0 },
+      "occupational": { "target": 0, "result": 0 }
+    }
+  }
+}
+
+ll_indicator.json:
+{
+  "year": 2025,
+  "lagging": [
+    { "id": 1, "name": "Fatality", "target": "0", "actual": "0" },
+    ...
+  ],
+  "leading": [
+    { "id": 1, "name": "HSE Training", "target": "100%", "actual": "95%" },
+    ...
+  ]
+}
+
+================================================================================
+6. API ENDPOINTS
+================================================================================
+
+BASE URL: http://localhost:7860 (or Hugging Face Space URL)
+
+-------------------------------------------------------------------------------
+6.1 Core Program Endpoints
+-------------------------------------------------------------------------------
+
+GET  /                           # Serves index.html (SPA)
+GET  /program-types              # Get program type definitions
+GET  /statistics                 # Dashboard statistics
+
+GET  /programs                   # List all programs (with filters)
+     ?program_type=<type>        # Filter by program type
+     ?status=<status>            # Filter by status
+
+POST /programs                   # Create new program
+GET  /programs/{id}              # Get program by ID
+PUT  /programs/{id}              # Full update program
+POST /update-program/{id}        # Update status (legacy)
+DELETE /programs/{id}            # Delete program
+
+-------------------------------------------------------------------------------
+6.2 Legacy Compatibility Endpoints
+-------------------------------------------------------------------------------
+
+GET  /projects                   # Programs as legacy "projects" format
+POST /projects                   # Create via legacy format
+DELETE /projects/{id}            # Delete project
+
+GET  /tasks                      # Get all tasks (in-memory)
+POST /tasks                      # Create task (in-memory)
+PUT  /tasks/{id}                 # Update task
+
+GET  /schedules                  # Programs as schedule format
+
+-------------------------------------------------------------------------------
+6.3 KPI & Indicator Endpoints
+-------------------------------------------------------------------------------
+
+GET  /kpi                        # Get all KPI data
+PUT  /kpi/{year}                 # Update KPI for specific year
+
+GET  /ll-indicator               # Get LL Indicator data
+PUT  /ll-indicator               # Update specific indicator
+PUT  /ll-indicator/year          # Update indicator year
+
+-------------------------------------------------------------------------------
+6.4 Utility Endpoints
+-------------------------------------------------------------------------------
+
+POST /test-reminder              # Manually trigger reminder check
+
+================================================================================
+7. SCREENS & FEATURES
+================================================================================
+
+-------------------------------------------------------------------------------
+7.1 HOME SCREEN (Dashboard)
+-------------------------------------------------------------------------------
+
+Hero Banner:
+  - Weatherford logo
+  - Welcome message
+  - HSE Plan Management tagline
+
+Quick Stats Row (3 columns):
+  - Total HSE Programs (links to programs screen)
+  - Implemented count (links to programs)
+  - Planned count (links to programs)
+  - Compliance percentage (links to statistics)
+
+Leading Indicators Section:
+  - HSE Training count
+  - Emergency Drill count
+  - RADAR Cards count
+
+Lagging Indicators Section:
+  - Safe Manhours (millions)
+  - LTI (Lost Time Injury)
+  - TRIR (Total Recordable Incident Rate)
+  - MTC (Medical Treatment Case)
+  - Recordable incidents
+  - MVIR (Motor Vehicle Incident Rate)
+
+Comment/Post Section:
+  - Name and Product Line inputs
+  - Comment textarea
+  - Photo/File attachment
+  - Post button
+
+Posts Feed:
+  - System announcements
+  - Project update cards with progress bars
+  - Like/Comment interactions
+  - Reply threading
+
+Quick Actions:
+  - New Project button
+  - View Tasks button
+  - Download Report button
+
+Recent Activity:
+  - Activity log entries with status indicators
+
+-------------------------------------------------------------------------------
+7.2 HSE PROGRAMS SCREEN
+-------------------------------------------------------------------------------
+
+Tab Header:
+  - "HSE Programs" title
+  - Create New Program button (admin only)
+
+Status Filters:
+  - All (with count)
+  - Upcoming
+  - InProgress
+  - Completed
+  - OnHold
+  - Canceled
+
+Program Cards:
+  - Project title
+  - Status badge (color-coded)
+  - Date metadata
+  - Category indicator
+
+-------------------------------------------------------------------------------
+7.3 TASKS SCREEN
+-------------------------------------------------------------------------------
+
+Tab Header:
+  - "Tasks" title
+  - Create Task button (admin only)
+
+Status Filters:
+  - All, Upcoming, In Progress, Completed
+
+Task Cards:
+  - Task code and title
+  - Implementation date
+  - Frequency
+  - Status badge
+  - WPTS ID
+
+-------------------------------------------------------------------------------
+7.4 STATISTICS SCREEN
+-------------------------------------------------------------------------------
+
+KPI Cards (2x2 grid):
+  - Total HSE Programs (red gradient)
+  - Implemented count (green gradient)
+  - Implementation Rate percentage (blue gradient)
+  - Upcoming Programs (orange gradient)
+
+Project Status Donut Chart:
+  - SVG-based visualization
+  - Status distribution legend
+
+Task Status Donut Chart:
+  - Same structure as project chart
+
+Project Completion Progress:
+  - Horizontal progress bars per project
+
+Schedule Overview Grid:
+  - MWT Plan count
+  - HSE Committee count
+  - CSMS PB count
+  - HSE Plan count
+  - SPR Meeting count
+  - HAZID/HAZOP count
+  - Total/This Month summary
+
+CSMS PB Audit Statistics:
+  - Total Records
+  - Lowest/Highest Score
+  - Average Score
+  - Score bar chart by well
+
+Analytics Section:
+  - Schedule types bar chart
+  - Trend visualizations
+
+-------------------------------------------------------------------------------
+7.5 SCHEDULE SCREEN
+-------------------------------------------------------------------------------
+
+Schedule Type Filters (chips):
+  - All Types
+  - HSE Committee
+  - CSMS PB
+  - HSE Plan
+  - SPR Meeting
+  - HAZID/HAZOP
+  - MWT Plan
+
+Schedule Cards:
+  - Title with type icon
+  - Date and status
+  - Color-coded by type
+
+-------------------------------------------------------------------------------
+7.6 CALENDAR SCREEN
+-------------------------------------------------------------------------------
+
+Monthly Calendar View:
+  - Navigation (prev/next month)
+  - Day grid with event indicators
+  - Event list for selected date
+
+-------------------------------------------------------------------------------
+7.7 HSE KPI SCREEN
+-------------------------------------------------------------------------------
+
+Year Selection:
+  - Multi-year tabs
+
+KPI Entry Forms:
+  - Man Hours input
+  - Metric target/result pairs:
+    * Fatality
+    * TRIR
+    * PVIR
+    * Environment
+    * Fire
+    * First Aid
+    * Occupational Illness
+
+-------------------------------------------------------------------------------
+7.8 LL INDICATOR SCREEN
+-------------------------------------------------------------------------------
+
+Leading Indicators Table:
+  - Indicator name
+  - Target value
+  - Actual value
+  - Variance calculation
+
+Lagging Indicators Table:
+  - Same structure as leading
+
+===============================================================================
+8. DOCKER & DEPLOYMENT
+================================================================================
+
+-------------------------------------------------------------------------------
+8.1 Root Dockerfile
+-------------------------------------------------------------------------------
+
+FROM python:3.10-slim
+WORKDIR /app
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY backend/ .
+RUN mkdir -p /app/data
+EXPOSE 7860
+CMD ["python", "app.py"]
+
+-------------------------------------------------------------------------------
+8.2 Backend Dockerfile
+-------------------------------------------------------------------------------
+
+FROM python:3.10-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+RUN mkdir -p /app/data
+EXPOSE 7860
+CMD ["python", "app.py"]
+
+-------------------------------------------------------------------------------
+8.3 Requirements.txt
+-------------------------------------------------------------------------------
+
+fastapi
+uvicorn
+sqlmodel
+apscheduler
+resend
+pydantic
+
+-------------------------------------------------------------------------------
+8.4 Deployment Target
+-------------------------------------------------------------------------------
+
+Platform: Hugging Face Spaces
+Space Type: Docker
+Port: 7860
+Persistent Storage: Data directory (/app/data) for JSON files
+Database: SQLite file (hse_management.db)
+
+================================================================================
+9. TECHNOLOGY STACK SUMMARY
+================================================================================
+
+BACKEND:
+  - Language: Python 3.10+
+  - Framework: FastAPI
+  - ORM: SQLModel (SQLAlchemy + Pydantic)
+  - Database: SQLite
+  - Task Scheduler: APScheduler
+  - Email Service: Resend
+  - Server: Uvicorn
+
+FRONTEND (Web SPA):
+  - Languages: HTML5, CSS3, JavaScript (ES6+)
+  - Font: Inter (Google Fonts)
+  - Design: Custom dark theme (Netflix-inspired)
+  - Features: Single-page application, responsive design
+
+FRONTEND (Mobile - React Native):
+  - Language: TypeScript
+  - Framework: React Native
+  - Components: FlatList, Modal, DateTimePicker, Picker
+  - State: React Hooks (useState, useEffect)
+
+DEPLOYMENT:
+  - Containerization: Docker
+  - Platform: Hugging Face Spaces
+  - Port: 7860
+
+DATA STORAGE:
+  - Primary: SQLite database
+  - Secondary: JSON files (KPI, LL Indicators)
+  - In-Memory: Tasks storage (temporary)
+
+================================================================================
+10. ADDITIONAL FILES
+================================================================================
+
+otp_js.txt (30KB) - OTP validation script source
+otp_nav.html - OTP navigation template
+otp_screen.html (5.9KB) - OTP input screen HTML
+validate.js (3.7KB) - Form validation utilities
+MASTER_REFACTOR_PLAN.md (5.5KB) - Architecture refactoring guide
+
+Legacy App:
+  legacy-app/index.html (483KB) - Original monolithic application
+
+================================================================================
+                              END OF DOCUMENTATION
+================================================================================
+
+Document Author: AI Analysis System
+Analysis Version: 1.0
+Lines Analyzed: ~15,000+
+Files Analyzed: 20+
+Total Application Size: ~1MB
+
+================================================================================
