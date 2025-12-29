@@ -31,3 +31,4 @@ A comprehensive HSE (Health, Safety, and Environment) Plan Management applicatio
 ## Environment Variables
 
 - `RESEND_API_KEY` - API key for email notifications (optional)
+# Force rebuild Mon Dec 29 23:07:16 WIB 2025
