@@ -1,0 +1,89 @@
+Title	Guidance	"DUE
+DATE"	JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC		"PROGRESS 
+(%)"
+			JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC		
+			PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	
+																											
+EIP and reduction plan	"In continuation of 2024, The country will communicate and track the implementation of the Environmental Improvement and reduction Plan.  The used template is  Environmental Improvement Plan GL-WFT-OEPS-L4-13.01
+document link: https://OEPSOnline/DocumentDownload?docid=D001161128. 
+
+EIP shall be communicated to the country Leadership and frontline through  HSE meeting/ operations meeting / Environment meeting and the communication shall be recorded on WPTS"	14-Feb-25	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4		92%
+12 Facility Inspections	"Each operational Weatherford facility will conduct 1 facility inspection per month involving HSE and leadership at the location.  This will be assessed at Country Level.
+
+Inspection shall be recorded on WPTS as QHSSE Meeting/ meeting type (Workshop/ Office Inspection), Alternate Meeting Number: 2025-ASA-FIY
+
+Inspection shall be completed utilizing:
+
+- Facility Inspection Checklist - Workshop
+GL-WFT-OEPS-L3-04.06
+
+- Facility Inspection Checklist - Yard GL-WFT-OEPS-L3-04.07
+
+- FACILITY INSPECTION CHECKLIST - OFFICE GL-WFT-OEPS-L3-04.05"	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	0	0	0	0	0	0	0		100%
+Incident Management	"Conduct a Management Review of the investigation findings, root cause analysis, and proposed 
+corrective actions within 21 days of the incident. Invitees for the Management Review include the 
+follow appropriate to the PC severity:
+• PC3 Track & Trend: Immediate Supervisor review and approval.
+• PC3 Fishbone/5-Why: Geozone Management review
+• PC2: Geozone Management review
+• PC1: Geozone and Serious Incident Review Committee Management review "	1-Dec-25	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2		96%
+Leadership Site Engagement (LSE) Country	LSE program shall be tracked and reviewed over the Global Leadership Dashboard	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0		100%
+Close All HSSE Audits from 2023-2024	"
+close all outstanding actions from HSE audits conducted between 2019-2022, in addition, close open audits in 2023 on timely manner"	31-Dec-25	1	1	1	1	1	1	1	2	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		100%
+Country/ facility Legal Register<br>	"Country HSSE will complete/review  the Country Legal Register, conduct a review of any legislative changes, and action accordingly. Records are to be uploaded on the Global Environmental Portal. 
+
+legislation changes/ updates shall be reviewed with the country leadership and recorded on WPTS as QHSSE meeting, meeting type (WFT Location),  Alternate Meeting Number: 2025-ASA-CLR"	31-Dec-25	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	0	0		100%
+HSSE Competency	HSE Core > 95% Compliance is assessed at Country Level. 	31-Dec-25	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	1	0		100%
+Driving Operations Risk Management	Review and Update Driving Risk Assessment per country/ area. revised Risk assessment shall be uploaded on Asia HSSE SharePoint, Rik Assessments page.	31-Dec-25	2	2	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2		96%
+Fire Risk Assessment	Conduct a comprehensive fire risk assessment of facilities and worksites. revised Risk assessment shall be uploaded on Asia HSSE SharePoint, Rik Assessments page.	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Electrical Risk Assessment	Conduct a comprehensive risk assessment of facilities, worksites, and rigs to identify areas with potential electrical hazards. revised Risk assessment shall be uploaded on Asia HSSE SharePoint, Rik Assessments page.	31-Dec-25	1	2	1	3	1	3	1	2	1	2	1	2	1	2	1	2	1	1	1	1	1	1	1		100%
+Machine guarding review and inspection	Conduct documented inspections of machine guards every 36 months or as per the manufacturer’s instructions if more frequently. 2025 to be set as start year of tracking. this obje	31-Dec-25	1	3	0	3	0	4	1	1	0	1	0	1	1	2	0	2	0	1	1	2	0	2	0		100%
+Emergency Response process	"Emergency response plans shall be reviewed and covering all the below elements.
+- Conduct annual review and update of the rescue plan.
+- ERP per each facility/country"	31-Dec-25	1	1	0	1	0	1	0	1	1	1	0	1	0	0	0	1	1	1	0	1	0	2	0		100%
+Hazard Hunt	Conduct Monthly Hazard hunt in each facility. the Hazard hunt activity shall be conducted by all facility parties (PL/ R&M/ Support functions)	31-Dec-25	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		92%
+Short Service Employee Program	Quarterly verify compliance to the company induction and short service requirements of subordinates. This shall include but not limited to Rightstart program, compliance to Core competency, PPE requirements, mentor assignement.	31-Dec-25	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		92%
+Safety 101	"Roll out Safety 101 training programs throughout the country to enhance the competency of frontline members, supervisors, and managers addressing a range of essential safety practices across frontline and leadership members.
+
+Records shall be tracked through HCM and WCAP"	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1	0	0	0	0	0		100%
+Safety 201	"Roll out Safety 201 training programs throughout the country to enhance the competency of frontline supervisors, 
+
+Records shall be tracked through HCM and WCAP"	31-Aug-25	0	0	0	0	0	0	0	0	1	1	0	0	0	1	0	0	0	0	0	0	0	0	0		100%
+Work Planning	"Utilize Site inspections, leadership site engagement, spot checks to Validate proper tool use while planning work such as:
+
+•Validate Job Hazard Analysis (JHA) are used for shift handovers, non-routine
+tasks, task without a procedure or work instruction, identified uncontrolled
+variables, and adapting technical work instructions to the field work
+environment.
+• Ensure toolbox talks engage employees on the work plan, hazards, and the
+risk management tools such as a Job Hazard Analysis (JHA). Measure leaders
+on toolbox talk participation.
+• Confirm required work authorization is completed through Permit to Work.
+• Verify energy isolation or Lock Out Tag Out (LOTO) procedures are adequate,
+authorized employees are trained, and energy isolation is done for all
+maintenance and repair activities.
+
+
+This shall be recorded through RADAR reports, LSE reports, Site verification reports. 
+
+actions shall be reviewed/ checked by local HSE team on monthly bases through RADAR data reviews. This shall be reviewed with country leadership and GZ HSE manager on Monthly bases and recorded on WPTS as QHSSE meeting, Meeting type (OFI/RADAR review), Alternate Meeting Number: 2025-Asia-WP
+"	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+LOTO Program	"Each facility shall have a completed the Lock out/ Tag Out program in compliance with Asia LOTO Program APAC-WFRD-OEPS-L3-04.2, this will award 50% of achievement.
+
+Each facility shall conduct LOTO training to the employees that is consist of 2 parts
+- Part 1 awareness training to all ops employees 
+- Part 2 advanced training to LOTO Isolation officers."	31-Dec-25	3	3	0	0	0	0	3	3	0	0	0	0	3	3	0	0	0	0	3	3	0	0	0		100%
+HSE OEPS Full Audit	Conduct A full OEPS HSE audit for all facilities in each country. Audit shall be reported and tracked through WPTS Audit module. 	31-Dec-25	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Asia Local Documents	"All local documents shall be identified and reviewed to verify requirements. 
+
+unneeded documents shall be discarded/scrapped 
+
+the needed documents only shall be uploaded to the Asia SharePoint Local documents page"	30-Dec-25	3	3	3	3	3	4	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		94%
+Air Emissions Inventory	Identify all sources of emissions and their associated contaminants, and update inventory annually on the WPTS under QHSSE meeting, meeting type (Environmental), Alternate Meeting Number: 2025-Asia-AEI	1-Nov-25	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	1	1	0		100%
+Hazardous Waste Register	Create a Hazardous Waste Management Register detailing vendors to handle hazardous wastes within each country. update record on the WPTS under QHSSE meeting, meeting type (Environmental), Alternate Meeting Number: 2025-Asia-HWR	31-Dec-25	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0		100%
+Hazmat Self-Assessment - Country	"Hazardous materials (specifically Lithium Batteries, Radioactive Material and Explosives, and Montlhy Self-Assessments) will be uploaded on the HAZMAT Sharepoint 05th day of each month.  This will be assessed at Country Level.
+
+Monthly HAZMAT slef-asessment review shall be conducted with the country Director/ manager and recorded on the WPTS as QHSSE meeting, meeting type (WFT Location), Alternate Meeting Number: 2025-Asia-HSA-country"	14-Feb-25	3	3	0	0	0	0	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0		100%
+HAZMAT Competency	"Achieve HAZMAT competency >95% compliance 
+
+This shall be tracked monthly and reviewed with the country leadership"	31-Dec-25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0		100%

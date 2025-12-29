@@ -1504,78 +1504,41 @@
                     <div style="font-size: 10px; color: var(--text-muted);" data-i18n="hseCommittee">🏢 HSE Committee
                     </div>
                 </div>
-                <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700; color: #27ae60;" id="stat-upcoming-csms-count">0
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
+                    <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
+                        <div style="font-size: 24px; font-weight: 700; color: #e67e22;"
+                            id="stat-upcoming-hseplan-count">0
+                        </div>
+                        <div style="font-size: 10px; color: var(--text-muted);" data-i18n="hsePlan">📋 HSE Plan</div>
                     </div>
-                    <div style="font-size: 10px; color: var(--text-muted);" data-i18n="csmsPb">✅ CSMS PB</div>
-                </div>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
-                <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700; color: #e67e22;" id="stat-upcoming-hseplan-count">0
+                    <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
+                        <div style="font-size: 24px; font-weight: 700; color: #1abc9c;" id="stat-upcoming-spr-count">0
+                        </div>
+                        <div style="font-size: 10px; color: var(--text-muted);" data-i18n="sprMeeting">📊 SPR Meeting
+                        </div>
                     </div>
-                    <div style="font-size: 10px; color: var(--text-muted);" data-i18n="hsePlan">📋 HSE Plan</div>
-                </div>
-                <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700; color: #1abc9c;" id="stat-upcoming-spr-count">0</div>
-                    <div style="font-size: 10px; color: var(--text-muted);" data-i18n="sprMeeting">📊 SPR Meeting</div>
-                </div>
-                <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700; color: #e74c3c;" id="stat-upcoming-hazid-count">0
-                    </div>
-                    <div style="font-size: 10px; color: var(--text-muted);" data-i18n="hazidHazop">⚠️ HAZID/HAZOP</div>
-                </div>
-            </div>
-            <div
-                style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--bg-tertiary); display: flex; justify-content: center; gap: 24px;">
-                <div style="text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--netflix-red);"
-                        id="stat-total-schedules">0</div>
-                    <div style="font-size: 11px; color: var(--text-muted);" data-i18n="totalSchedules">Total Schedules
+                    <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
+                        <div style="font-size: 24px; font-weight: 700; color: #e74c3c;" id="stat-upcoming-hazid-count">0
+                        </div>
+                        <div style="font-size: 10px; color: var(--text-muted);" data-i18n="hazidHazop">⚠️ HAZID/HAZOP
+                        </div>
                     </div>
                 </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--success);" id="stat-this-month">0</div>
-                    <div style="font-size: 11px; color: var(--text-muted);" data-i18n="thisMonth">This Month</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CSMS PB Audit Statistics -->
-        <div onclick="navigateTo('csms-pb')"
-            style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px; cursor: pointer;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <div style="font-size: 16px; font-weight: 600;" data-i18n="csmsPbAuditScores">📋 CSMS PB Audit Scores
-                </div>
-                <span style="font-size: 11px; color: var(--text-muted);" data-i18n="tapToView">Tap to view →</span>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center;">
                 <div
-                    style="background: linear-gradient(135deg, #9b59b6 0%, #7d3a9c 100%); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700;" id="stat-pb-total">0</div>
-                    <div style="font-size: 10px; opacity: 0.8;" data-i18n="totalRecords">Total Records</div>
+                    style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--bg-tertiary); display: flex; justify-content: center; gap: 24px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--netflix-red);"
+                            id="stat-total-schedules">0</div>
+                        <div style="font-size: 11px; color: var(--text-muted);" data-i18n="totalSchedules">Total
+                            Schedules
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--success);" id="stat-this-month">0
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-muted);" data-i18n="thisMonth">This Month</div>
+                    </div>
                 </div>
-                <div
-                    style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700;" id="stat-pb-lowest">0</div>
-                    <div style="font-size: 10px; opacity: 0.8;" data-i18n="lowestScore">Lowest Score</div>
-                </div>
-                <div
-                    style="background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700;" id="stat-pb-highest">0</div>
-                    <div style="font-size: 10px; opacity: 0.8;" data-i18n="highestScore">Highest Score</div>
-                </div>
-                <div
-                    style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700;" id="stat-pb-average">0</div>
-                    <div style="font-size: 10px; opacity: 0.8;" data-i18n="average">Average</div>
-                </div>
-            </div>
-            <div style="font-size: 12px; color: var(--text-muted); margin-top: 12px;" data-i18n="pbScoresByWell">PB
-                Scores by Well</div>
-            <div id="pb-score-chart"
-                style="margin-top: 8px; height: 120px; display: flex; align-items: flex-end; gap: 6px;">
-                <!-- Score bar chart will be inserted here -->
             </div>
         </div>
 
@@ -1606,7 +1569,8 @@
                 onmouseover="this.style.background='var(--bg-tertiary)'"
                 onmouseout="this.style.background='transparent'">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="taskStatusOverview">Task Status
+                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="taskStatusOverview">Task
+                        Status
                         Overview</div>
                     <span style="font-size: 10px; color: var(--netflix-red);">→</span>
                 </div>
@@ -1621,28 +1585,14 @@
                 onmouseover="this.style.background='var(--bg-tertiary)'"
                 onmouseout="this.style.background='transparent'">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="projectProgressOverview">Project
+                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="projectProgressOverview">
+                        Project
                         Progress Overview</div>
                     <span style="font-size: 10px; color: var(--netflix-red);">→</span>
                 </div>
                 <div id="progress-area-chart"
                     style="height: 120px; position: relative; background: linear-gradient(180deg, rgba(70, 211, 105, 0.1) 0%, transparent 100%); border-radius: 8px; overflow: hidden;">
                     <!-- Area chart will be inserted here -->
-                </div>
-            </div>
-
-            <!-- PB Score Chart -->
-            <div onclick="navigateTo('csms-pb')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.2s;"
-                onmouseover="this.style.background='var(--bg-tertiary)'"
-                onmouseout="this.style.background='transparent'">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="pbScoresByWell">CSMS PB Scores by
-                        Well</div>
-                    <span style="font-size: 10px; color: var(--netflix-red);">→</span>
-                </div>
-                <div id="pb-analytics-chart" style="height: 120px; display: flex; align-items: flex-end; gap: 6px;">
-                    <!-- PB score bars will be inserted here -->
                 </div>
             </div>
 
@@ -1667,7 +1617,8 @@
         <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
             <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;" data-i18n="monthlyChartsGallery">📈
                 Monthly Charts Gallery</div>
-            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;" data-i18n="janDecTrends">Jan -
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;" data-i18n="janDecTrends">Jan
+                -
                 Dec trends across all data
             </p>
 
@@ -1821,24 +1772,6 @@
                         data-i18n="dec">Dec</span>
                 </div>
             </div>
-
-            <!-- PB Scores by Month (Scatter/Dot Chart) -->
-            <div onclick="navigateTo('csms-pb')"
-                style="cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #9b59b6; margin-bottom: 8px;"
-                    data-i18n="pbScoresByMonth">📋 PB Scores by
-                    Month</div>
-                <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 4px;" data-i18n="yAxisScoreLabel">
-                    Y-axis: Score (0-100) | Dots
-                    colored by project</div>
-                <div id="monthly-pb-scores-chart"
-                    style="height: 100px; position: relative; background: linear-gradient(to top, var(--bg-tertiary) 0%, transparent 100%); border-radius: 4px; overflow: visible;">
-                </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
-                </div>
-            </div>
         </div>
 
         <!-- Project Chart Gallery -->
@@ -1869,16 +1802,6 @@
                     style="height: 100px; display: flex; align-items: flex-end; gap: 4px; overflow-x: auto;"></div>
             </div>
 
-            <!-- PB Records per Project -->
-            <div onclick="navigateTo('csms-pb')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #27ae60; margin-bottom: 8px;"
-                    data-i18n="pbRecordsPerProject">📋 PB Records per
-                    Project</div>
-                <div id="project-pb-chart"
-                    style="height: 100px; display: flex; align-items: flex-end; gap: 4px; overflow-x: auto;"></div>
-            </div>
-
             <!-- Task Completion Rate per Project -->
             <div onclick="navigateTo('projects')"
                 style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
@@ -1888,24 +1811,12 @@
                 <div id="project-completion-chart"
                     style="height: 100px; display: flex; align-items: flex-end; gap: 4px; overflow-x: auto;"></div>
             </div>
-
-            <!-- PB Score per Project -->
-            <div onclick="navigateTo('csms-pb')"
-                style="cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #9b59b6; margin-bottom: 8px;"
-                    data-i18n="averagePbScorePerProject">📊 Average PB Score
-                    per Project</div>
-                <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 4px;"
-                    data-i18n="pbScoreColorLegend">Color: 🟢 ≥80 | 🟡 ≥60 | 🔴
-                    &lt;60</div>
-                <div id="project-pb-score-chart"
-                    style="height: 100px; display: flex; align-items: flex-end; gap: 4px; overflow-x: auto;"></div>
-            </div>
         </div>
 
         <!-- Quick Actions -->
         <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;" data-i18n="quickActions">Quick Actions
+            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;" data-i18n="quickActions">Quick
+                Actions
             </div>
             <div style="display: flex; gap: 12px; flex-wrap: wrap;">
                 <button onclick="checkReminders()" class="btn btn-save" style="flex: 1; min-width: 120px;">
