@@ -26,3 +26,4 @@ A comprehensive Health, Safety & Environment (HSE) program management system.
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: FastAPI (Python)
 - **Database**: SQLite
+
