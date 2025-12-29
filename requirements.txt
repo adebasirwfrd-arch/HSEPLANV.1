@@ -1,6 +1,0 @@
-fastapi
-uvicorn
-sqlmodel
-apscheduler
-resend
-python-dotenv
