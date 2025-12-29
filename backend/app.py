@@ -823,6 +823,178 @@ def update_otp_year(year: int):
     return {"message": f"OTP year updated to {year}"}
 
 
+# ===== OTP ASIA DATA PERSISTENCE =====
+OTP_ASIA_DATA_FILE = Path(__file__).parent / "data" / "otp_asia_data.json"
+
+def load_otp_asia_data():
+    """Load OTP ASIA data from JSON file."""
+    if OTP_ASIA_DATA_FILE.exists():
+        with open(OTP_ASIA_DATA_FILE, 'r') as f:
+            return json.load(f)
+    return {"year": 2026, "programs": []}
+
+def save_otp_asia_data(data):
+    """Save OTP ASIA data to JSON file."""
+    OTP_ASIA_DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with open(OTP_ASIA_DATA_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
+def calculate_progress_asia(program):
+    """Calculate progress percentage for an OTP ASIA program."""
+    total_plan = 0
+    total_actual = 0
+    for month_data in program.get("months", {}).values():
+        total_plan += month_data.get("plan", 0)
+        total_actual += month_data.get("actual", 0)
+    if total_plan == 0:
+        return 100 if total_actual >= 0 else 0
+    return min(100, round((total_actual / total_plan) * 100))
+
+
+@app.get("/otp-asia")
+def get_otp_asia_data():
+    """Get all OTP ASIA data."""
+    data = load_otp_asia_data()
+    for prog in data.get("programs", []):
+        prog["progress"] = calculate_progress_asia(prog)
+    return data
+
+
+@app.get("/otp-asia/{program_id}")
+def get_otp_asia_program(program_id: int):
+    """Get a specific OTP ASIA program by ID."""
+    data = load_otp_asia_data()
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            prog["progress"] = calculate_progress_asia(prog)
+            return prog
+    raise HTTPException(status_code=404, detail="OTP ASIA program not found")
+
+
+class OTPAsiaMonthUpdate(BaseModel):
+    plan: Optional[int] = None
+    actual: Optional[int] = None
+    wpts_id: Optional[str] = None
+
+
+@app.put("/otp-asia/{program_id}/month/{month}")
+def update_otp_asia_month(program_id: int, month: str, update: OTPAsiaMonthUpdate):
+    """Update Plan/Actual values for a specific month of an OTP ASIA program."""
+    valid_months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+    if month.lower() not in valid_months:
+        raise HTTPException(status_code=400, detail=f"Invalid month. Must be one of: {valid_months}")
+    
+    data = load_otp_asia_data()
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            if "months" not in prog:
+                prog["months"] = {}
+            if month.lower() not in prog["months"]:
+                prog["months"][month.lower()] = {"plan": 0, "actual": 0}
+            
+            if update.plan is not None:
+                prog["months"][month.lower()]["plan"] = update.plan
+            if update.actual is not None:
+                prog["months"][month.lower()]["actual"] = update.actual
+            if update.wpts_id is not None:
+                prog["months"][month.lower()]["wpts_id"] = update.wpts_id
+            
+            prog["progress"] = calculate_progress_asia(prog)
+            save_otp_asia_data(data)
+            return {"message": f"OTP ASIA program {program_id} month {month} updated", "program": prog}
+    
+    raise HTTPException(status_code=404, detail="OTP ASIA program not found")
+
+
+class OTPAsiaProgramCreate(BaseModel):
+    name: str
+    plan_type: Optional[str] = "Annually"
+    due_date: Optional[str] = None
+
+
+@app.post("/otp-asia")
+def create_otp_asia_program(program: OTPAsiaProgramCreate):
+    """Create a new OTP ASIA program."""
+    data = load_otp_asia_data()
+    
+    max_id = max([p.get("id", 0) for p in data.get("programs", [])], default=0)
+    new_id = max_id + 1
+    
+    new_program = {
+        "id": new_id,
+        "name": program.name,
+        "plan_type": program.plan_type,
+        "due_date": program.due_date,
+        "months": {
+            "jan": {"plan": 0, "actual": 0},
+            "feb": {"plan": 0, "actual": 0},
+            "mar": {"plan": 0, "actual": 0},
+            "apr": {"plan": 0, "actual": 0},
+            "may": {"plan": 0, "actual": 0},
+            "jun": {"plan": 0, "actual": 0},
+            "jul": {"plan": 0, "actual": 0},
+            "aug": {"plan": 0, "actual": 0},
+            "sep": {"plan": 0, "actual": 0},
+            "oct": {"plan": 0, "actual": 0},
+            "nov": {"plan": 0, "actual": 0},
+            "dec": {"plan": 0, "actual": 0}
+        },
+        "progress": 0
+    }
+    
+    data["programs"].append(new_program)
+    save_otp_asia_data(data)
+    return {"message": "OTP ASIA program created successfully", "program": new_program}
+
+
+class OTPAsiaProgramUpdate(BaseModel):
+    name: Optional[str] = None
+    plan_type: Optional[str] = None
+    due_date: Optional[str] = None
+
+
+@app.put("/otp-asia/{program_id}")
+def update_otp_asia_program(program_id: int, update: OTPAsiaProgramUpdate):
+    """Update an OTP ASIA program's metadata."""
+    data = load_otp_asia_data()
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            if update.name is not None:
+                prog["name"] = update.name
+            if update.plan_type is not None:
+                prog["plan_type"] = update.plan_type
+            if update.due_date is not None:
+                prog["due_date"] = update.due_date
+            
+            save_otp_asia_data(data)
+            return {"message": f"OTP ASIA program {program_id} updated", "program": prog}
+    
+    raise HTTPException(status_code=404, detail="OTP ASIA program not found")
+
+
+@app.delete("/otp-asia/{program_id}")
+def delete_otp_asia_program(program_id: int):
+    """Delete an OTP ASIA program."""
+    data = load_otp_asia_data()
+    original_count = len(data.get("programs", []))
+    data["programs"] = [p for p in data.get("programs", []) if p.get("id") != program_id]
+    
+    if len(data["programs"]) == original_count:
+        raise HTTPException(status_code=404, detail="OTP ASIA program not found")
+    
+    save_otp_asia_data(data)
+    return {"message": f"OTP ASIA program {program_id} deleted successfully"}
+
+
+@app.put("/otp-asia/year/{year}")
+def update_otp_asia_year(year: int):
+    """Update the OTP ASIA year."""
+    data = load_otp_asia_data()
+    data["year"] = year
+    save_otp_asia_data(data)
+    return {"message": f"OTP ASIA year updated to {year}"}
+
+
 @app.post("/test-reminder")
 def test_reminder():
     """Manually trigger reminder check (for testing)."""
