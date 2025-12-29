@@ -2891,6 +2891,10 @@
                     <label class="form-label">Actual Value</label>
                     <input type="number" class="form-input" id="otp-edit-actual" min="0" placeholder="0">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">WPTS ID</label>
+                    <input type="text" class="form-input" id="otp-edit-wpts" placeholder="Enter WPTS ID (optional)">
+                </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeOTPEditModal()">Cancel</button>
                     <button type="submit" class="btn-primary">Save</button>
@@ -8522,18 +8526,20 @@
 
             // Monthly cells
             MONTHS.forEach(month => {
-                const monthData = prog.months?.[month] || { plan: 0, actual: 0 };
+                const monthData = prog.months?.[month] || { plan: 0, actual: 0, wpts_id: '' };
                 const cellStyle = getCellColor(monthData.plan, monthData.actual);
                 const displayValue = showActual
                     ? `${monthData.plan}/${monthData.actual}`
                     : monthData.plan;
                 const isEmpty = monthData.plan === 0 && monthData.actual === 0;
+                const wptsDisplay = monthData.wpts_id ? `<div style="font-size: 9px; color: #27ae60; margin-top: 2px; font-weight: 500;">${monthData.wpts_id}</div>` : '';
 
                 html += `<td onclick="openOTPEditModal(${prog.id}, '${month}')" 
-                    style="padding: 8px 4px; border-bottom: 1px solid var(--border); text-align: center; background: ${cellStyle.bg}; cursor: pointer; transition: all 0.2s; font-size: 11px; font-weight: 600; color: ${isEmpty ? 'var(--text-muted)' : cellStyle.color};"
+                    style="padding: 6px 4px; border-bottom: 1px solid var(--border); text-align: center; background: ${cellStyle.bg}; cursor: pointer; transition: all 0.2s; font-size: 11px; font-weight: 600; color: ${isEmpty ? 'var(--text-muted)' : cellStyle.color};"
                     onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"
-                    title="Plan: ${monthData.plan} | Actual: ${monthData.actual}">
-                    ${isEmpty ? '-' : displayValue}
+                    title="Plan: ${monthData.plan} | Actual: ${monthData.actual}${monthData.wpts_id ? ' | WPTS: ' + monthData.wpts_id : ''}">
+                    <div>${isEmpty ? '-' : displayValue}</div>
+                    ${wptsDisplay}
                 </td>`;
             });
 
@@ -8597,11 +8603,12 @@
         const prog = (otpData.programs || []).find(p => p.id === programId);
         if (!prog) return;
 
-        const monthData = prog.months?.[month] || { plan: 0, actual: 0 };
+        const monthData = prog.months?.[month] || { plan: 0, actual: 0, wpts_id: '' };
         document.getElementById('otp-edit-program-id').value = programId;
         document.getElementById('otp-edit-month').value = month;
         document.getElementById('otp-edit-plan').value = monthData.plan;
         document.getElementById('otp-edit-actual').value = monthData.actual;
+        document.getElementById('otp-edit-wpts').value = monthData.wpts_id || '';
         document.getElementById('otp-edit-title').textContent = `Edit ${month.toUpperCase()} - ${prog.name.substring(0, 30)}...`;
 
         document.getElementById('otp-edit-modal').style.display = 'flex';
@@ -8617,12 +8624,13 @@
         const month = document.getElementById('otp-edit-month').value;
         const plan = parseInt(document.getElementById('otp-edit-plan').value) || 0;
         const actual = parseInt(document.getElementById('otp-edit-actual').value) || 0;
+        const wpts_id = document.getElementById('otp-edit-wpts').value.trim();
 
         try {
             const res = await fetch(`${API_BASE}/otp/${programId}/month/${month}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ plan, actual })
+                body: JSON.stringify({ plan, actual, wpts_id })
             });
 
             if (res.ok) {

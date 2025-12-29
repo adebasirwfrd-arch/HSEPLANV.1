@@ -701,6 +701,7 @@ def get_otp_program(program_id: int):
 class OTPMonthUpdate(BaseModel):
     plan: Optional[int] = None
     actual: Optional[int] = None
+    wpts_id: Optional[str] = None
 
 
 @app.put("/otp/{program_id}/month/{month}")
@@ -722,6 +723,8 @@ def update_otp_month(program_id: int, month: str, update: OTPMonthUpdate):
                 prog["months"][month.lower()]["plan"] = update.plan
             if update.actual is not None:
                 prog["months"][month.lower()]["actual"] = update.actual
+            if update.wpts_id is not None:
+                prog["months"][month.lower()]["wpts_id"] = update.wpts_id
             
             prog["progress"] = calculate_progress(prog)
             save_otp_data(data)
