@@ -1070,19 +1070,39 @@ def get_matrix_file_path(category: str, region: str, base: str = None):
 def load_matrix_data(category: str, region: str, base: str = None):
     """Load matrix data for a specific category, region, and base."""
     if region == "indonesia" and base == "all":
-        # Aggregate data from all 3 bases
-        all_programs = []
-        seen_ids = set()
+        # Aggregate data from all 3 bases - MERGE month data
+        programs_by_id = {}
         for b in ["narogong", "duri", "balikpapan"]:
             file_path = get_matrix_file_path(category, region, b)
             if file_path.exists():
                 with open(file_path, "r") as f:
                     data = json.load(f)
                     for prog in data.get("programs", []):
-                        if prog.get("id") not in seen_ids:
-                            all_programs.append(prog)
-                            seen_ids.add(prog.get("id"))
-        return {"year": 2026, "category": category, "region": region, "programs": all_programs}
+                        prog_id = prog.get("id")
+                        if prog_id not in programs_by_id:
+                            # First time seeing this program, add it with a copy
+                            programs_by_id[prog_id] = {
+                                "id": prog_id,
+                                "name": prog.get("name", ""),
+                                "reference": prog.get("reference", ""),
+                                "plan_type": prog.get("plan_type", ""),
+                                "due_date": prog.get("due_date"),
+                                "months": dict(prog.get("months", {})),
+                                "progress": prog.get("progress", 0)
+                            }
+                        else:
+                            # Merge month data - use data from this base if it has values
+                            existing = programs_by_id[prog_id]
+                            for month_key, month_data in prog.get("months", {}).items():
+                                if month_key not in existing["months"]:
+                                    existing["months"][month_key] = month_data
+                                else:
+                                    # Merge: prefer non-empty values from this base
+                                    existing_month = existing["months"][month_key]
+                                    for field in ["plan", "actual", "wpts_id", "plan_date", "impl_date", "pic_name", "pic_manager", "pic_email", "pic_manager_email"]:
+                                        if month_data.get(field) and not existing_month.get(field):
+                                            existing_month[field] = month_data[field]
+        return {"year": 2026, "category": category, "region": region, "programs": list(programs_by_id.values())}
     
     file_path = get_matrix_file_path(category, region, base)
     if file_path.exists():
@@ -1158,26 +1178,44 @@ def update_matrix_month(program_id: int, month: str, update: MatrixMonthUpdate, 
     if month.lower() not in valid_months:
         raise HTTPException(status_code=400, detail=f"Invalid month. Must be one of: {valid_months}")
     
-    # Don't allow updates when base is 'all'
-    if base == "all":
-        raise HTTPException(status_code=400, detail="Cannot update when viewing 'All Bases'. Please select a specific base.")
+    month_data = {
+        "plan": update.plan,
+        "actual": update.actual,
+        "wpts_id": update.wpts_id or "",
+        "plan_date": update.plan_date or "",
+        "impl_date": update.impl_date or "",
+        "pic_name": update.pic_name or "",
+        "pic_manager": update.pic_manager or "",
+        "pic_email": update.pic_email or "",
+        "pic_manager_email": update.pic_manager_email or ""
+    }
     
+    # If base is 'all', update ALL 3 bases
+    if base == "all":
+        bases_to_update = ["narogong", "duri", "balikpapan"]
+        updated_prog = None
+        for b in bases_to_update:
+            data = load_matrix_data(category, region, b)
+            for prog in data.get("programs", []):
+                if prog.get("id") == program_id:
+                    if "months" not in prog:
+                        prog["months"] = {}
+                    prog["months"][month.lower()] = month_data
+                    prog["progress"] = calculate_matrix_progress(prog)
+                    updated_prog = prog
+                    break
+            save_matrix_data(category, region, data, b)
+        if updated_prog:
+            return {"message": "Matrix month updated in all bases", "program": updated_prog}
+        raise HTTPException(status_code=404, detail="Matrix program not found")
+    
+    # Update single base
     data = load_matrix_data(category, region, base)
     for prog in data.get("programs", []):
         if prog.get("id") == program_id:
             if "months" not in prog:
                 prog["months"] = {}
-            prog["months"][month.lower()] = {
-                "plan": update.plan,
-                "actual": update.actual,
-                "wpts_id": update.wpts_id or "",
-                "plan_date": update.plan_date or "",
-                "impl_date": update.impl_date or "",
-                "pic_name": update.pic_name or "",
-                "pic_manager": update.pic_manager or "",
-                "pic_email": update.pic_email or "",
-                "pic_manager_email": update.pic_manager_email or ""
-            }
+            prog["months"][month.lower()] = month_data
             prog["progress"] = calculate_matrix_progress(prog)
             save_matrix_data(category, region, data, base)
             return {"message": "Matrix month updated", "program": prog}

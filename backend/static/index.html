@@ -9225,7 +9225,8 @@
         const pic_manager_email = document.getElementById('matrix-edit-pic-manager-email').value.trim();
         try {
             let url = `${API_BASE}/matrix/${programId}/month/${month}?category=${currentMatrixCategory}&region=${currentMatrixRegion}`;
-            if (currentMatrixRegion === 'indonesia' && currentMatrixBase && currentMatrixBase !== 'all') {
+            // Always pass base parameter - backend handles 'all' by saving to all 3 bases
+            if (currentMatrixBase) {
                 url += `&base=${currentMatrixBase}`;
             }
             const res = await fetch(url, {
