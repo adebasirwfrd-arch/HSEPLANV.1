@@ -1,0 +1,41 @@
+Certification	JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC	
+	JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC	
+	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL
+																								
+	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	
+First Aid Training - Kemenaker	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	0	0	0	0	0	0	0	
+Fire Training (DAMKAR D - Kemenaker	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	
+AK3 Umum Training - Kemenaker	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	
+K3 MIGAS Training - BNSP	1	1	1	1	1	1	1	2	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	
+POPAL - BNSP	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	0	0	
+PAA Lifting Equipment Operator	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	1	0	
+TKBT 2 - Working At Height Certification	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	1	0	
+Training Modules	JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC	
+	JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC	
+	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL
+																								
+Safety 101 Training and HSE Minimum 	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	
+Safety 201 Training for Supv Level	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	0	0	0	0	0	0	0	
+HSE Induction / Orientation for New Emploee/Contractor	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	
+Hand & Finger Injury Prevention Campaign	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	
+Lifting & Rigging Operator Coaching	1	1	1	1	1	1	1	2	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	
+Basic Fire Safety Training	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	0	0	
+Hands Off Lifting Campaign 	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	1	0	
+Health Talk by Doctor	2	2	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	
+Risk Management and SWA Training	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	
+Waste Management	1	2	1	3	1	3	1	2	1	2	1	2	1	2	1	2	1	1	1	1	1	1	1	
+DROPS	1	3	0	3	0	4	1	1	0	1	0	1	1	2	0	2	0	1	1	2	0	2	0	
+Move SMART / Manual Handling	1	1	0	1	0	1	0	1	1	1	0	1	0	0	0	1	1	1	0	1	0	2	0	
+SWC Refershment Training	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	
+H2S Awareness	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	
+Motor Vehicle Safey and Commentary Drive	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1	0	0	0	0	0	
+Safe Working Practice Training (PHR)	0	0	0	0	0	0	0	0	1	1	0	0	0	1	0	0	0	0	0	0	0	0	0	
+Lifting Operator Permit Coaching (PHR)	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	
+Spotter Training (PHR)	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	
+RA Awareness	3	3	0	0	0	0	3	3	0	0	0	0	3	3	0	0	0	0	3	3	0	0	0	
+Lithium Battrey Awareness	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	
+Lock Out Tag Out (LOTO) Awareness	3	3	3	3	3	4	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	
+CLSR	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	1	1	0	
+	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	1	0	
+	3	3	0	0	0	0	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	
+	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	

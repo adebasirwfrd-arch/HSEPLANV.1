@@ -995,6 +995,147 @@ def update_otp_asia_year(year: int):
     return {"message": f"OTP ASIA year updated to {year}"}
 
 
+# ===== MATRIX API =====
+# Matrix categories: audit, training, drill, meeting
+# Matrix regions: indonesia, asia
+
+def get_matrix_file_path(category: str, region: str):
+    """Get the file path for a specific matrix category and region."""
+    return Path("backend/data") / f"matrix_{category}_{region}.json"
+
+def load_matrix_data(category: str, region: str):
+    """Load matrix data for a specific category and region."""
+    file_path = get_matrix_file_path(category, region)
+    if file_path.exists():
+        with open(file_path, "r") as f:
+            return json.load(f)
+    return {"year": 2026, "category": category, "region": region, "programs": []}
+
+def save_matrix_data(category: str, region: str, data: dict):
+    """Save matrix data for a specific category and region."""
+    file_path = get_matrix_file_path(category, region)
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(file_path, "w") as f:
+        json.dump(data, f, indent=2)
+
+def calculate_matrix_progress(program: dict) -> int:
+    """Calculate progress based on plan vs actual."""
+    total_plan = 0
+    total_actual = 0
+    for month_data in program.get("months", {}).values():
+        total_plan += month_data.get("plan", 0)
+        total_actual += month_data.get("actual", 0)
+    if total_plan == 0:
+        return 0
+    return min(100, int((total_actual / total_plan) * 100))
+
+class MatrixMonthUpdate(BaseModel):
+    plan: int
+    actual: int
+    wpts_id: Optional[str] = ""
+
+class MatrixProgramCreate(BaseModel):
+    name: str
+    reference: Optional[str] = ""
+    plan_type: Optional[str] = "Monthly"
+    due_date: Optional[str] = None
+
+class MatrixProgramUpdate(BaseModel):
+    name: Optional[str] = None
+    reference: Optional[str] = None
+    plan_type: Optional[str] = None
+    due_date: Optional[str] = None
+
+@app.get("/matrix")
+def get_matrix_programs(category: str = "audit", region: str = "indonesia"):
+    """Get all matrix programs for a specific category and region."""
+    valid_categories = ["audit", "training", "drill", "meeting"]
+    valid_regions = ["indonesia", "asia"]
+    if category not in valid_categories:
+        raise HTTPException(status_code=400, detail=f"Invalid category. Must be one of: {valid_categories}")
+    if region not in valid_regions:
+        raise HTTPException(status_code=400, detail=f"Invalid region. Must be one of: {valid_regions}")
+    return load_matrix_data(category, region)
+
+@app.get("/matrix/{program_id}")
+def get_matrix_program(program_id: int, category: str = "audit", region: str = "indonesia"):
+    """Get a specific matrix program by ID."""
+    data = load_matrix_data(category, region)
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            return prog
+    raise HTTPException(status_code=404, detail="Matrix program not found")
+
+@app.put("/matrix/{program_id}/month/{month}")
+def update_matrix_month(program_id: int, month: str, update: MatrixMonthUpdate, category: str = "audit", region: str = "indonesia"):
+    """Update monthly plan/actual values for a matrix program."""
+    valid_months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+    if month.lower() not in valid_months:
+        raise HTTPException(status_code=400, detail=f"Invalid month. Must be one of: {valid_months}")
+    
+    data = load_matrix_data(category, region)
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            if "months" not in prog:
+                prog["months"] = {}
+            prog["months"][month.lower()] = {
+                "plan": update.plan,
+                "actual": update.actual,
+                "wpts_id": update.wpts_id or ""
+            }
+            prog["progress"] = calculate_matrix_progress(prog)
+            save_matrix_data(category, region, data)
+            return {"message": "Matrix month updated", "program": prog}
+    raise HTTPException(status_code=404, detail="Matrix program not found")
+
+@app.post("/matrix")
+def create_matrix_program(program: MatrixProgramCreate, category: str = "audit", region: str = "indonesia"):
+    """Create a new matrix program."""
+    data = load_matrix_data(category, region)
+    new_id = max([p.get("id", 0) for p in data.get("programs", [])] + [0]) + 1
+    new_program = {
+        "id": new_id,
+        "name": program.name,
+        "reference": program.reference or "",
+        "plan_type": program.plan_type or "Monthly",
+        "due_date": program.due_date,
+        "months": {m: {"plan": 0, "actual": 0, "wpts_id": ""} for m in ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]},
+        "progress": 0
+    }
+    data["programs"].append(new_program)
+    save_matrix_data(category, region, data)
+    return {"message": "Matrix program created", "program": new_program}
+
+@app.put("/matrix/{program_id}")
+def update_matrix_program(program_id: int, update: MatrixProgramUpdate, category: str = "audit", region: str = "indonesia"):
+    """Update matrix program metadata."""
+    data = load_matrix_data(category, region)
+    for prog in data.get("programs", []):
+        if prog.get("id") == program_id:
+            if update.name is not None:
+                prog["name"] = update.name
+            if update.reference is not None:
+                prog["reference"] = update.reference
+            if update.plan_type is not None:
+                prog["plan_type"] = update.plan_type
+            if update.due_date is not None:
+                prog["due_date"] = update.due_date
+            save_matrix_data(category, region, data)
+            return {"message": "Matrix program updated", "program": prog}
+    raise HTTPException(status_code=404, detail="Matrix program not found")
+
+@app.delete("/matrix/{program_id}")
+def delete_matrix_program(program_id: int, category: str = "audit", region: str = "indonesia"):
+    """Delete a matrix program."""
+    data = load_matrix_data(category, region)
+    original_count = len(data.get("programs", []))
+    data["programs"] = [p for p in data.get("programs", []) if p.get("id") != program_id]
+    if len(data["programs"]) == original_count:
+        raise HTTPException(status_code=404, detail="Matrix program not found")
+    save_matrix_data(category, region, data)
+    return {"message": f"Matrix program {program_id} deleted successfully"}
+
+
 @app.post("/test-reminder")
 def test_reminder():
     """Manually trigger reminder check (for testing)."""

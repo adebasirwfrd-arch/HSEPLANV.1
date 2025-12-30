@@ -1,0 +1,27 @@
+AUDIT NAME	Reference	JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC		"PROGRESS 
+(%)"
+		JAN		FEB		MAR		APR		MAY		JUN		JUL		AUG		SEP		OCT		NOV		DEC		
+		PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	PLAN	ACTUAL	
+																										
+																										
+Risk Management	IOGP CLSR and ISO 45001	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4		92%
+Facility Safety	IOGP CLSR and ISO 45001	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	0	0	0	0	0	0	0		100%
+Commitment & Intervention	IOGP CLSR and ISO 45001	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2		96%
+Hazardous Substance	IOGP CLSR and ISO 45001	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0		100%
+Hazardous Environments	IOGP CLSR and ISO 45001	1	1	1	1	1	1	1	2	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		100%
+Incident Management 	IOGP CLSR and ISO 45001	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	0	0		100%
+Driver and Vehicle Procedure	IOGP CLSR and ISO 45001	1	1	0	1	0	1	1	1	0	0	0	0	1	1	0	0	0	1	1	1	0	1	0		100%
+Occupational Helath Procedure	IOGP CLSR and ISO 45001	2	2	2	3	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2	2		96%
+Lifting Equipment and Operation	IOGP CLSR and ISO 45001	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Employee and Contractor HSSE Training	IOGP CLSR and ISO 45001	1	2	1	3	1	3	1	2	1	2	1	2	1	2	1	2	1	1	1	1	1	1	1		100%
+Management of Short Service Employees	IOGP CLSR and ISO 45001	1	3	0	3	0	4	1	1	0	1	0	1	1	2	0	2	0	1	1	2	0	2	0		100%
+Facility Orientation and Induction	IOGP CLSR and ISO 45001	1	1	0	1	0	1	0	1	1	1	0	1	0	0	0	1	1	1	0	1	0	2	0		100%
+Personnel Protective Equipment (PPE)	IOGP CLSR and ISO 45001	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		92%
+Contractor Management	IOGP CLSR and ISO 45001	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1		92%
+Global Radiation Protection	IOGP CLSR and ISO 45001	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	1	0	0	0	0	0		100%
+Lone Worker 	IOGP CLSR and ISO 45001	0	0	0	0	0	0	0	0	1	1	0	0	0	1	0	0	0	0	0	0	0	0	0		100%
+Waste Management	IOGP CLSR and ISO 14001	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0		100%
+Water Management	IOGP CLSR and ISO 14001	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+Land Imapct Management	IOGP CLSR and ISO 14001	3	3	0	0	0	0	3	3	0	0	0	0	3	3	0	0	0	0	3	3	0	0	0		100%
+QMS Audit (Internal)	QMS and ISO 9001	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		92%
+ISO External Audit	ISO 9001; 14001 & 45001	3	3	3	3	3	4	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3		94%
