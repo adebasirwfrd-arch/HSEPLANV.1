@@ -946,13 +946,6 @@
             </svg>
             Statistics
         </div>
-        <div class="drawer-item" onclick="navigateTo('schedule')">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                    d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z" />
-            </svg>
-            Schedule
-        </div>
         <div class="drawer-item" onclick="navigateTo('calendar')">
             <svg viewBox="0 0 24 24" fill="currentColor">
                 <path
@@ -1492,60 +1485,70 @@
             </div>
         </div>
 
-        <!-- Schedule Quick Stats - All Meeting Types -->
-        <div onclick="navigateTo('schedule')"
-            style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px; cursor: pointer;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <div style="font-size: 16px; font-weight: 600;" data-i18n="scheduleOverview">📅 Schedule Overview - All
-                    Meeting Types</div>
-                <span style="font-size: 11px; color: var(--text-muted);" data-i18n="tapToView">Tap to view →</span>
-            </div>
-            <div
-                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; margin-bottom: 12px;">
-                <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700; color: #3498db;" id="stat-upcoming-mwt-count">0</div>
-                    <div style="font-size: 10px; color: var(--text-muted);" data-i18n="mwtPlan">📅 MWT Plan</div>
+        <!-- HSE Dashboard - Modern Widgets -->
+        <div
+            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 24px; margin-bottom: 16px;">
+            <div style="font-size: 18px; font-weight: 700; margin-bottom: 20px; color: white;">🎯 HSE Dashboard</div>
+
+            <!-- Widget Grid -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+
+                <!-- KPI Summary Widget -->
+                <div onclick="navigateTo('hse-kpi')"
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 28px;">📊</div>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
+                    </div>
+                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-kpi-count">0</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">KPI Programs</div>
                 </div>
-                <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                    <div style="font-size: 24px; font-weight: 700; color: #9b59b6;" id="stat-upcoming-hse-count">0</div>
-                    <div style="font-size: 10px; color: var(--text-muted);" data-i18n="hseCommittee">🏢 HSE Committee
+
+                <!-- LL Indicators Widget -->
+                <div onclick="navigateTo('ll-indicator')"
+                    style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(17,153,142,0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 28px;">📈</div>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
                     </div>
+                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-ll-count">0</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">LL Indicators</div>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
-                    <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                        <div style="font-size: 24px; font-weight: 700; color: #e67e22;"
-                            id="stat-upcoming-hseplan-count">0
-                        </div>
-                        <div style="font-size: 10px; color: var(--text-muted);" data-i18n="hsePlan">📋 HSE Plan</div>
+
+                <!-- OTP Status Widget -->
+                <div onclick="navigateTo('otp')"
+                    style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(245,87,108,0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 28px;">📋</div>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
                     </div>
-                    <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                        <div style="font-size: 24px; font-weight: 700; color: #1abc9c;" id="stat-upcoming-spr-count">0
-                        </div>
-                        <div style="font-size: 10px; color: var(--text-muted);" data-i18n="sprMeeting">📊 SPR Meeting
-                        </div>
-                    </div>
-                    <div style="background: var(--bg-tertiary); border-radius: 8px; padding: 12px;">
-                        <div style="font-size: 24px; font-weight: 700; color: #e74c3c;" id="stat-upcoming-hazid-count">0
-                        </div>
-                        <div style="font-size: 10px; color: var(--text-muted);" data-i18n="hazidHazop">⚠️ HAZID/HAZOP
-                        </div>
-                    </div>
+                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-otp-count">0</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">OTP Programs</div>
                 </div>
-                <div
-                    style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--bg-tertiary); display: flex; justify-content: center; gap: 24px;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 28px; font-weight: 700; color: var(--netflix-red);"
-                            id="stat-total-schedules">0</div>
-                        <div style="font-size: 11px; color: var(--text-muted);" data-i18n="totalSchedules">Total
-                            Schedules
-                        </div>
+
+                <!-- Matrix Overview Widget -->
+                <div onclick="navigateTo('matrix')"
+                    style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(250,112,154,0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 28px;">🗓️</div>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 28px; font-weight: 700; color: var(--success);" id="stat-this-month">0
-                        </div>
-                        <div style="font-size: 11px; color: var(--text-muted);" data-i18n="thisMonth">This Month</div>
-                    </div>
+                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-matrix-count">0</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">Matrix Programs</div>
                 </div>
+
             </div>
         </div>
 
@@ -1553,22 +1556,6 @@
         <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
             <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;" data-i18n="analyticsDashboard">📊
                 Analytics Dashboard</div>
-
-            <!-- Schedule Types Bar Chart -->
-            <div onclick="navigateTo('schedule')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.2s;"
-                onmouseover="this.style.background='var(--bg-tertiary)'"
-                onmouseout="this.style.background='transparent'">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="scheduleTypesDistribution">
-                        Schedule Types Distribution</div>
-                    <span style="font-size: 10px; color: var(--netflix-red);">→</span>
-                </div>
-                <div id="schedule-bar-chart"
-                    style="height: 180px; display: flex; align-items: flex-end; justify-content: space-around; gap: 8px; padding: 0 10px;">
-                    <!-- Bar chart will be inserted here -->
-                </div>
-            </div>
 
             <!-- Task Progress Overview Chart -->
             <div onclick="navigateTo('tasks')"
@@ -1629,119 +1616,6 @@
                 Dec trends across all data
             </p>
 
-            <!-- MWT Schedule by Month -->
-            <div onclick="navigateTo('schedule')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #3498db; margin-bottom: 8px;"
-                    data-i18n="mwtPlanScheduleByMonth">📅 MWT Plan Schedule by Month</div>
-                <div id="monthly-mwt-chart"
-                    style="height: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px;">
-                </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span data-i18n="jan">Jan</span><span data-i18n="feb">Feb</span><span
-                        data-i18n="mar">Mar</span><span data-i18n="apr">Apr</span><span data-i18n="may">May</span><span
-                        data-i18n="jun">Jun</span><span data-i18n="jul">Jul</span><span data-i18n="aug">Aug</span><span
-                        data-i18n="sep">Sep</span><span data-i18n="oct">Oct</span><span data-i18n="nov">Nov</span><span
-                        data-i18n="dec">Dec</span>
-                </div>
-            </div>
-
-            <!-- HSE Committee by Month -->
-            <div onclick="navigateTo('schedule')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #9b59b6; margin-bottom: 8px;"
-                    data-i18n="hseCommitteeMeetingByMonth">🏢 HSE Committee
-                    Meeting by Month</div>
-                <div id="monthly-hse-chart"
-                    style="height: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px;">
-                </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span data-i18n="jan">Jan</span><span data-i18n="feb">Feb</span><span
-                        data-i18n="mar">Mar</span><span data-i18n="apr">Apr</span><span data-i18n="may">May</span><span
-                        data-i18n="jun">Jun</span><span data-i18n="jul">Jul</span><span data-i18n="aug">Aug</span><span
-                        data-i18n="sep">Sep</span><span data-i18n="oct">Oct</span><span data-i18n="nov">Nov</span><span
-                        data-i18n="dec">Dec</span>
-                </div>
-            </div>
-
-            <!-- HSE Plan by Month -->
-            <div onclick="navigateTo('schedule')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #e67e22; margin-bottom: 8px;"
-                    data-i18n="hsePlanMeetingByMonth">📋 HSE Plan Meeting
-                    by Month</div>
-                <div id="monthly-hseplan-chart"
-                    style="height: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px;">
-                </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span data-i18n="jan">Jan</span><span data-i18n="feb">Feb</span><span
-                        data-i18n="mar">Mar</span><span data-i18n="apr">Apr</span><span data-i18n="may">May</span><span
-                        data-i18n="jun">Jun</span><span data-i18n="jul">Jul</span><span data-i18n="aug">Aug</span><span
-                        data-i18n="sep">Sep</span><span data-i18n="oct">Oct</span><span data-i18n="nov">Nov</span><span
-                        data-i18n="dec">Dec</span>
-                </div>
-            </div>
-
-            <!-- SPR Meeting by Month -->
-            <div onclick="navigateTo('schedule')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #1abc9c; margin-bottom: 8px;"
-                    data-i18n="sprMeetingByMonth">📊 SPR Meeting by
-                    Month</div>
-                <div id="monthly-spr-chart"
-                    style="height: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px;">
-                </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span data-i18n="jan">Jan</span><span data-i18n="feb">Feb</span><span
-                        data-i18n="mar">Mar</span><span data-i18n="apr">Apr</span><span data-i18n="may">May</span><span
-                        data-i18n="jun">Jun</span><span data-i18n="jul">Jul</span><span data-i18n="aug">Aug</span><span
-                        data-i18n="sep">Sep</span><span data-i18n="oct">Oct</span><span data-i18n="nov">Nov</span><span
-                        data-i18n="dec">Dec</span>
-                </div>
-            </div>
-
-            <!-- HAZID/HAZOP by Month -->
-            <div onclick="navigateTo('schedule')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #e74c3c; margin-bottom: 8px;"
-                    data-i18n="hazidHazopMeetingByMonth">⚠️ HAZID/HAZOP
-                    Meeting by Month</div>
-                <div id="monthly-hazid-chart"
-                    style="height: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px;">
-                </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span data-i18n="jan">Jan</span><span data-i18n="feb">Feb</span><span
-                        data-i18n="mar">Mar</span><span data-i18n="apr">Apr</span><span data-i18n="may">May</span><span
-                        data-i18n="jun">Jun</span><span data-i18n="jul">Jul</span><span data-i18n="aug">Aug</span><span
-                        data-i18n="sep">Sep</span><span data-i18n="oct">Oct</span><span data-i18n="nov">Nov</span><span
-                        data-i18n="dec">Dec</span>
-                </div>
-            </div>
-
-            <!-- CSMS PB Audit by Month -->
-            <div onclick="navigateTo('schedule')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #27ae60; margin-bottom: 8px;"
-                    data-i18n="csmsPbAuditByMonth">✅ CSMS PB Audit by
-                    Month</div>
-                <div id="monthly-csms-chart"
-                    style="height: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px;">
-                </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span data-i18n="jan">Jan</span><span data-i18n="feb">Feb</span><span
-                        data-i18n="mar">Mar</span><span data-i18n="apr">Apr</span><span data-i18n="may">May</span><span
-                        data-i18n="jun">Jun</span><span data-i18n="jul">Jul</span><span data-i18n="aug">Aug</span><span
-                        data-i18n="sep">Sep</span><span data-i18n="oct">Oct</span><span data-i18n="nov">Nov</span><span
-                        data-i18n="dec">Dec</span>
-                </div>
-            </div>
-
             <!-- Projects by Month -->
             <div onclick="navigateTo('projects')"
                 style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
@@ -1799,16 +1673,6 @@
                     style="height: 100px; display: flex; align-items: flex-end; gap: 4px; overflow-x: auto;"></div>
             </div>
 
-            <!-- Schedules per Project -->
-            <div onclick="navigateTo('schedule')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #3498db; margin-bottom: 8px;"
-                    data-i18n="schedulesPerProject">📅 Schedules per
-                    Project</div>
-                <div id="project-schedules-chart"
-                    style="height: 100px; display: flex; align-items: flex-end; gap: 4px; overflow-x: auto;"></div>
-            </div>
-
             <!-- Task Completion Rate per Project -->
             <div onclick="navigateTo('projects')"
                 style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
@@ -1832,218 +1696,6 @@
                 <button onclick="loadDashboardStats()" class="btn btn-cancel" style="flex: 1; min-width: 120px;">
                     🔄 <span data-i18n="refreshStats">Refresh Stats</span>
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Schedule Screen -->
-    <section class="screen" id="screen-schedule" style="overflow-y: auto; height: calc(100vh - 130px);">
-        <!-- Header with icon -->
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-            <svg viewBox="0 0 24 24" fill="var(--netflix-red)" width="28" height="28">
-                <path
-                    d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z" />
-            </svg>
-            <h2 style="font-size: 24px; font-weight: 700;" data-i18n="schedule">Schedule</h2>
-        </div>
-
-        <!-- Create New Schedule Form -->
-        <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-            <h3 style="font-size: 18px; margin-bottom: 20px;" data-i18n="createSchedule">Create New Schedule</h3>
-
-            <form id="schedule-form">
-                <!-- Schedule Type Selector -->
-                <div class="form-group">
-                    <label class="form-label"><span data-i18n="scheduleType">Schedule Type</span> <span>*</span></label>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <div class="schedule-type-chip active" data-type="mwt" onclick="selectScheduleType('mwt')">
-                            <span data-i18n="mwtPlan">📅 MWT Plan</span>
-                        </div>
-                        <div class="schedule-type-chip" data-type="hse" onclick="selectScheduleType('hse')">
-                            <span data-i18n="hseCommittee">🏢 HSE Committee</span>
-                        </div>
-                        <div class="schedule-type-chip" data-type="csms" onclick="selectScheduleType('csms')">
-                            <span data-i18n="csmsPbAudit">✅ CSMS PB Audit</span>
-                        </div>
-                        <div class="schedule-type-chip" data-type="hseplan" onclick="selectScheduleType('hseplan')">
-                            <span data-i18n="hsePlanMeeting">📋 HSE Plan Meeting</span>
-                        </div>
-                        <div class="schedule-type-chip" data-type="spr" onclick="selectScheduleType('spr')">
-                            <span data-i18n="sprMeeting">📊 SPR Meeting</span>
-                        </div>
-                        <div class="schedule-type-chip" data-type="hazid" onclick="selectScheduleType('hazid')">
-                            <span data-i18n="hazidHazop">⚠️ HAZID/HAZOP</span>
-                        </div>
-                    </div>
-                    <input type="hidden" name="schedule_type" id="schedule-type-input" value="mwt">
-                </div>
-
-                <!-- Project Name - Dropdown -->
-                <div class="form-group">
-                    <label class="form-label"><span data-i18n="projectName">Project Name</span> <span>*</span></label>
-                    <select class="form-input" name="project_id" id="schedule-project-select" required
-                        style="cursor: pointer;">
-                        <option value="" data-i18n="selectAProject">Select a project</option>
-                    </select>
-                </div>
-
-                <!-- Well Name -->
-                <div class="form-group">
-                    <label class="form-label"><span data-i18n="wellName">Well Name</span> <span>*</span></label>
-                    <input type="text" class="form-input" name="well_name" placeholder="Enter well name"
-                        data-placeholder="enterWellName" required>
-                </div>
-
-                <!-- MWT Plan Date -->
-                <div class="form-group schedule-date-field" id="mwt-date-group">
-                    <label class="form-label" data-i18n="mwtPlanDate">MWT Plan Date <span>*</span></label>
-                    <div class="date-input-wrap">
-                        <input type="date" class="form-input" name="mwt_plan_date" id="mwt-date-input">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- HSE Committee Meeting Plan -->
-                <div class="form-group schedule-date-field" id="hse-date-group" style="display: none;">
-                    <label class="form-label" data-i18n="hseCommitteeMeetingDate">HSE Committee Meeting Date
-                        <span>*</span></label>
-                    <div class="date-input-wrap">
-                        <input type="date" class="form-input" name="hse_meeting_date" id="hse-date-input">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- CSMS PB Audit Date -->
-                <div class="form-group schedule-date-field" id="csms-date-group" style="display: none;">
-                    <label class="form-label" data-i18n="csmsPbAuditDate">CSMS PB Audit Date <span>*</span></label>
-                    <div class="date-input-wrap">
-                        <input type="date" class="form-input" name="csms_pb_date" id="csms-date-input">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- HSE Plan Meeting Date -->
-                <div class="form-group schedule-date-field" id="hseplan-date-group" style="display: none;">
-                    <label class="form-label" data-i18n="hsePlanMeetingDate">HSE Plan Meeting Date
-                        <span>*</span></label>
-                    <div class="date-input-wrap">
-                        <input type="date" class="form-input" name="hseplan_date" id="hseplan-date-input">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- SPR Meeting Date -->
-                <div class="form-group schedule-date-field" id="spr-date-group" style="display: none;">
-                    <label class="form-label" data-i18n="sprMeetingDate">SPR Meeting Date <span>*</span></label>
-                    <div class="date-input-wrap">
-                        <input type="date" class="form-input" name="spr_date" id="spr-date-input">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- HAZID/HAZOP Meeting Date -->
-                <div class="form-group schedule-date-field" id="hazid-date-group" style="display: none;">
-                    <label class="form-label" data-i18n="hazidHazopMeetingDate">HAZID/HAZOP Meeting Date
-                        <span>*</span></label>
-                    <div class="date-input-wrap">
-                        <input type="date" class="form-input" name="hazid_date" id="hazid-date-input">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- PIC Section -->
-                <div class="form-group">
-                    <label class="form-label" data-i18n="pic"
-                        style="font-weight: 600; font-size: 16px; margin-bottom: 16px;">PIC</label>
-
-                    <!-- PIC Name -->
-                    <div style="margin-bottom: 12px;">
-                        <input type="text" class="form-input" name="pic_name" placeholder="Name"
-                            data-placeholder="namePlaceholder" value="ADE" required>
-                    </div>
-
-                    <!-- Assigned To Email -->
-                    <div>
-                        <input type="email" class="form-input" name="assigned_to_email"
-                            placeholder="Email (e.g. john@weatherford.com)" data-placeholder="emailPlaceholder"
-                            required>
-                        <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;"
-                            data-i18n="emailNotification">
-                            An email notification will be sent to this address
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Create Schedule Button -->
-                <button type="button" class="btn btn-save" style="width: 100%; margin-top: 8px;"
-                    onclick="createSchedule()">
-                    <span data-i18n="createSchedule">Create Schedule</span>
-                </button>
-            </form>
-        </div>
-
-        <!-- Upcoming Schedules Section -->
-        <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--netflix-red);"
-                data-i18n="allUpcomingSchedules">
-                📋 All Upcoming Schedules
-            </h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;"
-                data-i18n="allCreatedSchedulesByType">All created schedules by type</p>
-            <div id="upcoming-schedules-list">
-                <!-- Populated by JS -->
-            </div>
-        </div>
-
-        <!-- MWT Plan Schedule Calendar -->
-        <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--netflix-red);"
-                data-i18n="mwtPlanSchedule">
-                MWT Plan Schedule
-            </h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;"
-                data-i18n="showingUpcoming3Months">Showing upcoming 3 months</p>
-            <!-- Month Filter -->
-            <div id="mwt-month-filter" style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
-                <!-- Populated by JS -->
-            </div>
-            <div id="mwt-calendar" style="min-height: 60px;">
-                <!-- Populated by JS -->
-            </div>
-        </div>
-
-        <!-- HSE Committee Meeting Schedule -->
-        <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--netflix-red);"
-                data-i18n="hseCommitteeMeetingSchedule">
-                HSE Committee Meeting Schedule
-            </h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;"
-                data-i18n="showingUpcoming3Months">Showing upcoming 3 months</p>
-            <!-- Month Filter -->
-            <div id="hse-month-filter" style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
-                <!-- Populated by JS -->
-            </div>
-            <div id="hse-calendar" style="min-height: 60px;">
-                <!-- Populated by JS -->
             </div>
         </div>
     </section>
@@ -5182,9 +4834,37 @@
         }
     }
 
+    // ===== HOME DASHBOARD DATA =====
+    async function loadHomeDashboardData() {
+        try {
+            // Fetch KPI count
+            const kpiRes = await fetch('/programs');
+            const kpiData = await kpiRes.json();
+            document.getElementById('home-kpi-count').textContent = kpiData.length || 0;
+
+            // Fetch LL count
+            const llRes = await fetch('/ll-indicator');
+            const llData = await llRes.json();
+            document.getElementById('home-ll-count').textContent = llData.indicators?.length || 0;
+
+            // Fetch OTP count
+            const otpRes = await fetch('/otp?base=all');
+            const otpData = await otpRes.json();
+            document.getElementById('home-otp-count').textContent = otpData.programs?.length || 0;
+
+            // Fetch Matrix count
+            const matrixRes = await fetch('/matrix?base=all');
+            const matrixData = await matrixRes.json();
+            document.getElementById('home-matrix-count').textContent = matrixData.programs?.length || 0;
+        } catch (error) {
+            console.error('Error loading dashboard data:', error);
+        }
+    }
+
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', () => {
         loadData();
+        loadHomeDashboardData();
     });
 
     // ===== NAVIGATION =====
@@ -5197,13 +4877,14 @@
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         document.querySelectorAll('.drawer-item').forEach(n => n.classList.remove('active'));
 
-        document.querySelectorAll('.nav-item')[['home', 'hse-programs', 'tasks', 'statistics', 'schedule'].indexOf(screen)]?.classList.add('active');
+        document.querySelectorAll('.nav-item')[['home', 'hse-programs', 'tasks', 'statistics'].indexOf(screen)]?.classList.add('active');
 
         // Close drawer
         document.querySelector('.drawer').classList.remove('active');
         document.querySelector('.drawer-overlay').classList.remove('active');
 
         // Load specific screen data
+        if (screen === 'home') loadHomeDashboardData();
         if (screen === 'statistics') updateStatistics();
         if (screen === 'hse-kpi') renderKPIDashboard();
         if (screen === 'll-indicator') { loadLLData(); renderLLIndicator(); }
@@ -5211,10 +4892,6 @@
         if (screen === 'matrix') { loadMatrixData(); }
         if (screen === 'calendar') {
             loadCalendarEvents().then(() => renderMeetingCalendar());
-        }
-        if (screen === 'schedule') {
-            populateProjectDropdown();
-            loadSchedules();
         }
         if (screen === 'related-docs') {
             populateDocProjectDropdown();
