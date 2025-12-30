@@ -2062,12 +2062,11 @@
             </div>
         </div>
 
-        <!-- Meeting Calendar Section -->
+        <!-- Calendar Section (OTP/Matrix Events) -->
         <div
             style="background: var(--bg-secondary); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid var(--border);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <div style="font-size: 16px; font-weight: 600; color: #3498db;" data-i18n="meetingCalendar">📋 Meeting
-                    Calendar</div>
+                <div style="font-size: 16px; font-weight: 600; color: #3498db;">📅 Calendar</div>
                 <div style="display: flex; gap: 4px;">
                     <button id="meeting-weekly-btn" onclick="setMeetingCalendarView('weekly')"
                         style="background: var(--netflix-red); border: none; color: white; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600;"
@@ -2096,234 +2095,28 @@
             </div>
             <div id="meeting-calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;">
             </div>
+            <!-- Legend for OTP/Matrix events -->
             <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 11px;">
                 <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 8px; height: 8px; background: #3498db; border-radius: 50%;"></span> MWT
+                    <span style="width: 10px; height: 10px; background: #f1c40f; border-radius: 2px;"></span> 📋 Plan
+                    Date
                 </div>
                 <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 8px; height: 8px; background: #9b59b6; border-radius: 50%;"></span> HSE
-                    Committee
+                    <span style="width: 10px; height: 10px; background: #27ae60; border-radius: 2px;"></span> ✅
+                    Implemented
                 </div>
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 8px; height: 8px; background: #27ae60; border-radius: 50%;"></span> CSMS PB
-                </div>
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 8px; height: 8px; background: #e67e22; border-radius: 50%;"></span> HSE Plan
-                </div>
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 8px; height: 8px; background: #1abc9c; border-radius: 50%;"></span> SPR
-                </div>
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 8px; height: 8px; background: #e74c3c; border-radius: 50%;"></span> HAZID/HAZOP
-                </div>
-            </div>
-        </div>
-
-        <!-- Project Calendar Section -->
-        <div
-            style="background: var(--bg-secondary); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid var(--border);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <div style="font-size: 16px; font-weight: 600; color: var(--netflix-red);" data-i18n="projectCalendar">
-                    📁 Project Calendar</div>
-                <div style="display: flex; gap: 4px;">
-                    <button id="project-weekly-btn" onclick="setProjectCalendarView('weekly')"
-                        style="background: var(--netflix-red); border: none; color: white; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600;"
-                        data-i18n="weekly">Weekly</button>
-                    <button id="project-monthly-btn" onclick="setProjectCalendarView('monthly')"
-                        style="background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px;"
-                        data-i18n="monthly">Monthly</button>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <button onclick="changeProjectCalendarMonth(-1)"
-                    style="background: var(--bg-tertiary); border: none; color: var(--text-primary); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px;">◀</button>
-                <h3 id="project-calendar-month-title" style="font-size: 16px; font-weight: 700; margin: 0;"></h3>
-                <button onclick="changeProjectCalendarMonth(1)"
-                    style="background: var(--bg-tertiary); border: none; color: var(--text-primary); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px;">▶</button>
-            </div>
-            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
                 <div
-                    style="display: grid; grid-template-columns: repeat(7, minmax(45px, 1fr)); gap: 2px; margin-bottom: 4px; text-align: center; min-width: 350px;">
-                    <div style="font-size: 10px; color: var(--text-muted); font-weight: 600; padding: 2px;">Sun</div>
-                    <div style="font-size: 10px; color: var(--text-muted); font-weight: 600; padding: 2px;">Mon</div>
-                    <div style="font-size: 10px; color: var(--text-muted); font-weight: 600; padding: 2px;">Tue</div>
-                    <div style="font-size: 10px; color: var(--text-muted); font-weight: 600; padding: 2px;">Wed</div>
-                    <div style="font-size: 10px; color: var(--text-muted); font-weight: 600; padding: 2px;">Thu</div>
-                    <div style="font-size: 10px; color: var(--text-muted); font-weight: 600; padding: 2px;">Fri</div>
-                    <div style="font-size: 10px; color: var(--text-muted); font-weight: 600; padding: 2px;">Sat</div>
-                </div>
-                <div id="project-calendar-grid"
-                    style="display: grid; grid-template-columns: repeat(7, minmax(45px, 1fr)); gap: 2px; min-width: 350px;">
-                </div>
-            </div>
-            <div id="project-calendar-legend"
-                style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; font-size: 10px;">
-                <!-- Project legend will be populated by JS -->
-            </div>
-        </div>
-
-        <!-- HSE Annual Plan Matrix -->
-        <div
-            style="background: var(--bg-secondary); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid var(--border);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <div style="font-size: 16px; font-weight: 600; color: #27ae60;">📊 HSE Annual Plan Matrix</div>
-                <div style="display: flex; gap: 4px;">
-                    <button onclick="changeAnnualPlanYear(-1)"
-                        style="background: var(--bg-tertiary); border: none; color: var(--text-primary); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 12px;">◀</button>
-                    <span id="annual-plan-year" style="padding: 4px 12px; font-weight: 600;">2025</span>
-                    <button onclick="changeAnnualPlanYear(1)"
-                        style="background: var(--bg-tertiary); border: none; color: var(--text-primary); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 12px;">▶</button>
-                </div>
-            </div>
-            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Plan vs Actual implementation
-                tracking for HSE Programs and Tasks</p>
-
-            <!-- Annual Matrix Container -->
-            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-                <table id="annual-plan-table"
-                    style="width: 100%; min-width: 1200px; border-collapse: collapse; font-size: 11px;">
-                    <thead>
-                        <tr style="background: var(--bg-tertiary);">
-                            <th rowspan="2"
-                                style="padding: 8px; text-align: left; border: 1px solid var(--border); min-width: 200px; position: sticky; left: 0; background: var(--bg-tertiary); z-index: 1;">
-                                HSE Program / Task</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #e74c3c; color: white;">
-                                Jan</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #e67e22; color: white;">
-                                Feb</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #f1c40f; color: #333;">
-                                Mar</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #2ecc71; color: white;">
-                                Apr</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #1abc9c; color: white;">
-                                May</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #3498db; color: white;">
-                                Jun</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #9b59b6; color: white;">
-                                Jul</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #e91e63; color: white;">
-                                Aug</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #00bcd4; color: white;">
-                                Sep</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #ff5722; color: white;">
-                                Oct</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #795548; color: white;">
-                                Nov</th>
-                            <th colspan="2"
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); background: #607d8b; color: white;">
-                                Dec</th>
-                        </tr>
-                        <tr style="background: var(--bg-secondary);">
-                            <!-- Plan/Actual sub-headers for each month -->
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #3498db;">
-                                P</th>
-                            <th
-                                style="padding: 4px; text-align: center; border: 1px solid var(--border); font-size: 9px; color: #27ae60;">
-                                A</th>
-                        </tr>
-                    </thead>
-                    <tbody id="annual-plan-body">
-                        <!-- Populated by JS -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Legend -->
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; font-size: 10px;">
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 12px; height: 12px; background: #3498db; border-radius: 2px;"></span> P = Plan
+                    style="display: flex; align-items: center; gap: 4px; border-left: 1px solid var(--border); padding-left: 12px;">
+                    <span style="width: 8px; height: 8px; background: #3498db; border-radius: 50%;"></span> OTP
                 </div>
                 <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 12px; height: 12px; background: #27ae60; border-radius: 2px;"></span> A = Actual
-                </div>
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 12px; height: 12px; background: #2ecc71; border-radius: 2px;"></span> ✓ =
-                    Completed
-                </div>
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 12px; height: 12px; background: #e74c3c; border-radius: 2px;"></span> ✗ = Missed
+                    <span style="width: 8px; height: 8px; background: #9b59b6; border-radius: 50%;"></span> Matrix
                 </div>
             </div>
         </div>
     </section>
+
+
 
 
     <!-- HSE KPI Dashboard Screen -->
@@ -5417,8 +5210,7 @@
         if (screen === 'otp') { loadOTPData(); }
         if (screen === 'matrix') { loadMatrixData(); }
         if (screen === 'calendar') {
-            renderMeetingCalendar();
-            renderProjectCalendar();
+            loadCalendarEvents().then(() => renderMeetingCalendar());
         }
         if (screen === 'schedule') {
             populateProjectDropdown();
@@ -5868,7 +5660,7 @@
                 closeCreateModal();
                 await loadData(); // Wait for data to reload
                 updateStatistics(); // Refresh statistics dashboard
-                renderProjectCalendar(); // Refresh Calendar
+                loadCalendarEvents().then(() => renderMeetingCalendar()); // Refresh Calendar
 
                 // Open the newly created program's detail view
                 if (newProgram && newProgram.id) {
@@ -7658,55 +7450,54 @@
         renderMeetingCalendar();
     }
 
+    // Calendar events cache
+    let calendarEvents = [];
+
+    async function loadCalendarEvents() {
+        try {
+            const res = await fetch(`${API_BASE}/calendar-events`);
+            if (res.ok) {
+                const data = await res.json();
+                calendarEvents = data.events || [];
+            }
+        } catch (err) {
+            console.error('Error loading calendar events:', err);
+        }
+    }
+
     function renderMeetingCalendar() {
         const grid = document.getElementById('meeting-calendar-grid');
         const titleEl = document.getElementById('meeting-calendar-month-title');
         if (!grid || !titleEl) return;
 
-        // Schedule type config
-        const typeColors = {
-            mwt: '#3498db', hse: '#9b59b6', csms: '#27ae60',
-            hseplan: '#e67e22', spr: '#1abc9c', hazid: '#e74c3c'
-        };
-        const typeLabels = {
-            mwt: 'MWT', hse: 'HSE', csms: 'CSMS PB',
-            hseplan: 'HSE Plan', spr: 'SPR', hazid: 'HAZID'
-        };
-        const typeFields = {
-            mwt: 'mwt_plan_date', hse: 'hse_meeting_date', csms: 'csms_pb_date',
-            hseplan: 'hseplan_date', spr: 'spr_date', hazid: 'hazid_date'
-        };
+        // Colors for plan and implementation dates
+        const PLAN_COLOR = '#f1c40f'; // Yellow
+        const IMPL_COLOR = '#27ae60'; // Green
+        const OTP_ACCENT = '#3498db'; // Blue for OTP
+        const MATRIX_ACCENT = '#9b59b6'; // Purple for Matrix
 
-        const renderMeetingCard = (s, dateStr) => {
-            const type = s.schedule_type || 'mwt';
-            const field = typeFields[type];
-            if (s[field] === dateStr) {
-                const name = s.well || s.project_name || typeLabels[type];
-                const pic = s.pic_name || 'N/A';
-                return `<div onclick="navigateTo('schedule')" 
-                     style="background: ${typeColors[type]}22; border-left: 3px solid ${typeColors[type]}; 
-                            padding: 4px 6px; margin: 2px 0; border-radius: 4px; cursor: pointer; font-size: 9px;">
-                    <div style="font-weight: 600; color: ${typeColors[type]}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name}</div>
-                    <div style="color: var(--text-muted); font-size: 8px;">${typeLabels[type]} • ${pic}</div>
-                </div>`;
-            }
-            return '';
-        };
+        // Render event card for plan_date or impl_date
+        const renderEventCard = (event, dateStr, isPlan) => {
+            const targetDate = isPlan ? event.plan_date : event.impl_date;
+            if (targetDate !== dateStr) return '';
 
-        // Render task card for tasks with implementation_date
-        const renderTaskCard = (task, dateStr) => {
-            if (task.implementation_date === dateStr) {
-                const statusColor = task.status === 'Completed' ? '#27ae60' : (task.status === 'In Progress' ? '#f39c12' : '#3498db');
-                const name = task.title || task.code || 'Task';
-                const pic = task.pic_name || 'N/A';
-                return `<div onclick="showTaskDetail('${task.id}')" 
-                     style="background: ${statusColor}22; border-left: 3px solid ${statusColor}; 
-                            padding: 4px 6px; margin: 2px 0; border-radius: 4px; cursor: pointer; font-size: 9px;">
-                    <div style="font-weight: 600; color: ${statusColor}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name.substring(0, 20)}</div>
-                    <div style="color: var(--text-muted); font-size: 8px;">📋 ${task.code || ''} • ${pic}</div>
-                </div>`;
-            }
-            return '';
+            const color = isPlan ? PLAN_COLOR : IMPL_COLOR;
+            const sourceColor = event.source === 'otp' ? OTP_ACCENT : MATRIX_ACCENT;
+            const sourceLabel = event.source === 'otp' ? 'OTP' : 'Matrix';
+            const categoryLabel = event.category ? ` (${event.category})` : '';
+            const typeLabel = isPlan ? '📋' : '✅';
+            const pic = event.pic_name || 'N/A';
+            const name = event.program_name || 'Unknown';
+
+            // Navigate to appropriate screen on click
+            const navigateTarget = event.source === 'otp' ? 'screen-otp' : 'screen-matrix';
+
+            return `<div onclick="showScreen('${navigateTarget}')" 
+                 style="background: ${color}22; border-left: 3px solid ${color}; 
+                        padding: 4px 6px; margin: 2px 0; border-radius: 4px; cursor: pointer; font-size: 9px;">
+                <div style="font-weight: 600; color: ${color}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${typeLabel} ${name}</div>
+                <div style="color: var(--text-muted); font-size: 8px;">${sourceLabel}${categoryLabel} • ${pic}</div>
+            </div>`;
         };
 
         let html = '';
@@ -7726,9 +7517,23 @@
                 const isToday = new Date().toDateString() === currentDay.toDateString();
                 const dayName = currentDay.toLocaleDateString('en-US', { weekday: 'short' });
 
-                let meetings = '';
-                allSchedules.forEach(s => { meetings += renderMeetingCard(s, dateStr); });
-                allTasks.forEach(t => { meetings += renderTaskCard(t, dateStr); });
+                let events = '';
+                calendarEvents.forEach(e => {
+                    events += renderEventCard(e, dateStr, true); // Plan date
+                    events += renderEventCard(e, dateStr, false); // Impl date
+                });
+                // Also show tasks with implementation_date
+                allTasks.forEach(t => {
+                    if (t.implementation_date === dateStr) {
+                        const statusColor = t.status === 'Completed' ? '#27ae60' : '#f39c12';
+                        events += `<div onclick="showTaskDetail('${t.id}')" 
+                             style="background: ${statusColor}22; border-left: 3px solid ${statusColor}; 
+                                    padding: 4px 6px; margin: 2px 0; border-radius: 4px; cursor: pointer; font-size: 9px;">
+                            <div style="font-weight: 600; color: ${statusColor}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">📋 ${(t.title || t.code || 'Task').substring(0, 20)}</div>
+                            <div style="color: var(--text-muted); font-size: 8px;">Task • ${t.pic_name || 'N/A'}</div>
+                        </div>`;
+                    }
+                });
 
                 html += `
                     <div style="background: ${isToday ? 'rgba(229, 9, 20, 0.15)' : 'var(--bg-tertiary)'}; 
@@ -7737,7 +7542,7 @@
                             <div style="font-size: 10px; color: var(--text-muted);">${dayName}</div>
                             <div style="font-size: 14px; font-weight: ${isToday ? '700' : '600'}; color: ${isToday ? 'var(--netflix-red)' : 'var(--text-primary)'};">${currentDay.getDate()}</div>
                         </div>
-                        <div style="max-height: 120px; overflow-y: auto;">${meetings || '<div style="font-size: 9px; color: var(--text-muted); text-align: center;">-</div>'}</div>
+                        <div style="max-height: 120px; overflow-y: auto;">${events || '<div style="font-size: 9px; color: var(--text-muted); text-align: center;">-</div>'}</div>
                     </div>
                 `;
             }
@@ -7759,15 +7564,29 @@
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const isToday = new Date().toDateString() === new Date(year, month, day).toDateString();
 
-                let meetings = '';
-                allSchedules.forEach(s => { meetings += renderMeetingCard(s, dateStr); });
-                allTasks.forEach(t => { meetings += renderTaskCard(t, dateStr); });
+                let events = '';
+                calendarEvents.forEach(e => {
+                    events += renderEventCard(e, dateStr, true); // Plan date
+                    events += renderEventCard(e, dateStr, false); // Impl date
+                });
+                // Also show tasks with implementation_date
+                allTasks.forEach(t => {
+                    if (t.implementation_date === dateStr) {
+                        const statusColor = t.status === 'Completed' ? '#27ae60' : '#f39c12';
+                        events += `<div onclick="showTaskDetail('${t.id}')" 
+                             style="background: ${statusColor}22; border-left: 3px solid ${statusColor}; 
+                                    padding: 4px 6px; margin: 2px 0; border-radius: 4px; cursor: pointer; font-size: 9px;">
+                            <div style="font-weight: 600; color: ${statusColor}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">📋 ${(t.title || t.code || 'Task').substring(0, 20)}</div>
+                            <div style="color: var(--text-muted); font-size: 8px;">Task • ${t.pic_name || 'N/A'}</div>
+                        </div>`;
+                    }
+                });
 
                 html += `
                     <div style="background: ${isToday ? 'rgba(229, 9, 20, 0.15)' : 'var(--bg-tertiary)'}; 
                          border-radius: 6px; padding: 4px; min-height: 60px; ${isToday ? 'border: 2px solid var(--netflix-red);' : ''}">
                         <div style="font-size: 11px; font-weight: ${isToday ? '700' : '500'}; color: ${isToday ? 'var(--netflix-red)' : 'var(--text-primary)'}; text-align: center; margin-bottom: 2px;">${day}</div>
-                        <div style="max-height: 80px; overflow-y: auto;">${meetings}</div>
+                        <div style="max-height: 80px; overflow-y: auto;">${events}</div>
                     </div>
                 `;
             }
@@ -7784,194 +7603,6 @@
         renderMeetingCalendar();
     }
 
-    // ===== PROJECT CALENDAR =====
-    let projectCalendarDate = new Date();
-    let projectCalendarView = 'weekly'; // 'weekly' or 'monthly'
-    const projectColors = ['#e74c3c', '#3498db', '#27ae60', '#f1c40f', '#9b59b6', '#1abc9c', '#e67e22', '#34495e', '#16a085', '#c0392b'];
-
-    function setProjectCalendarView(view) {
-        projectCalendarView = view;
-        const weeklyBtn = document.getElementById('project-weekly-btn');
-        const monthlyBtn = document.getElementById('project-monthly-btn');
-        if (weeklyBtn && monthlyBtn) {
-            if (view === 'weekly') {
-                weeklyBtn.style.background = 'var(--netflix-red)';
-                weeklyBtn.style.color = 'white';
-                weeklyBtn.style.border = 'none';
-                monthlyBtn.style.background = 'var(--bg-tertiary)';
-                monthlyBtn.style.color = 'var(--text-primary)';
-                monthlyBtn.style.border = '1px solid var(--border)';
-            } else {
-                monthlyBtn.style.background = 'var(--netflix-red)';
-                monthlyBtn.style.color = 'white';
-                monthlyBtn.style.border = 'none';
-                weeklyBtn.style.background = 'var(--bg-tertiary)';
-                weeklyBtn.style.color = 'var(--text-primary)';
-                weeklyBtn.style.border = '1px solid var(--border)';
-            }
-        }
-        renderProjectCalendar();
-    }
-
-    function renderProjectCalendar() {
-        const grid = document.getElementById('project-calendar-grid');
-        const titleEl = document.getElementById('project-calendar-month-title');
-        const legendEl = document.getElementById('project-calendar-legend');
-        if (!grid || !titleEl) return;
-
-        // Assign colors to projects
-        const projectColorMap = {};
-        allProjects.forEach((p, i) => {
-            projectColorMap[p.id] = projectColors[i % projectColors.length];
-        });
-
-        let html = '';
-
-        if (projectCalendarView === 'weekly') {
-            // WEEKLY VIEW - Similar to Meeting Calendar but with spanning bars
-            // Helper to format date as YYYY-MM-DD string
-            const toDateStr = (d) => {
-                const year = d.getFullYear();
-                const month = String(d.getMonth() + 1).padStart(2, '0');
-                const day = String(d.getDate()).padStart(2, '0');
-                return `${year}-${month}-${day}`;
-            };
-
-            const weekStart = new Date(projectCalendarDate);
-            weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-            const weekEnd = new Date(weekStart);
-            weekEnd.setDate(weekEnd.getDate() + 6);
-
-            // Generate array of date strings for this week
-            const weekDates = [];
-            for (let i = 0; i < 7; i++) {
-                const d = new Date(weekStart);
-                d.setDate(d.getDate() + i);
-                weekDates.push(toDateStr(d));
-            }
-
-            titleEl.textContent = `${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-
-            // Build day cells - output directly without wrapper (parent already has grid)
-            html = '';
-
-            for (let i = 0; i < 7; i++) {
-                const currentDay = new Date(weekStart);
-                currentDay.setDate(currentDay.getDate() + i);
-                const isToday = toDateStr(new Date()) === weekDates[i];
-
-                // Build project cards for THIS day (stacked vertically in the cell)
-                let dayCards = '';
-                allProjects.forEach(p => {
-                    const projStart = p.start_date ? String(p.start_date).split('T')[0] : null;
-                    const projEnd = (p.rig_down_date || p.rig_down) ? String(p.rig_down_date || p.rig_down).split('T')[0] : null;
-
-                    if (!projStart || !projEnd) return;
-
-                    // Check if this day is within project range
-                    if (weekDates[i] >= projStart && weekDates[i] <= projEnd) {
-                        const color = projectColorMap[p.id];
-                        const name = p.name || p.well || 'Project';
-                        const well = p.well_name || p.well || p.name || '';
-
-                        dayCards += `
-                            <div onclick="navigateTo('projects')" 
-                                 style="background: ${color}22; border-left: 3px solid ${color}; 
-                                        padding: 4px 6px; margin: 2px 0; border-radius: 4px; cursor: pointer; font-size: 9px;">
-                                <div style="font-weight: 600; color: ${color}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name}</div>
-                                <div style="color: var(--text-muted); font-size: 8px;">${well}</div>
-                            </div>`;
-                    }
-                });
-
-                html += `
-                    <div style="background: ${isToday ? 'rgba(229, 9, 20, 0.15)' : 'var(--bg-tertiary)'}; 
-                         border-radius: 8px; padding: 6px; min-height: 80px; ${isToday ? 'border: 2px solid var(--netflix-red);' : 'border: 1px solid var(--border);'}">
-                        <div style="text-align: center; margin-bottom: 4px;">
-                            <div style="font-size: 16px; font-weight: ${isToday ? '700' : '600'}; color: ${isToday ? 'var(--netflix-red)' : 'var(--text-primary)'};">${currentDay.getDate()}</div>
-                        </div>
-                        <div style="max-height: 120px; overflow-y: auto;">${dayCards || '<div style="font-size: 9px; color: var(--text-muted); text-align: center;">-</div>'}</div>
-                </div>
-                `;
-            }
-
-            // Show project count
-            const projectCount = allProjects.filter(p => {
-                const s = p.start_date ? String(p.start_date).split('T')[0] : null;
-                const e = (p.rig_down_date || p.rig_down) ? String(p.rig_down_date || p.rig_down).split('T')[0] : null;
-                return s && e && !(e < weekDates[0] || s > weekDates[6]);
-            }).length;
-
-            if (projectCount === 0) {
-                html += '<div style="text-align: center; color: var(--text-muted); padding: 20px; font-size: 12px;">No projects scheduled for this week</div>';
-            }
-
-        } else {
-            // MONTHLY VIEW - output cells directly (parent already has grid)
-            const year = projectCalendarDate.getFullYear();
-            const month = projectCalendarDate.getMonth();
-            titleEl.textContent = new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-
-            const firstDay = new Date(year, month, 1);
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const startingDay = firstDay.getDay();
-
-            // Output cells directly without wrapper
-            html = '';
-
-            for (let i = 0; i < startingDay; i++) {
-                html += '<div style="padding: 4px; min-height: 60px;"></div>';
-            }
-
-            for (let day = 1; day <= daysInMonth; day++) {
-                const currentDay = new Date(year, month, day);
-                const isToday = new Date().toDateString() === currentDay.toDateString();
-
-                let projectCards = '';
-                allProjects.forEach(p => {
-                    const startDate = p.start_date ? new Date(p.start_date) : null;
-                    const endDate = (p.rig_down_date || p.rig_down) ? new Date(p.rig_down_date || p.rig_down) : null;
-                    if (startDate && endDate && currentDay >= startDate && currentDay <= endDate) {
-                        const color = projectColorMap[p.id];
-                        const name = p.name || p.well || 'Project';
-                        projectCards += `<div onclick="navigateTo('projects')" 
-                             style="background: ${color}22; border-left: 3px solid ${color}; 
-                                    padding: 2px 4px; margin: 1px 0; border-radius: 3px; cursor: pointer; font-size: 8px;">
-                            <div style="font-weight: 600; color: ${color}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${name}</div>
-                        </div>`;
-                    }
-                });
-
-                html += `
-                    <div style="background: ${isToday ? 'rgba(229, 9, 20, 0.15)' : 'var(--bg-tertiary)'}; 
-                         border-radius: 6px; padding: 4px; min-height: 60px; ${isToday ? 'border: 2px solid var(--netflix-red);' : ''}">
-                        <div style="font-size: 11px; font-weight: ${isToday ? '700' : '500'}; color: ${isToday ? 'var(--netflix-red)' : 'var(--text-primary)'}; text-align: center; margin-bottom: 2px;">${day}</div>
-                        <div style="max-height: 80px; overflow-y: auto;">${projectCards}</div>
-                    </div>
-                `;
-            }
-        }
-        grid.innerHTML = html;
-
-        // Render legend
-        if (legendEl) {
-            legendEl.innerHTML = allProjects.slice(0, 8).map(p => `
-                <div onclick="navigateTo('projects')" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                    <span style="width: 12px; height: 4px; background: ${projectColorMap[p.id]}; border-radius: 2px;"></span>
-                    <span style="max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${p.name || p.well}">${(p.name || p.well || 'Project').substring(0, 12)}</span>
-                </div>
-            `).join('');
-        }
-    }
-
-    function changeProjectCalendarMonth(delta) {
-        if (projectCalendarView === 'weekly') {
-            projectCalendarDate.setDate(projectCalendarDate.getDate() + (delta * 7));
-        } else {
-            projectCalendarDate.setMonth(projectCalendarDate.getMonth() + delta);
-        }
-        renderProjectCalendar();
-    }
 
     function showCalendarEvents(day, eventsJson) {
         const events = JSON.parse(eventsJson.replace(/&quot;/g, '"'));

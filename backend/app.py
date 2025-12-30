@@ -435,6 +435,84 @@ def get_schedules(session: Session = Depends(get_session)):
 # ===== END LEGACY ENDPOINTS =====
 
 
+# ===== CALENDAR EVENTS API =====
+@app.get("/calendar-events")
+def get_calendar_events():
+    """Get all calendar events from OTP and Matrix screens for calendar display."""
+    events = []
+    
+    # Load OTP Indonesia - all bases
+    for base in ["narogong", "duri", "balikpapan"]:
+        otp_data = load_otp_data(base)
+        for prog in otp_data.get("programs", []):
+            for month_key, month_data in prog.get("months", {}).items():
+                plan_date = month_data.get("plan_date", "")
+                impl_date = month_data.get("impl_date", "")
+                if plan_date or impl_date:
+                    events.append({
+                        "id": prog.get("id"),
+                        "source": "otp",
+                        "region": "indonesia",
+                        "base": base,
+                        "category": None,
+                        "program_name": prog.get("name", "Unknown"),
+                        "month": month_key,
+                        "plan_date": plan_date,
+                        "impl_date": impl_date,
+                        "pic_name": month_data.get("pic_name", ""),
+                        "plan_type": prog.get("plan_type", "")
+                    })
+    
+    # Load OTP Asia
+    otp_asia_path = Path(__file__).parent / "data" / "otp_asia_data.json"
+    if otp_asia_path.exists():
+        with open(otp_asia_path, 'r') as f:
+            otp_asia_data = json.load(f)
+            for prog in otp_asia_data.get("programs", []):
+                for month_key, month_data in prog.get("months", {}).items():
+                    plan_date = month_data.get("plan_date", "")
+                    impl_date = month_data.get("impl_date", "")
+                    if plan_date or impl_date:
+                        events.append({
+                            "id": prog.get("id"),
+                            "source": "otp",
+                            "region": "asia",
+                            "base": None,
+                            "category": None,
+                            "program_name": prog.get("name", "Unknown"),
+                            "month": month_key,
+                            "plan_date": plan_date,
+                            "impl_date": impl_date,
+                            "pic_name": month_data.get("pic_name", ""),
+                            "plan_type": prog.get("plan_type", "")
+                        })
+    
+    # Load Matrix - all categories, Indonesia all bases
+    for category in ["audit", "training", "drill", "meeting"]:
+        for base in ["narogong", "duri", "balikpapan"]:
+            matrix_data = load_matrix_data(category, "indonesia", base)
+            for prog in matrix_data.get("programs", []):
+                for month_key, month_data in prog.get("months", {}).items():
+                    plan_date = month_data.get("plan_date", "")
+                    impl_date = month_data.get("impl_date", "")
+                    if plan_date or impl_date:
+                        events.append({
+                            "id": prog.get("id"),
+                            "source": "matrix",
+                            "region": "indonesia",
+                            "base": base,
+                            "category": category,
+                            "program_name": prog.get("name", "Unknown"),
+                            "month": month_key,
+                            "plan_date": plan_date,
+                            "impl_date": impl_date,
+                            "pic_name": month_data.get("pic_name", ""),
+                            "plan_type": prog.get("plan_type", "")
+                        })
+    
+    return {"events": events}
+
+
 @app.post("/programs", response_model=HSEProgram)
 def create_program(program: ProgramCreate, session: Session = Depends(get_session)):
     """Create a new HSE program."""
