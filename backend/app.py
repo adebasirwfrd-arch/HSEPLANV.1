@@ -1,8 +1,5 @@
 import os
 import json
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta, date
 from contextlib import asynccontextmanager
 from typing import List, Optional
@@ -14,18 +11,17 @@ from fastapi.responses import FileResponse
 from sqlmodel import Session, SQLModel, select, create_engine, func
 from apscheduler.schedulers.background import BackgroundScheduler
 from pydantic import BaseModel
+import requests
 
 from models import HSEProgram, PROGRAM_TYPES
 
 # Configuration
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./hse_management.db")
 
-# Brevo SMTP Configuration
-BREVO_SMTP_SERVER = "smtp-relay.brevo.com"
-BREVO_SMTP_PORT = 587
-BREVO_SMTP_LOGIN = os.getenv("BREVO_SMTP_LOGIN", "ade.basirwfrd@gmail.com")  # Your Brevo account email
-BREVO_SMTP_KEY = os.getenv("BREVO_SMTP_KEY", "")
-SENDER_EMAIL = os.getenv("SENDER_EMAIL", "hse-system@weatherford.com")  # From address
+# Brevo API Configuration (HTTP API - port 443, not blocked by HuggingFace)
+BREVO_API_KEY = os.getenv("BREVO_API_KEY", "")
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "ade.basirwfrd@gmail.com")
+SENDER_NAME = "HSE Management System"
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 
@@ -167,34 +163,37 @@ def generate_reminder_email_html(days_remaining: int, program_name: str, source:
 
 
 def send_email(to_email: str, subject: str, html_body: str):
-    """Send email using Brevo SMTP."""
+    """Send email using Brevo HTTP API (not SMTP - port 443 works on HuggingFace)."""
     if not to_email or not to_email.strip():
         print(f"[EMAIL SKIPPED] No email address provided for: {subject}")
         return False
         
-    if not BREVO_SMTP_KEY:
-        print(f"[EMAIL SKIPPED] No SMTP key configured. Would send to {to_email}: {subject}")
+    if not BREVO_API_KEY:
+        print(f"[EMAIL SKIPPED] No API key configured. Would send to {to_email}: {subject}")
         return False
 
     try:
-        # Create message
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = subject
-        msg['From'] = f"HSE Management System <{SENDER_EMAIL}>"
-        msg['To'] = to_email
+        url = "https://api.brevo.com/v3/smtp/email"
+        headers = {
+            "accept": "application/json",
+            "api-key": BREVO_API_KEY,
+            "content-type": "application/json"
+        }
+        payload = {
+            "sender": {"name": SENDER_NAME, "email": SENDER_EMAIL},
+            "to": [{"email": to_email}],
+            "subject": subject,
+            "htmlContent": html_body
+        }
         
-        # Attach HTML content
-        html_part = MIMEText(html_body, 'html')
-        msg.attach(html_part)
+        response = requests.post(url, json=payload, headers=headers, timeout=30)
         
-        # Connect to Brevo SMTP and send
-        with smtplib.SMTP(BREVO_SMTP_SERVER, BREVO_SMTP_PORT) as server:
-            server.starttls()
-            server.login(BREVO_SMTP_LOGIN, BREVO_SMTP_KEY)
-            server.sendmail(SENDER_EMAIL, to_email, msg.as_string())
-        
-        print(f"[EMAIL SENT] To: {to_email}, Subject: {subject}")
-        return True
+        if response.status_code in [200, 201]:
+            print(f"[EMAIL SENT] To: {to_email}, Subject: {subject}")
+            return True
+        else:
+            print(f"[EMAIL ERROR] API returned {response.status_code}: {response.text}")
+            return False
     except Exception as e:
         print(f"[EMAIL ERROR] Failed to send to {to_email}: {e}")
         return False
