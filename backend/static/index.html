@@ -1074,6 +1074,72 @@
             </div>
         </div>
 
+        <!-- HSE Dashboard - Modern Widgets -->
+        <div
+            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 24px; margin-bottom: 20px;">
+            <div style="font-size: 18px; font-weight: 700; margin-bottom: 20px; color: white;">🎯 HSE Dashboard</div>
+
+            <!-- Widget Grid -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+
+                <!-- KPI Summary Widget -->
+                <div onclick="navigateTo('hse-kpi')"
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 28px;">📊</div>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
+                    </div>
+                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-kpi-count">0</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">KPI Programs</div>
+                </div>
+
+                <!-- LL Indicators Widget -->
+                <div onclick="navigateTo('ll-indicator')"
+                    style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(17,153,142,0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 28px;">📈</div>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
+                    </div>
+                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-ll-count">0</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">LL Indicators</div>
+                </div>
+
+                <!-- OTP Status Widget -->
+                <div onclick="navigateTo('otp')"
+                    style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(245,87,108,0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 28px;">📋</div>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
+                    </div>
+                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-otp-count">0</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">OTP Programs</div>
+                </div>
+
+                <!-- Matrix Overview Widget -->
+                <div onclick="navigateTo('matrix')"
+                    style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(250,112,154,0.4)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 28px;">🗓️</div>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
+                    </div>
+                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-matrix-count">0</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">Matrix Programs</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Leading Indicators Overview -->
         <div
             style="background: var(--bg-secondary); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid var(--border);">
@@ -1482,73 +1548,6 @@
             </div>
             <div id="project-completion-bars" style="max-height: 300px; overflow-y: auto;">
                 <!-- Progress bars will be inserted here -->
-            </div>
-        </div>
-
-        <!-- HSE Dashboard - Modern Widgets -->
-        <div
-            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 24px; margin-bottom: 16px;">
-            <div style="font-size: 18px; font-weight: 700; margin-bottom: 20px; color: white;">🎯 HSE Dashboard</div>
-
-            <!-- Widget Grid -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
-
-                <!-- KPI Summary Widget -->
-                <div onclick="navigateTo('hse-kpi')"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)'"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <div style="font-size: 28px;">📊</div>
-                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
-                    </div>
-                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-kpi-count">0</div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">KPI Programs</div>
-                </div>
-
-                <!-- LL Indicators Widget -->
-                <div onclick="navigateTo('ll-indicator')"
-                    style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(17,153,142,0.4)'"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <div style="font-size: 28px;">📈</div>
-                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
-                    </div>
-                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-ll-count">0</div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">LL Indicators</div>
-                </div>
-
-                <!-- OTP Status Widget -->
-                <div onclick="navigateTo('otp')"
-                    style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(245,87,108,0.4)'"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <div style="font-size: 28px;">📋</div>
-                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
-                    </div>
-                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-otp-count">0</div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">OTP Programs</div>
-                </div>
-
-                <!-- Matrix Overview Widget -->
-                <div onclick="navigateTo('matrix')"
-                    style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(250,112,154,0.4)'"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <div style="font-size: 28px;">🗓️</div>
-                        <span style="font-size: 10px; color: rgba(255,255,255,0.7);">→</span>
-                    </div>
-                    <div style="font-size: 28px; font-weight: 700; color: white;" id="home-matrix-count">0</div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 4px;">Matrix Programs</div>
-                </div>
-
             </div>
         </div>
 
