@@ -288,6 +288,57 @@ def check_otp_matrix_reminders():
     return reminders_sent
 
 
+def check_task_reminders():
+    """Check tasks for upcoming implementation dates and send reminders."""
+    today = date.today()
+    reminders_sent = 0
+    
+    for task in tasks_storage:
+        impl_date_str = task.get("implementation_date", "")
+        if not impl_date_str:
+            continue
+            
+        try:
+            impl_date = datetime.strptime(impl_date_str, "%Y-%m-%d").date()
+        except ValueError:
+            continue
+        
+        days_remaining = (impl_date - today).days
+        
+        # Send reminder if implementation_date is within next 14 days
+        if 0 <= days_remaining <= 14:
+            pic_email = task.get("pic_email", "")
+            pic_name = task.get("pic_name", "N/A")
+            task_title = task.get("title", "Unknown Task")
+            
+            if not pic_email:
+                continue
+            
+            # Determine urgency level
+            if days_remaining <= 3:
+                urgency_prefix = "🚨 CRITICAL: "
+            elif days_remaining <= 7:
+                urgency_prefix = "⚠️ URGENT: "
+            else:
+                urgency_prefix = ""
+            
+            subject = f"{urgency_prefix}Task Reminder: {task_title} - {days_remaining} days remaining"
+            html_body = generate_reminder_email_html(
+                days_remaining=days_remaining,
+                program_name=task_title,
+                source="Task",
+                plan_date=impl_date_str,
+                month="N/A",
+                pic_name=pic_name
+            )
+            
+            if send_email(pic_email, subject, html_body):
+                reminders_sent += 1
+    
+    print(f"[TASK REMINDER CHECK] Completed. Sent {reminders_sent} task reminder emails.")
+    return reminders_sent
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Lifespan context manager for startup and shutdown events."""
@@ -309,8 +360,15 @@ async def lifespan(app: FastAPI):
         minute=5,
         id='daily_otp_matrix_reminder_check'
     )
+    scheduler.add_job(
+        check_task_reminders,
+        'cron',
+        hour=8,
+        minute=10,
+        id='daily_task_reminder_check'
+    )
     scheduler.start()
-    print("[STARTUP] Scheduler started - daily checks at 08:00 (HSE Programs) and 08:05 (OTP/Matrix)")
+    print("[STARTUP] Scheduler started - daily checks at 08:00 (HSE), 08:05 (OTP/Matrix), 08:10 (Tasks)")
 
     yield
 
@@ -352,12 +410,16 @@ def root():
 
 @app.post("/test-reminders")
 def test_reminders():
-    """Manually trigger the OTP/Matrix reminder check for testing."""
-    reminders_sent = check_otp_matrix_reminders()
+    """Manually trigger all reminder checks for testing."""
+    otp_matrix_sent = check_otp_matrix_reminders()
+    task_sent = check_task_reminders()
+    total_sent = otp_matrix_sent + task_sent
     return {
         "status": "completed",
-        "reminders_sent": reminders_sent,
-        "message": f"Checked all OTP and Matrix data. Sent {reminders_sent} reminder emails."
+        "otp_matrix_reminders": otp_matrix_sent,
+        "task_reminders": task_sent,
+        "total_sent": total_sent,
+        "message": f"Sent {total_sent} reminder emails (OTP/Matrix: {otp_matrix_sent}, Tasks: {task_sent})"
     }
 
 
