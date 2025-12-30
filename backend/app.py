@@ -114,23 +114,158 @@ def check_and_send_reminders():
             print(f"[URGENT] Sent 2-week warning for: {prog.title}")
 
 
-def send_email(to_email: str, subject: str, body: str):
+def generate_reminder_email_html(days_remaining: int, program_name: str, source: str, plan_date: str, month: str, pic_name: str) -> str:
+    """Generate modern HTML email template for reminders."""
+    urgency_color = "#dc3545" if days_remaining <= 7 else "#ffc107"
+    urgency_text = "⚠️ URGENT" if days_remaining <= 7 else "🔔 Reminder"
+    
+    return f"""
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px;">
+  <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <div style="background: linear-gradient(135deg, #e50914, #b20710); padding: 30px; text-align: center;">
+      <h1 style="color: white; margin: 0; font-size: 24px;">🔔 HSE Program Reminder</h1>
+      <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 14px;">Automated Notification</p>
+    </div>
+    <div style="padding: 30px;">
+      <div style="background: {urgency_color}22; border-left: 4px solid {urgency_color}; padding: 15px; margin: 0 0 20px 0; border-radius: 4px;">
+        <strong style="color: {urgency_color};">{urgency_text}: {days_remaining} Days Remaining</strong>
+        <p style="margin: 8px 0 0 0; color: #666;">The following HSE program requires your attention.</p>
+      </div>
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <p style="margin: 8px 0;"><span style="font-weight: 600; color: #666; display: inline-block; width: 100px;">Program:</span> <span style="color: #333; font-weight: 600;">{program_name}</span></p>
+        <p style="margin: 8px 0;"><span style="font-weight: 600; color: #666; display: inline-block; width: 100px;">Source:</span> <span style="color: #333;">{source}</span></p>
+        <p style="margin: 8px 0;"><span style="font-weight: 600; color: #666; display: inline-block; width: 100px;">Plan Date:</span> <span style="color: #e50914; font-weight: 600;">{plan_date}</span></p>
+        <p style="margin: 8px 0;"><span style="font-weight: 600; color: #666; display: inline-block; width: 100px;">Month:</span> <span style="color: #333;">{month.upper()}</span></p>
+        <p style="margin: 8px 0;"><span style="font-weight: 600; color: #666; display: inline-block; width: 100px;">PIC:</span> <span style="color: #333;">{pic_name}</span></p>
+      </div>
+      <p style="color: #555; line-height: 1.6;">Please ensure all preparations are on track for this program. If you have any questions or need to reschedule, please contact your HSE coordinator.</p>
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="#" style="display: inline-block; background: linear-gradient(135deg, #e50914, #b20710); color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 600;">View in HSE System</a>
+      </div>
+    </div>
+    <div style="background: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; color: #666; border-top: 1px solid #eee;">
+      <p style="margin: 0;">HSE Management System | Automated Reminder</p>
+      <p style="margin: 8px 0 0 0; color: #999;">This is an automated message. Please do not reply directly.</p>
+    </div>
+  </div>
+</body>
+</html>
+"""
+
+
+def send_email(to_email: str, subject: str, html_body: str):
     """Send email using Resend API."""
+    if not to_email or not to_email.strip():
+        print(f"[EMAIL SKIPPED] No email address provided for: {subject}")
+        return False
+        
     if not RESEND_API_KEY:
         print(f"[EMAIL SKIPPED] No API key. Would send to {to_email}: {subject}")
-        return
+        return False
 
     try:
         params = {
             "from": "HSE System <onboarding@resend.dev>",
             "to": [to_email],
             "subject": subject,
-            "html": f"<p>{body}</p>",
+            "html": html_body,
         }
         resend.Emails.send(params)
         print(f"[EMAIL SENT] To: {to_email}, Subject: {subject}")
+        return True
     except Exception as e:
         print(f"[EMAIL ERROR] Failed to send to {to_email}: {e}")
+        return False
+
+
+def check_otp_matrix_reminders():
+    """Check OTP and Matrix data for upcoming plan_dates and send reminders."""
+    today = date.today()
+    two_weeks = today + timedelta(days=14)
+    one_week = today + timedelta(days=7)
+    
+    two_weeks_str = two_weeks.strftime("%Y-%m-%d")
+    one_week_str = one_week.strftime("%Y-%m-%d")
+    
+    data_dir = Path(__file__).parent / "data"
+    reminders_sent = 0
+    
+    # Define all data sources to check
+    otp_files = [
+        ("OTP Indonesia (Narogong)", "otp_indonesia_narogong.json"),
+        ("OTP Indonesia (Duri)", "otp_indonesia_duri.json"),
+        ("OTP Indonesia (Balikpapan)", "otp_indonesia_balikpapan.json"),
+        ("OTP Asia", "otp_asia_data.json"),
+    ]
+    
+    matrix_categories = ["audit", "training", "drill", "meeting"]
+    matrix_files = []
+    for cat in matrix_categories:
+        for base in ["narogong", "duri", "balikpapan"]:
+            matrix_files.append((f"Matrix {cat.title()} ({base.title()})", f"matrix_{cat}_indonesia_{base}.json"))
+    
+    all_files = otp_files + matrix_files
+    
+    for source_name, filename in all_files:
+        file_path = data_dir / filename
+        if not file_path.exists():
+            continue
+            
+        try:
+            with open(file_path, 'r') as f:
+                data = json.load(f)
+                
+            for prog in data.get("programs", []):
+                program_name = prog.get("name", "Unknown Program")
+                
+                for month_key, month_data in prog.get("months", {}).items():
+                    plan_date = month_data.get("plan_date", "")
+                    if not plan_date:
+                        continue
+                    
+                    pic_email = month_data.get("pic_email", "")
+                    pic_manager_email = month_data.get("pic_manager_email", "")
+                    pic_name = month_data.get("pic_name", "N/A")
+                    
+                    # Check if plan_date matches 2 weeks or 1 week from now
+                    days_remaining = None
+                    if plan_date == two_weeks_str:
+                        days_remaining = 14
+                    elif plan_date == one_week_str:
+                        days_remaining = 7
+                    
+                    if days_remaining:
+                        subject = f"{'⚠️ URGENT: ' if days_remaining == 7 else ''}HSE Reminder: {program_name} - {days_remaining} days remaining"
+                        html_body = generate_reminder_email_html(
+                            days_remaining=days_remaining,
+                            program_name=program_name,
+                            source=source_name,
+                            plan_date=plan_date,
+                            month=month_key,
+                            pic_name=pic_name
+                        )
+                        
+                        # Send to PIC
+                        if pic_email:
+                            if send_email(pic_email, subject, html_body):
+                                reminders_sent += 1
+                        
+                        # Send to PIC Manager
+                        if pic_manager_email and pic_manager_email != pic_email:
+                            if send_email(pic_manager_email, f"[Manager Copy] {subject}", html_body):
+                                reminders_sent += 1
+                                
+        except Exception as e:
+            print(f"[REMINDER ERROR] Failed to process {filename}: {e}")
+    
+    print(f"[REMINDER CHECK] Completed. Sent {reminders_sent} reminder emails.")
+    return reminders_sent
 
 
 @asynccontextmanager
@@ -147,8 +282,15 @@ async def lifespan(app: FastAPI):
         minute=0,
         id='daily_reminder_check'
     )
+    scheduler.add_job(
+        check_otp_matrix_reminders,
+        'cron',
+        hour=8,
+        minute=5,
+        id='daily_otp_matrix_reminder_check'
+    )
     scheduler.start()
-    print("[STARTUP] Scheduler started - daily check at 08:00")
+    print("[STARTUP] Scheduler started - daily checks at 08:00 (HSE Programs) and 08:05 (OTP/Matrix)")
 
     yield
 
@@ -186,6 +328,17 @@ def root():
     if index_path.exists():
         return FileResponse(str(index_path))
     return {"status": "healthy", "service": "HSE Plan Management System", "version": "2.0.0"}
+
+
+@app.post("/test-reminders")
+def test_reminders():
+    """Manually trigger the OTP/Matrix reminder check for testing."""
+    reminders_sent = check_otp_matrix_reminders()
+    return {
+        "status": "completed",
+        "reminders_sent": reminders_sent,
+        "message": f"Checked all OTP and Matrix data. Sent {reminders_sent} reminder emails."
+    }
 
 
 @app.get("/program-types")
