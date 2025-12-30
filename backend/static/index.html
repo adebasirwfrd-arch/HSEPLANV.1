@@ -2521,6 +2521,13 @@
                     <option value="indonesia" selected>🇮🇩 Indonesia</option>
                     <option value="asia">🌏 Asia</option>
                 </select>
+                <select id="otp-base-select" onchange="changeOTPBase(this.value)"
+                    style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); font-size: 12px;">
+                    <option value="all" selected>All Bases</option>
+                    <option value="narogong">📍 Narogong</option>
+                    <option value="duri">📍 Duri</option>
+                    <option value="balikpapan">📍 Balikpapan</option>
+                </select>
                 <select id="otp-year-select" onchange="changeOTPYear(this.value)"
                     style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); font-size: 12px;">
                     <option value="2020">2020</option>
@@ -2758,6 +2765,13 @@
                     style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); font-size: 12px;">
                     <option value="indonesia" selected>🇮🇩 Indonesia</option>
                     <option value="asia">🌏 Asia</option>
+                </select>
+                <select id="matrix-base-select" onchange="changeMatrixBase(this.value)"
+                    style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); font-size: 12px;">
+                    <option value="all" selected>All Bases</option>
+                    <option value="narogong">📍 Narogong</option>
+                    <option value="duri">📍 Duri</option>
+                    <option value="balikpapan">📍 Balikpapan</option>
                 </select>
                 <select id="matrix-category-select" onchange="changeMatrixCategory(this.value)"
                     style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); font-size: 12px;">
@@ -8411,6 +8425,13 @@
         loadOTPData();
     }
 
+    let currentOTPBase = 'all';
+    function changeOTPBase(base) {
+        currentOTPBase = base;
+        document.getElementById('otp-base-select').value = base;
+        updateOTPSummary();
+    }
+
     function updateOTPSummary() {
         const programs = otpData.programs || [];
         const total = programs.length;
@@ -8917,6 +8938,7 @@
     window.toggleOTPView = toggleOTPView;
     window.changeOTPYear = changeOTPYear;
     window.changeOTPRegion = changeOTPRegion;
+    window.changeOTPBase = changeOTPBase;
     window.openOTPEditModal = openOTPEditModal;
     window.closeOTPEditModal = closeOTPEditModal;
     window.submitOTPEdit = submitOTPEdit;
@@ -8969,6 +8991,13 @@
         currentMatrixRegion = region;
         document.getElementById('matrix-region-select').value = region;
         loadMatrixData();
+    }
+
+    let currentMatrixBase = 'all';
+    function changeMatrixBase(base) {
+        currentMatrixBase = base;
+        document.getElementById('matrix-base-select').value = base;
+        updateMatrixSummary();
     }
 
     function changeMatrixYear(year) {
@@ -9149,6 +9178,7 @@
     window.loadMatrixData = loadMatrixData;
     window.changeMatrixCategory = changeMatrixCategory;
     window.changeMatrixRegion = changeMatrixRegion;
+    window.changeMatrixBase = changeMatrixBase;
     window.changeMatrixYear = changeMatrixYear;
     window.filterMatrixPrograms = filterMatrixPrograms;
     window.toggleMatrixView = toggleMatrixView;
