@@ -3813,7 +3813,7 @@
     function applyTranslations() {
         // Update drawer navigation
         const navItems = document.querySelectorAll('.drawer-item');
-        const navMap = ['home', 'projects', 'tasks', 'statistics', 'schedule', 'csmsPb', 'calendar'];
+        const navMap = ['home', 'hsePrograms', 'tasks', 'statistics', 'calendar', 'relatedDocs', 'hseKpi', 'llIndicator', 'hseOtp', 'matrix', 'download'];
         navItems.forEach((item, i) => {
             if (navMap[i]) {
                 const svg = item.querySelector('svg');
@@ -3879,7 +3879,7 @@
 
         // ===== DRAWER NAVIGATION =====
         const drawerItems = document.querySelectorAll('.drawer-nav .drawer-item');
-        const navTexts = [L.home, L.projects, L.tasks, L.statistics, L.schedule, L.csmsPb, L.calendar];
+        const navTexts = [L.home, L.hsePrograms, L.tasks, L.statistics, L.calendar, L.relatedDocs, L.hseKpi, L.llIndicator || 'LL Indicator', L.hseOtp || 'HSE OTP', L.matrix, L.download];
         drawerItems.forEach((item, i) => {
             if (navTexts[i]) {
                 const svg = item.querySelector('svg');
