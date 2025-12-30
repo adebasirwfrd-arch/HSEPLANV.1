@@ -702,6 +702,8 @@ class OTPMonthUpdate(BaseModel):
     plan: Optional[int] = None
     actual: Optional[int] = None
     wpts_id: Optional[str] = None
+    plan_date: Optional[str] = None
+    impl_date: Optional[str] = None
 
 
 @app.put("/otp/{program_id}/month/{month}")
@@ -725,6 +727,10 @@ def update_otp_month(program_id: int, month: str, update: OTPMonthUpdate):
                 prog["months"][month.lower()]["actual"] = update.actual
             if update.wpts_id is not None:
                 prog["months"][month.lower()]["wpts_id"] = update.wpts_id
+            if update.plan_date is not None:
+                prog["months"][month.lower()]["plan_date"] = update.plan_date
+            if update.impl_date is not None:
+                prog["months"][month.lower()]["impl_date"] = update.impl_date
             
             prog["progress"] = calculate_progress(prog)
             save_otp_data(data)
@@ -875,6 +881,8 @@ class OTPAsiaMonthUpdate(BaseModel):
     plan: Optional[int] = None
     actual: Optional[int] = None
     wpts_id: Optional[str] = None
+    plan_date: Optional[str] = None
+    impl_date: Optional[str] = None
 
 
 @app.put("/otp-asia/{program_id}/month/{month}")
@@ -898,6 +906,10 @@ def update_otp_asia_month(program_id: int, month: str, update: OTPAsiaMonthUpdat
                 prog["months"][month.lower()]["actual"] = update.actual
             if update.wpts_id is not None:
                 prog["months"][month.lower()]["wpts_id"] = update.wpts_id
+            if update.plan_date is not None:
+                prog["months"][month.lower()]["plan_date"] = update.plan_date
+            if update.impl_date is not None:
+                prog["months"][month.lower()]["impl_date"] = update.impl_date
             
             prog["progress"] = calculate_progress_asia(prog)
             save_otp_asia_data(data)
@@ -1033,6 +1045,8 @@ class MatrixMonthUpdate(BaseModel):
     plan: int
     actual: int
     wpts_id: Optional[str] = ""
+    plan_date: Optional[str] = ""
+    impl_date: Optional[str] = ""
 
 class MatrixProgramCreate(BaseModel):
     name: str
@@ -1081,7 +1095,9 @@ def update_matrix_month(program_id: int, month: str, update: MatrixMonthUpdate, 
             prog["months"][month.lower()] = {
                 "plan": update.plan,
                 "actual": update.actual,
-                "wpts_id": update.wpts_id or ""
+                "wpts_id": update.wpts_id or "",
+                "plan_date": update.plan_date or "",
+                "impl_date": update.impl_date or ""
             }
             prog["progress"] = calculate_matrix_progress(prog)
             save_matrix_data(category, region, data)

@@ -2739,6 +2739,14 @@
                     <label class="form-label">WPTS ID</label>
                     <input type="text" class="form-input" id="otp-edit-wpts" placeholder="Enter WPTS ID (optional)">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Plan Date</label>
+                    <input type="date" class="form-input" id="otp-edit-plan-date">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Implementation Date</label>
+                    <input type="date" class="form-input" id="otp-edit-impl-date">
+                </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeOTPEditModal()">Cancel</button>
                     <button type="submit" class="btn-primary">Save</button>
@@ -2983,6 +2991,14 @@
                 <div class="form-group">
                     <label class="form-label">WPTS ID</label>
                     <input type="text" class="form-input" id="matrix-edit-wpts" placeholder="Enter WPTS ID (optional)">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Plan Date</label>
+                    <input type="date" class="form-input" id="matrix-edit-plan-date">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Implementation Date</label>
+                    <input type="date" class="form-input" id="matrix-edit-impl-date">
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeMatrixEditModal()">Cancel</button>
@@ -8496,13 +8512,17 @@
                     : monthData.plan;
                 const isEmpty = monthData.plan === 0 && monthData.actual === 0;
                 const wptsDisplay = monthData.wpts_id ? `<div style="font-size: 9px; color: #27ae60; margin-top: 2px; font-weight: 500;">${monthData.wpts_id}</div>` : '';
+                const planDateDisplay = monthData.plan_date ? `<div style="font-size: 8px; color: #3498db; margin-top: 1px;">📅${monthData.plan_date.slice(5)}</div>` : '';
+                const implDateDisplay = monthData.impl_date ? `<div style="font-size: 8px; color: #9b59b6; margin-top: 1px;">✅${monthData.impl_date.slice(5)}</div>` : '';
 
                 html += `<td onclick="openOTPEditModal(${prog.id}, '${month}')" 
                     style="padding: 6px 4px; border-bottom: 1px solid var(--border); text-align: center; background: ${cellStyle.bg}; cursor: pointer; transition: all 0.2s; font-size: 11px; font-weight: 600; color: ${isEmpty ? 'var(--text-muted)' : cellStyle.color};"
                     onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"
-                    title="Plan: ${monthData.plan} | Actual: ${monthData.actual}${monthData.wpts_id ? ' | WPTS: ' + monthData.wpts_id : ''}">
+                    title="Plan: ${monthData.plan} | Actual: ${monthData.actual}${monthData.wpts_id ? ' | WPTS: ' + monthData.wpts_id : ''}${monthData.plan_date ? ' | Plan Date: ' + monthData.plan_date : ''}${monthData.impl_date ? ' | Impl Date: ' + monthData.impl_date : ''}">
                     <div>${isEmpty ? '-' : displayValue}</div>
                     ${wptsDisplay}
+                    ${planDateDisplay}
+                    ${implDateDisplay}
                 </td>`;
             });
 
@@ -8572,6 +8592,8 @@
         document.getElementById('otp-edit-plan').value = monthData.plan;
         document.getElementById('otp-edit-actual').value = monthData.actual;
         document.getElementById('otp-edit-wpts').value = monthData.wpts_id || '';
+        document.getElementById('otp-edit-plan-date').value = monthData.plan_date || '';
+        document.getElementById('otp-edit-impl-date').value = monthData.impl_date || '';
         document.getElementById('otp-edit-title').textContent = `Edit ${month.toUpperCase()} - ${prog.name.substring(0, 30)}...`;
 
         document.getElementById('otp-edit-modal').style.display = 'flex';
@@ -8588,13 +8610,15 @@
         const plan = parseInt(document.getElementById('otp-edit-plan').value) || 0;
         const actual = parseInt(document.getElementById('otp-edit-actual').value) || 0;
         const wpts_id = document.getElementById('otp-edit-wpts').value.trim();
+        const plan_date = document.getElementById('otp-edit-plan-date').value;
+        const impl_date = document.getElementById('otp-edit-impl-date').value;
 
         try {
             const endpoint = currentOTPRegion === 'asia' ? '/otp-asia' : '/otp';
             const res = await fetch(`${API_BASE}${endpoint}/${programId}/month/${month}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ plan, actual, wpts_id })
+                body: JSON.stringify({ plan, actual, wpts_id, plan_date, impl_date })
             });
 
             if (res.ok) {
@@ -9054,8 +9078,10 @@
                 const m = prog.months?.[month] || { plan: 0, actual: 0 };
                 const colors = getMatrixCellColor(m.plan, m.actual);
                 const displayVal = showActual ? `${m.plan}/${m.actual}` : m.plan;
-                const wptsBadge = m.wpts_id ? `<div style="font-size:8px;color:#3498db;">📎</div>` : '';
-                html += `<td style="padding: 6px; text-align: center; background: ${colors.bg}; color: ${colors.color}; cursor: pointer; font-weight: 600;" onclick="openMatrixEditModal(${prog.id}, '${month}')" class="admin-only-clickable">${displayVal}${wptsBadge}</td>`;
+                const wptsBadge = m.wpts_id ? `<div style="font-size:8px;color:#27ae60;">📎${m.wpts_id}</div>` : '';
+                const planDateBadge = m.plan_date ? `<div style="font-size:7px;color:#3498db;">📅${m.plan_date.slice(5)}</div>` : '';
+                const implDateBadge = m.impl_date ? `<div style="font-size:7px;color:#9b59b6;">✅${m.impl_date.slice(5)}</div>` : '';
+                html += `<td style="padding: 6px; text-align: center; background: ${colors.bg}; color: ${colors.color}; cursor: pointer; font-weight: 600;" onclick="openMatrixEditModal(${prog.id}, '${month}')" class="admin-only-clickable" title="Plan: ${m.plan} | Actual: ${m.actual}${m.wpts_id ? ' | WPTS: ' + m.wpts_id : ''}${m.plan_date ? ' | Plan: ' + m.plan_date : ''}${m.impl_date ? ' | Impl: ' + m.impl_date : ''}">${displayVal}${wptsBadge}${planDateBadge}${implDateBadge}</td>`;
             });
             const progColor = prog.progress >= 100 ? '#27ae60' : prog.progress > 0 ? '#3498db' : 'var(--text-muted)';
             html += `<td style="padding: 10px; text-align: center;"><div style="background: var(--bg-tertiary); border-radius: 6px; overflow: hidden; height: 20px; position: relative;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: ${prog.progress}%; background: ${progColor};"></div><span style="position: relative; z-index: 1; font-size: 10px; font-weight: 600;">${prog.progress}%</span></div></td>`;
@@ -9094,6 +9120,8 @@
         document.getElementById('matrix-edit-plan').value = m.plan;
         document.getElementById('matrix-edit-actual').value = m.actual;
         document.getElementById('matrix-edit-wpts').value = m.wpts_id || '';
+        document.getElementById('matrix-edit-plan-date').value = m.plan_date || '';
+        document.getElementById('matrix-edit-impl-date').value = m.impl_date || '';
         document.getElementById('matrix-edit-title').textContent = `Edit ${month.toUpperCase()} - ${prog.name}`;
         document.getElementById('matrix-edit-modal').style.display = 'flex';
     }
@@ -9107,11 +9135,13 @@
         const plan = parseInt(document.getElementById('matrix-edit-plan').value) || 0;
         const actual = parseInt(document.getElementById('matrix-edit-actual').value) || 0;
         const wpts_id = document.getElementById('matrix-edit-wpts').value.trim();
+        const plan_date = document.getElementById('matrix-edit-plan-date').value;
+        const impl_date = document.getElementById('matrix-edit-impl-date').value;
         try {
             const res = await fetch(`${API_BASE}/matrix/${programId}/month/${month}?category=${currentMatrixCategory}&region=${currentMatrixRegion}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ plan, actual, wpts_id })
+                body: JSON.stringify({ plan, actual, wpts_id, plan_date, impl_date })
             });
             if (res.ok) {
                 showToast('Matrix data updated!', 'success');
