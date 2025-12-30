@@ -187,11 +187,6 @@ def send_email(to_email: str, subject: str, html_body: str):
 def check_otp_matrix_reminders():
     """Check OTP and Matrix data for upcoming plan_dates and send reminders."""
     today = date.today()
-    two_weeks = today + timedelta(days=14)
-    one_week = today + timedelta(days=7)
-    
-    two_weeks_str = two_weeks.strftime("%Y-%m-%d")
-    one_week_str = one_week.strftime("%Y-%m-%d")
     
     data_dir = Path(__file__).parent / "data"
     reminders_sent = 0
@@ -225,28 +220,38 @@ def check_otp_matrix_reminders():
                 program_name = prog.get("name", "Unknown Program")
                 
                 for month_key, month_data in prog.get("months", {}).items():
-                    plan_date = month_data.get("plan_date", "")
-                    if not plan_date:
+                    plan_date_str = month_data.get("plan_date", "")
+                    if not plan_date_str:
                         continue
                     
-                    pic_email = month_data.get("pic_email", "")
-                    pic_manager_email = month_data.get("pic_manager_email", "")
-                    pic_name = month_data.get("pic_name", "N/A")
+                    try:
+                        plan_date = datetime.strptime(plan_date_str, "%Y-%m-%d").date()
+                    except ValueError:
+                        continue
                     
-                    # Check if plan_date matches 2 weeks or 1 week from now
-                    days_remaining = None
-                    if plan_date == two_weeks_str:
-                        days_remaining = 14
-                    elif plan_date == one_week_str:
-                        days_remaining = 7
+                    # Calculate days remaining
+                    days_remaining = (plan_date - today).days
                     
-                    if days_remaining:
-                        subject = f"{'⚠️ URGENT: ' if days_remaining == 7 else ''}HSE Reminder: {program_name} - {days_remaining} days remaining"
+                    # Send reminder if plan_date is within next 14 days and not in the past
+                    if 0 <= days_remaining <= 14:
+                        pic_email = month_data.get("pic_email", "")
+                        pic_manager_email = month_data.get("pic_manager_email", "")
+                        pic_name = month_data.get("pic_name", "N/A")
+                        
+                        # Determine urgency level
+                        if days_remaining <= 3:
+                            urgency_prefix = "🚨 CRITICAL: "
+                        elif days_remaining <= 7:
+                            urgency_prefix = "⚠️ URGENT: "
+                        else:
+                            urgency_prefix = ""
+                        
+                        subject = f"{urgency_prefix}HSE Reminder: {program_name} - {days_remaining} days remaining"
                         html_body = generate_reminder_email_html(
                             days_remaining=days_remaining,
                             program_name=program_name,
                             source=source_name,
-                            plan_date=plan_date,
+                            plan_date=plan_date_str,
                             month=month_key,
                             pic_name=pic_name
                         )
