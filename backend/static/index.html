@@ -2843,6 +2843,16 @@
                         <div style="font-size: 12px; color: var(--text-muted);">Warm evening colors</div>
                     </div>
                 </div>
+                <div class="theme-option" data-theme="scandinavian" onclick="setTheme('scandinavian')"
+                    style="background: var(--bg-tertiary); border: 2px solid transparent; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s;">
+                    <div
+                        style="width: 40px; height: 40px; border-radius: 8px; background: linear-gradient(135deg, #a1c4fd, #c2e9fb);">
+                    </div>
+                    <div>
+                        <div style="font-weight: 600;">Scandinavian</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Ocean Trust - Light & Calm</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -3274,7 +3284,8 @@
             light: { bg: '#FFFFFF', bgSecondary: '#F8F9FA', bgTertiary: '#E9ECEF', border: '#DEE2E6', text: '#212529', textSecondary: '#495057', textMuted: '#6C757D' },
             ocean: { bg: '#0A1929', bgSecondary: '#0C2D48', bgTertiary: '#145C8E', border: '#1A5276', text: '#E8F4FC', textSecondary: '#B3D9F2', textMuted: '#7AB8D9' },
             forest: { bg: '#0D1F0C', bgSecondary: '#134E0F', bgTertiary: '#1E7E19', border: '#28A821', text: '#E8F5E9', textSecondary: '#A5D6A7', textMuted: '#66BB6A' },
-            sunset: { bg: '#1A0A06', bgSecondary: '#3E1A10', bgTertiary: '#6E2C18', border: '#B04420', text: '#FFEEE6', textSecondary: '#FFB399', textMuted: '#FF8050' }
+            sunset: { bg: '#1A0A06', bgSecondary: '#3E1A10', bgTertiary: '#6E2C18', border: '#B04420', text: '#FFEEE6', textSecondary: '#FFB399', textMuted: '#FF8050' },
+            scandinavian: { bg: '#f0f9ff', bgSecondary: '#ffffff', bgTertiary: '#e0f2fe', border: '#e0f2fe', text: '#1e293b', textSecondary: '#475569', textMuted: '#94a3b8', accent: '#3b82f6' }
         };
         const t = themes[theme] || themes.dark;
         root.style.setProperty('--bg-primary', t.bg);
