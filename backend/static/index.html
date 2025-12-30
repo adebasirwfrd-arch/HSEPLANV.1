@@ -8689,7 +8689,8 @@
         try {
             const endpoint = currentOTPRegion === 'asia' ? '/otp-asia' : '/otp';
             let url = `${API_BASE}${endpoint}/${programId}/month/${month}`;
-            if (currentOTPRegion === 'indonesia' && currentOTPBase && currentOTPBase !== 'all') {
+            // Always pass base parameter - backend handles 'all' by saving to all 3 bases
+            if (currentOTPRegion === 'indonesia' && currentOTPBase) {
                 url += `?base=${currentOTPBase}`;
             }
             const res = await fetch(url, {

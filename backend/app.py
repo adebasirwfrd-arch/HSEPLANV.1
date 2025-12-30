@@ -660,19 +660,38 @@ def get_otp_file_path(base: str = None):
 def load_otp_data(base: str = None):
     """Load OTP data from JSON file. If base is 'all', merge data from all bases."""
     if base == "all":
-        # Aggregate data from all 3 bases
-        all_programs = []
-        seen_ids = set()
+        # Aggregate data from all 3 bases - MERGE month data
+        programs_by_id = {}
         for b in ["narogong", "duri", "balikpapan"]:
             file_path = get_otp_file_path(b)
             if file_path.exists():
                 with open(file_path, 'r') as f:
                     data = json.load(f)
                     for prog in data.get("programs", []):
-                        if prog.get("id") not in seen_ids:
-                            all_programs.append(prog)
-                            seen_ids.add(prog.get("id"))
-        return {"year": 2026, "programs": all_programs}
+                        prog_id = prog.get("id")
+                        if prog_id not in programs_by_id:
+                            # First time seeing this program, add it with a copy
+                            programs_by_id[prog_id] = {
+                                "id": prog_id,
+                                "name": prog.get("name", ""),
+                                "plan_type": prog.get("plan_type", ""),
+                                "due_date": prog.get("due_date"),
+                                "months": dict(prog.get("months", {})),
+                                "progress": prog.get("progress", 0)
+                            }
+                        else:
+                            # Merge month data - use data from this base if it has values
+                            existing = programs_by_id[prog_id]
+                            for month_key, month_data in prog.get("months", {}).items():
+                                if month_key not in existing["months"]:
+                                    existing["months"][month_key] = month_data
+                                else:
+                                    # Merge: prefer non-empty values from this base
+                                    existing_month = existing["months"][month_key]
+                                    for field in ["plan", "actual", "wpts_id", "plan_date", "impl_date", "pic_name", "pic_manager", "pic_email", "pic_manager_email"]:
+                                        if month_data.get(field) and not existing_month.get(field):
+                                            existing_month[field] = month_data[field]
+        return {"year": 2026, "programs": list(programs_by_id.values())}
     
     file_path = get_otp_file_path(base)
     if file_path.exists():
@@ -739,38 +758,54 @@ def update_otp_month(program_id: int, month: str, update: OTPMonthUpdate, base: 
     if month.lower() not in valid_months:
         raise HTTPException(status_code=400, detail=f"Invalid month. Must be one of: {valid_months}")
     
-    # Don't allow updates when base is 'all'
-    if base == "all":
-        raise HTTPException(status_code=400, detail="Cannot update when viewing 'All Bases'. Please select a specific base.")
+    def update_program_month(prog, month_key, upd):
+        """Helper to update a program's month data."""
+        if "months" not in prog:
+            prog["months"] = {}
+        if month_key not in prog["months"]:
+            prog["months"][month_key] = {"plan": 0, "actual": 0}
+        
+        if upd.plan is not None:
+            prog["months"][month_key]["plan"] = upd.plan
+        if upd.actual is not None:
+            prog["months"][month_key]["actual"] = upd.actual
+        if upd.wpts_id is not None:
+            prog["months"][month_key]["wpts_id"] = upd.wpts_id
+        if upd.plan_date is not None:
+            prog["months"][month_key]["plan_date"] = upd.plan_date
+        if upd.impl_date is not None:
+            prog["months"][month_key]["impl_date"] = upd.impl_date
+        if upd.pic_name is not None:
+            prog["months"][month_key]["pic_name"] = upd.pic_name
+        if upd.pic_manager is not None:
+            prog["months"][month_key]["pic_manager"] = upd.pic_manager
+        if upd.pic_email is not None:
+            prog["months"][month_key]["pic_email"] = upd.pic_email
+        if upd.pic_manager_email is not None:
+            prog["months"][month_key]["pic_manager_email"] = upd.pic_manager_email
+        prog["progress"] = calculate_progress(prog)
     
+    # If base is 'all', update ALL 3 bases
+    if base == "all":
+        bases_to_update = ["narogong", "duri", "balikpapan"]
+        updated_prog = None
+        for b in bases_to_update:
+            data = load_otp_data(b)
+            for prog in data.get("programs", []):
+                if prog.get("id") == program_id:
+                    update_program_month(prog, month.lower(), update)
+                    updated_prog = prog
+                    break
+            save_otp_data(data, b)
+        if updated_prog:
+            return {"message": f"OTP program {program_id} month {month} updated in all bases", "program": updated_prog}
+        raise HTTPException(status_code=404, detail="OTP program not found")
+    
+    # Update single base
     data = load_otp_data(base)
     for prog in data.get("programs", []):
         if prog.get("id") == program_id:
-            if "months" not in prog:
-                prog["months"] = {}
-            if month.lower() not in prog["months"]:
-                prog["months"][month.lower()] = {"plan": 0, "actual": 0}
-            
-            if update.plan is not None:
-                prog["months"][month.lower()]["plan"] = update.plan
-            if update.actual is not None:
-                prog["months"][month.lower()]["actual"] = update.actual
-            if update.wpts_id is not None:
-                prog["months"][month.lower()]["wpts_id"] = update.wpts_id
-            if update.plan_date is not None:
-                prog["months"][month.lower()]["plan_date"] = update.plan_date
-            if update.impl_date is not None:
-                prog["months"][month.lower()]["impl_date"] = update.impl_date
-            if update.pic_name is not None:
-                prog["months"][month.lower()]["pic_name"] = update.pic_name
-            if update.pic_manager is not None:
-                prog["months"][month.lower()]["pic_manager"] = update.pic_manager
-            if update.pic_email is not None:
-                prog["months"][month.lower()]["pic_email"] = update.pic_email
-            if update.pic_manager_email is not None:
-                prog["months"][month.lower()]["pic_manager_email"] = update.pic_manager_email
-            
-            prog["progress"] = calculate_progress(prog)
+            update_program_month(prog, month.lower(), update)
             save_otp_data(data, base)
             return {"message": f"OTP program {program_id} month {month} updated", "program": prog}
     
