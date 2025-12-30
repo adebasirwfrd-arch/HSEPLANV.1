@@ -648,21 +648,43 @@ def update_ll_year(year: int):
     data["year"] = year
     save_ll_data(data)
 
-
 # ===== OTP DATA PERSISTENCE =====
 OTP_DATA_FILE = Path(__file__).parent / "data" / "otp_data.json"
 
-def load_otp_data():
-    """Load OTP data from JSON file."""
-    if OTP_DATA_FILE.exists():
-        with open(OTP_DATA_FILE, 'r') as f:
+def get_otp_file_path(base: str = None):
+    """Get the file path for OTP data based on base."""
+    if base and base != "all":
+        return Path(__file__).parent / "data" / f"otp_indonesia_{base}.json"
+    return OTP_DATA_FILE
+
+def load_otp_data(base: str = None):
+    """Load OTP data from JSON file. If base is 'all', merge data from all bases."""
+    if base == "all":
+        # Aggregate data from all 3 bases
+        all_programs = []
+        seen_ids = set()
+        for b in ["narogong", "duri", "balikpapan"]:
+            file_path = get_otp_file_path(b)
+            if file_path.exists():
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    for prog in data.get("programs", []):
+                        if prog.get("id") not in seen_ids:
+                            all_programs.append(prog)
+                            seen_ids.add(prog.get("id"))
+        return {"year": 2026, "programs": all_programs}
+    
+    file_path = get_otp_file_path(base)
+    if file_path.exists():
+        with open(file_path, 'r') as f:
             return json.load(f)
     return {"year": 2026, "programs": []}
 
-def save_otp_data(data):
+def save_otp_data(data, base: str = None):
     """Save OTP data to JSON file."""
-    OTP_DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(OTP_DATA_FILE, 'w') as f:
+    file_path = get_otp_file_path(base)
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(file_path, 'w') as f:
         json.dump(data, f, indent=2)
 
 def calculate_progress(program):
@@ -678,9 +700,9 @@ def calculate_progress(program):
 
 
 @app.get("/otp")
-def get_otp_data():
-    """Get all OTP data."""
-    data = load_otp_data()
+def get_otp_data(base: str = None):
+    """Get all OTP data. Pass base=narogong|duri|balikpapan|all for specific base data."""
+    data = load_otp_data(base)
     # Calculate progress for each program
     for prog in data.get("programs", []):
         prog["progress"] = calculate_progress(prog)
@@ -688,9 +710,9 @@ def get_otp_data():
 
 
 @app.get("/otp/{program_id}")
-def get_otp_program(program_id: int):
+def get_otp_program(program_id: int, base: str = None):
     """Get a specific OTP program by ID."""
-    data = load_otp_data()
+    data = load_otp_data(base)
     for prog in data.get("programs", []):
         if prog.get("id") == program_id:
             prog["progress"] = calculate_progress(prog)
@@ -711,13 +733,17 @@ class OTPMonthUpdate(BaseModel):
 
 
 @app.put("/otp/{program_id}/month/{month}")
-def update_otp_month(program_id: int, month: str, update: OTPMonthUpdate):
+def update_otp_month(program_id: int, month: str, update: OTPMonthUpdate, base: str = None):
     """Update Plan/Actual values for a specific month of an OTP program."""
     valid_months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
     if month.lower() not in valid_months:
         raise HTTPException(status_code=400, detail=f"Invalid month. Must be one of: {valid_months}")
     
-    data = load_otp_data()
+    # Don't allow updates when base is 'all'
+    if base == "all":
+        raise HTTPException(status_code=400, detail="Cannot update when viewing 'All Bases'. Please select a specific base.")
+    
+    data = load_otp_data(base)
     for prog in data.get("programs", []):
         if prog.get("id") == program_id:
             if "months" not in prog:
@@ -745,7 +771,7 @@ def update_otp_month(program_id: int, month: str, update: OTPMonthUpdate):
                 prog["months"][month.lower()]["pic_manager_email"] = update.pic_manager_email
             
             prog["progress"] = calculate_progress(prog)
-            save_otp_data(data)
+            save_otp_data(data, base)
             return {"message": f"OTP program {program_id} month {month} updated", "program": prog}
     
     raise HTTPException(status_code=404, detail="OTP program not found")
@@ -1035,21 +1061,38 @@ def update_otp_asia_year(year: int):
 # Matrix categories: audit, training, drill, meeting
 # Matrix regions: indonesia, asia
 
-def get_matrix_file_path(category: str, region: str):
-    """Get the file path for a specific matrix category and region."""
+def get_matrix_file_path(category: str, region: str, base: str = None):
+    """Get the file path for a specific matrix category, region, and base."""
+    if region == "indonesia" and base and base != "all":
+        return Path(__file__).parent / "data" / f"matrix_{category}_{region}_{base}.json"
     return Path(__file__).parent / "data" / f"matrix_{category}_{region}.json"
 
-def load_matrix_data(category: str, region: str):
-    """Load matrix data for a specific category and region."""
-    file_path = get_matrix_file_path(category, region)
+def load_matrix_data(category: str, region: str, base: str = None):
+    """Load matrix data for a specific category, region, and base."""
+    if region == "indonesia" and base == "all":
+        # Aggregate data from all 3 bases
+        all_programs = []
+        seen_ids = set()
+        for b in ["narogong", "duri", "balikpapan"]:
+            file_path = get_matrix_file_path(category, region, b)
+            if file_path.exists():
+                with open(file_path, "r") as f:
+                    data = json.load(f)
+                    for prog in data.get("programs", []):
+                        if prog.get("id") not in seen_ids:
+                            all_programs.append(prog)
+                            seen_ids.add(prog.get("id"))
+        return {"year": 2026, "category": category, "region": region, "programs": all_programs}
+    
+    file_path = get_matrix_file_path(category, region, base)
     if file_path.exists():
         with open(file_path, "r") as f:
             return json.load(f)
     return {"year": 2026, "category": category, "region": region, "programs": []}
 
-def save_matrix_data(category: str, region: str, data: dict):
-    """Save matrix data for a specific category and region."""
-    file_path = get_matrix_file_path(category, region)
+def save_matrix_data(category: str, region: str, data: dict, base: str = None):
+    """Save matrix data for a specific category, region, and base."""
+    file_path = get_matrix_file_path(category, region, base)
     file_path.parent.mkdir(parents=True, exist_ok=True)
     with open(file_path, "w") as f:
         json.dump(data, f, indent=2)
@@ -1089,33 +1132,37 @@ class MatrixProgramUpdate(BaseModel):
     due_date: Optional[str] = None
 
 @app.get("/matrix")
-def get_matrix_programs(category: str = "audit", region: str = "indonesia"):
-    """Get all matrix programs for a specific category and region."""
+def get_matrix_programs(category: str = "audit", region: str = "indonesia", base: str = None):
+    """Get all matrix programs for a specific category, region, and base."""
     valid_categories = ["audit", "training", "drill", "meeting"]
     valid_regions = ["indonesia", "asia"]
     if category not in valid_categories:
         raise HTTPException(status_code=400, detail=f"Invalid category. Must be one of: {valid_categories}")
     if region not in valid_regions:
         raise HTTPException(status_code=400, detail=f"Invalid region. Must be one of: {valid_regions}")
-    return load_matrix_data(category, region)
+    return load_matrix_data(category, region, base)
 
 @app.get("/matrix/{program_id}")
-def get_matrix_program(program_id: int, category: str = "audit", region: str = "indonesia"):
+def get_matrix_program(program_id: int, category: str = "audit", region: str = "indonesia", base: str = None):
     """Get a specific matrix program by ID."""
-    data = load_matrix_data(category, region)
+    data = load_matrix_data(category, region, base)
     for prog in data.get("programs", []):
         if prog.get("id") == program_id:
             return prog
     raise HTTPException(status_code=404, detail="Matrix program not found")
 
 @app.put("/matrix/{program_id}/month/{month}")
-def update_matrix_month(program_id: int, month: str, update: MatrixMonthUpdate, category: str = "audit", region: str = "indonesia"):
+def update_matrix_month(program_id: int, month: str, update: MatrixMonthUpdate, category: str = "audit", region: str = "indonesia", base: str = None):
     """Update monthly plan/actual values for a matrix program."""
     valid_months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
     if month.lower() not in valid_months:
         raise HTTPException(status_code=400, detail=f"Invalid month. Must be one of: {valid_months}")
     
-    data = load_matrix_data(category, region)
+    # Don't allow updates when base is 'all'
+    if base == "all":
+        raise HTTPException(status_code=400, detail="Cannot update when viewing 'All Bases'. Please select a specific base.")
+    
+    data = load_matrix_data(category, region, base)
     for prog in data.get("programs", []):
         if prog.get("id") == program_id:
             if "months" not in prog:
@@ -1132,7 +1179,7 @@ def update_matrix_month(program_id: int, month: str, update: MatrixMonthUpdate, 
                 "pic_manager_email": update.pic_manager_email or ""
             }
             prog["progress"] = calculate_matrix_progress(prog)
-            save_matrix_data(category, region, data)
+            save_matrix_data(category, region, data, base)
             return {"message": "Matrix month updated", "program": prog}
     raise HTTPException(status_code=404, detail="Matrix program not found")
 

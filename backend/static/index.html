@@ -8482,7 +8482,12 @@
     async function loadOTPData() {
         try {
             const endpoint = currentOTPRegion === 'asia' ? '/otp-asia' : '/otp';
-            const res = await fetch(`${API_BASE}${endpoint}`);
+            // Only pass base parameter for Indonesia region
+            let url = `${API_BASE}${endpoint}`;
+            if (currentOTPRegion === 'indonesia' && currentOTPBase) {
+                url += `?base=${currentOTPBase}`;
+            }
+            const res = await fetch(url);
             if (res.ok) {
                 otpData = await res.json();
                 filteredOTPPrograms = otpData.programs || [];
@@ -8495,6 +8500,22 @@
     function changeOTPRegion(region) {
         currentOTPRegion = region;
         document.getElementById('otp-region-select').value = region;
+        // Disable base dropdown for Asia region
+        const baseDropdown = document.getElementById('otp-base-select');
+        if (region === 'asia') {
+            baseDropdown.disabled = true;
+            baseDropdown.innerHTML = '<option value="">N/A</option>';
+            currentOTPBase = null;
+        } else {
+            baseDropdown.disabled = false;
+            baseDropdown.innerHTML = `
+                <option value="all">All Bases</option>
+                <option value="narogong">Narogong</option>
+                <option value="duri">Duri</option>
+                <option value="balikpapan">Balikpapan</option>
+            `;
+            currentOTPBase = 'all';
+        }
         loadOTPData();
     }
 
@@ -8502,7 +8523,7 @@
     function changeOTPBase(base) {
         currentOTPBase = base;
         document.getElementById('otp-base-select').value = base;
-        updateOTPSummary();
+        loadOTPData(); // Reload data with new base
     }
 
     function updateOTPSummary() {
@@ -8673,7 +8694,11 @@
 
         try {
             const endpoint = currentOTPRegion === 'asia' ? '/otp-asia' : '/otp';
-            const res = await fetch(`${API_BASE}${endpoint}/${programId}/month/${month}`, {
+            let url = `${API_BASE}${endpoint}/${programId}/month/${month}`;
+            if (currentOTPRegion === 'indonesia' && currentOTPBase && currentOTPBase !== 'all') {
+                url += `?base=${currentOTPBase}`;
+            }
+            const res = await fetch(url, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ plan, actual, wpts_id, plan_date, impl_date, pic_name, pic_manager, pic_email, pic_manager_email })
@@ -9060,7 +9085,12 @@
 
     async function loadMatrixData() {
         try {
-            const res = await fetch(`${API_BASE}/matrix?category=${currentMatrixCategory}&region=${currentMatrixRegion}`);
+            let url = `${API_BASE}/matrix?category=${currentMatrixCategory}&region=${currentMatrixRegion}`;
+            // Only pass base parameter for Indonesia region
+            if (currentMatrixRegion === 'indonesia' && currentMatrixBase) {
+                url += `&base=${currentMatrixBase}`;
+            }
+            const res = await fetch(url);
             if (res.ok) {
                 matrixData = await res.json();
                 filteredMatrixPrograms = matrixData.programs || [];
@@ -9079,6 +9109,22 @@
     function changeMatrixRegion(region) {
         currentMatrixRegion = region;
         document.getElementById('matrix-region-select').value = region;
+        // Disable base dropdown for Asia region
+        const baseDropdown = document.getElementById('matrix-base-select');
+        if (region === 'asia') {
+            baseDropdown.disabled = true;
+            baseDropdown.innerHTML = '<option value="">N/A</option>';
+            currentMatrixBase = null;
+        } else {
+            baseDropdown.disabled = false;
+            baseDropdown.innerHTML = `
+                <option value="all">All Bases</option>
+                <option value="narogong">Narogong</option>
+                <option value="duri">Duri</option>
+                <option value="balikpapan">Balikpapan</option>
+            `;
+            currentMatrixBase = 'all';
+        }
         loadMatrixData();
     }
 
@@ -9086,7 +9132,7 @@
     function changeMatrixBase(base) {
         currentMatrixBase = base;
         document.getElementById('matrix-base-select').value = base;
-        updateMatrixSummary();
+        loadMatrixData(); // Reload data with new base
     }
 
     function changeMatrixYear(year) {
@@ -9204,7 +9250,11 @@
         const pic_email = document.getElementById('matrix-edit-pic-email').value.trim();
         const pic_manager_email = document.getElementById('matrix-edit-pic-manager-email').value.trim();
         try {
-            const res = await fetch(`${API_BASE}/matrix/${programId}/month/${month}?category=${currentMatrixCategory}&region=${currentMatrixRegion}`, {
+            let url = `${API_BASE}/matrix/${programId}/month/${month}?category=${currentMatrixCategory}&region=${currentMatrixRegion}`;
+            if (currentMatrixRegion === 'indonesia' && currentMatrixBase && currentMatrixBase !== 'all') {
+                url += `&base=${currentMatrixBase}`;
+            }
+            const res = await fetch(url, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ plan, actual, wpts_id, plan_date, impl_date, pic_name, pic_manager, pic_email, pic_manager_email })
