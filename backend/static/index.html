@@ -1047,12 +1047,15 @@
                                 style="width: 44px; height: 44px; object-fit: contain;">
                         </div>
                         <div>
-                            <h1 style="font-size: 28px; font-weight: 800; color: white; margin: 0;">HSE Dashboard</h1>
-                            <p style="font-size: 14px; color: rgba(255,255,255,0.85); margin: 0;">Health, Safety &
+                            <h1 data-i18n="hseDashboard"
+                                style="font-size: 28px; font-weight: 800; color: white; margin: 0;">HSE Dashboard</h1>
+                            <p data-i18n="healthSafetyEnv"
+                                style="font-size: 14px; color: rgba(255,255,255,0.85); margin: 0;">Health, Safety &
                                 Environment</p>
                         </div>
                     </div>
-                    <p style="font-size: 14px; color: rgba(255,255,255,0.9); max-width: 400px; line-height: 1.5;">
+                    <p data-i18n="monitorHsePerformance"
+                        style="font-size: 14px; color: rgba(255,255,255,0.9); max-width: 400px; line-height: 1.5;">
                         Monitor your organization's HSE performance, track KPIs, and manage safety programs.
                     </p>
                 </div>
@@ -1074,9 +1077,11 @@
                         </div>
                     </div>
                     <div>
-                        <p style="font-size: 13px; color: rgba(255,255,255,0.8);">Overall Progress</p>
+                        <p data-i18n="overallProgress" style="font-size: 13px; color: rgba(255,255,255,0.8);">Overall
+                            Progress</p>
                         <p id="hero-impl-text" style="font-size: 16px; font-weight: 700; color: white;">0%
-                            Implementation</p>
+                            <span data-i18n="implementation">Implementation</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1089,10 +1094,10 @@
                 style="background: rgba(255,255,255,0.92); border-radius: 16px; padding: 16px; cursor: pointer; border-left: 4px solid #3b82f6; box-shadow: 0 4px 24px rgba(59,130,246,0.08);">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <div>
-                        <p style="font-size: 12px; color: #475569;">Total Plans</p>
+                        <p data-i18n="totalPlans" style="font-size: 12px; color: #475569;">Total Plans</p>
                         <p id="stat-total-plans"
                             style="font-size: 32px; font-weight: 800; color: #1e293b; margin: 4px 0;">0</p>
-                        <p style="font-size: 11px; color: #94a3b8;">Active programs</p>
+                        <p data-i18n="activePrograms" style="font-size: 11px; color: #94a3b8;">Active programs</p>
                     </div>
                     <div
                         style="width: 44px; height: 44px; background: rgba(59,130,246,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
@@ -1105,11 +1110,12 @@
                 style="background: rgba(255,255,255,0.92); border-radius: 16px; padding: 16px; cursor: pointer; border-left: 4px solid #10b981; box-shadow: 0 4px 24px rgba(16,185,129,0.08);">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <div>
-                        <p style="font-size: 12px; color: #475569;">Completed</p>
+                        <p data-i18n="completedLabel" style="font-size: 12px; color: #475569;">Completed</p>
                         <p id="stat-completed"
                             style="font-size: 32px; font-weight: 800; color: #1e293b; margin: 4px 0;">0</p>
-                        <p style="font-size: 11px; color: #94a3b8;">This quarter</p>
-                        <p id="stat-trend" style="font-size: 11px; color: #10b981; font-weight: 600;">+12% from last
+                        <p data-i18n="thisQuarter" style="font-size: 11px; color: #94a3b8;">This quarter</p>
+                        <p data-i18n="trendUp" id="stat-trend"
+                            style="font-size: 11px; color: #10b981; font-weight: 600;">+12% from last
                             month</p>
                     </div>
                     <div
@@ -1123,10 +1129,10 @@
                 style="background: rgba(255,255,255,0.92); border-radius: 16px; padding: 16px; cursor: pointer; border-left: 4px solid #f59e0b; box-shadow: 0 4px 24px rgba(245,158,11,0.08);">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <div>
-                        <p style="font-size: 12px; color: #475569;">In Progress</p>
+                        <p data-i18n="inProgressLabel" style="font-size: 12px; color: #475569;">In Progress</p>
                         <p id="stat-inprogress"
                             style="font-size: 32px; font-weight: 800; color: #1e293b; margin: 4px 0;">0</p>
-                        <p style="font-size: 11px; color: #94a3b8;">Ongoing tasks</p>
+                        <p data-i18n="ongoingTasks" style="font-size: 11px; color: #94a3b8;">Ongoing tasks</p>
                     </div>
                     <div
                         style="width: 44px; height: 44px; background: rgba(245,158,11,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
@@ -1139,10 +1145,10 @@
                 style="background: rgba(255,255,255,0.92); border-radius: 16px; padding: 16px; cursor: pointer; border-left: 4px solid #ef4444; box-shadow: 0 4px 24px rgba(239,68,68,0.08);">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <div>
-                        <p style="font-size: 12px; color: #475569;">Pending</p>
+                        <p data-i18n="pendingLabel" style="font-size: 12px; color: #475569;">Pending</p>
                         <p id="stat-pending" style="font-size: 32px; font-weight: 800; color: #1e293b; margin: 4px 0;">0
                         </p>
-                        <p style="font-size: 11px; color: #94a3b8;">Require attention</p>
+                        <p data-i18n="requireAttention" style="font-size: 11px; color: #94a3b8;">Require attention</p>
                     </div>
                     <div
                         style="width: 44px; height: 44px; background: rgba(239,68,68,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
@@ -3491,7 +3497,15 @@
             projectTasksMoving: 'Tugas proyek berjalan lancar. Periksa dasbor Statistik untuk tingkat penyelesaian terperinci.',
             overallCompletion: 'Penyelesaian Keseluruhan', like: 'Suka', comment: 'Komentar',
             // Activity Log
-            projectsLoadedSuccess: 'Proyek berhasil dimuat', checkingScheduleReminders: 'Memeriksa pengingat jadwal...', dashboardReady: 'Dashboard siap'
+            projectsLoadedSuccess: 'Proyek berhasil dimuat', checkingScheduleReminders: 'Memeriksa pengingat jadwal...', dashboardReady: 'Dashboard siap',
+            // V0 Home Screen Dashboard
+            hseDashboard: 'Dasbor HSE', healthSafetyEnv: 'Kesehatan, Keselamatan & Lingkungan',
+            monitorHsePerformance: 'Pantau kinerja HSE organisasi Anda, lacak KPI, dan kelola program keselamatan.',
+            overallProgress: 'Kemajuan Keseluruhan', implementation: 'Implementasi',
+            totalPlans: 'Total Rencana', activePrograms: 'Program aktif',
+            completedLabel: 'Selesai', thisQuarter: 'Kuartal ini', trendUp: '+12% dari bulan lalu',
+            inProgressLabel: 'Sedang Berjalan', ongoingTasks: 'Tugas berlangsung',
+            pendingLabel: 'Tertunda', requireAttention: 'Butuh perhatian'
         },
         en: {
             // Navigation
@@ -3617,7 +3631,15 @@
             projectTasksMoving: 'Project tasks are moving forward smoothly. Check the Statistics dashboard for detailed completion rates.',
             overallCompletion: 'Overall Completion', like: 'Like', comment: 'Comment',
             // Activity Log
-            projectsLoadedSuccess: 'Projects loaded successfully', checkingScheduleReminders: 'Checking for schedule reminders...', dashboardReady: 'Dashboard ready'
+            projectsLoadedSuccess: 'Projects loaded successfully', checkingScheduleReminders: 'Checking for schedule reminders...', dashboardReady: 'Dashboard ready',
+            // V0 Home Screen Dashboard
+            hseDashboard: 'HSE Dashboard', healthSafetyEnv: 'Health, Safety & Environment',
+            monitorHsePerformance: 'Monitor your organization\'s HSE performance, track KPIs, and manage safety programs.',
+            overallProgress: 'Overall Progress', implementation: 'Implementation',
+            totalPlans: 'Total Plans', activePrograms: 'Active programs',
+            completedLabel: 'Completed', thisQuarter: 'This quarter', trendUp: '+12% from last month',
+            inProgressLabel: 'In Progress', ongoingTasks: 'Ongoing tasks',
+            pendingLabel: 'Pending', requireAttention: 'Require attention'
         },
         ar: {
             // Navigation
