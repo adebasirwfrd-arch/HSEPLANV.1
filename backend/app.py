@@ -1001,7 +1001,7 @@ def update_otp_asia_year(year: int):
 
 def get_matrix_file_path(category: str, region: str):
     """Get the file path for a specific matrix category and region."""
-    return Path("backend/data") / f"matrix_{category}_{region}.json"
+    return Path(__file__).parent / "data" / f"matrix_{category}_{region}.json"
 
 def load_matrix_data(category: str, region: str):
     """Load matrix data for a specific category and region."""

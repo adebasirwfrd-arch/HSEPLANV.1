@@ -3130,6 +3130,13 @@
         </svg>
         <span>OTP</span>
     </div>
+    <div class="nav-item" onclick="navigateTo('matrix')">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z" />
+        </svg>
+        <span>Matrix</span>
+    </div>
     <div class="nav-item" onclick="navigateTo('related-docs')">
         <svg viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -9166,10 +9173,11 @@
         });
         const categoryLabel = { audit: 'Audit', training: 'Training', drill: 'Drill', meeting: 'Meeting' }[currentMatrixCategory] || 'Matrix';
         const regionLabel = currentMatrixRegion === 'asia' ? 'Asia' : 'Indonesia';
+        const baseLabel = currentMatrixBase !== 'all' ? `_${currentMatrixBase.charAt(0).toUpperCase() + currentMatrixBase.slice(1)}` : '';
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = `HSE_Matrix_${categoryLabel}_${regionLabel}_${matrixData.year}.csv`;
+        link.download = `HSE_Matrix_${categoryLabel}_${regionLabel}${baseLabel}_${matrixData.year}.csv`;
         link.click();
         showToast('Matrix report downloaded!', 'success');
     }
