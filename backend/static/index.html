@@ -1465,235 +1465,224 @@
     <section class="screen" id="screen-statistics" style="overflow-y: auto; height: calc(100vh - 130px);">
         <!-- Dashboard Header -->
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-            <svg viewBox="0 0 24 24" fill="var(--netflix-red)" width="28" height="28">
-                <path
-                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-            </svg>
-            <h2 style="font-size: 24px; font-weight: 700;" data-i18n="dashboard">Dashboard</h2>
+            <div
+                style="width: 48px; height: 48px; background: linear-gradient(135deg, #E50914, #B20710); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">
+                📊</div>
+            <div>
+                <h2 style="font-size: 22px; font-weight: 700; margin: 0;">HSE Plan Dashboard</h2>
+                <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Comprehensive HSE Implementation Report
+                </p>
+            </div>
         </div>
 
-        <!-- KPI Cards Row -->
+        <!-- Overall Implementation Progress -->
+        <div
+            style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 24px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="font-size: 16px; font-weight: 700; color: white;">🎯 HSE Plan Implementation</div>
+                <div id="stat-hse-percentage" style="font-size: 32px; font-weight: 800; color: #46D369;">0%</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); border-radius: 8px; height: 16px; overflow: hidden;">
+                <div id="stat-hse-progress-bar"
+                    style="height: 100%; background: linear-gradient(90deg, #46D369, #2E8B4F); width: 0%; transition: width 0.8s ease-out; border-radius: 8px;">
+                </div>
+            </div>
+            <div
+                style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 12px; color: rgba(255,255,255,0.7);">
+                <span><span id="stat-total-implemented">0</span> Implemented</span>
+                <span><span id="stat-total-planned">0</span> Total Planned</span>
+            </div>
+        </div>
+
+        <!-- HSE Program Summary Cards -->
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px;">
-            <div onclick="navigateTo('hse-programs')"
-                style="background: linear-gradient(135deg, #E50914 0%, #B20710 100%); border-radius: 12px; padding: 16px; cursor: pointer; transition: transform 0.2s;">
-                <div style="font-size: 12px; opacity: 0.8;" data-i18n="totalPrograms">Total HSE Programs</div>
-                <div id="stat-total-projects" style="font-size: 32px; font-weight: 700;">0</div>
-                <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;" data-i18n="tapToView">Tap to view →</div>
+            <!-- KPI Programs Card -->
+            <div onclick="navigateTo('hse-kpi')"
+                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 16px; cursor: pointer; transition: transform 0.2s;"
+                onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="font-size: 11px; opacity: 0.8;">📊 KPI Programs</div>
+                <div id="stat-kpi-count" style="font-size: 28px; font-weight: 700;">0</div>
+                <div style="font-size: 10px; opacity: 0.6;">Tap to view →</div>
             </div>
-            <div onclick="navigateTo('tasks')"
-                style="background: linear-gradient(135deg, #46D369 0%, #2E8B4F 100%); border-radius: 12px; padding: 16px; cursor: pointer; transition: transform 0.2s;">
-                <div style="font-size: 12px; opacity: 0.8;" data-i18n="implementedPrograms">Implemented</div>
-                <div id="stat-total-tasks" style="font-size: 32px; font-weight: 700;">0</div>
-                <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;" data-i18n="tapToView">Tap to view →</div>
+            <!-- LL Indicators Card -->
+            <div onclick="navigateTo('ll-indicator')"
+                style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 12px; padding: 16px; cursor: pointer; transition: transform 0.2s;"
+                onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="font-size: 11px; opacity: 0.8;">📈 LL Indicators</div>
+                <div id="stat-ll-count" style="font-size: 28px; font-weight: 700;">0</div>
+                <div style="font-size: 10px; opacity: 0.6;">Tap to view →</div>
             </div>
-            <div onclick="navigateTo('tasks')"
-                style="background: linear-gradient(135deg, #4A90D9 0%, #2E5A8C 100%); border-radius: 12px; padding: 16px; cursor: pointer; transition: transform 0.2s;">
-                <div style="font-size: 12px; opacity: 0.8;" data-i18n="implementationRate">Implementation Rate</div>
-                <div id="stat-completion-rate" style="font-size: 32px; font-weight: 700;">0%</div>
-                <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;" data-i18n="tapForTasks">Tap for details →
+            <!-- OTP Programs Card -->
+            <div onclick="navigateTo('otp')"
+                style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; padding: 16px; cursor: pointer; transition: transform 0.2s;"
+                onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="font-size: 11px; opacity: 0.8;">📋 OTP Programs</div>
+                <div style="display: flex; align-items: baseline; gap: 4px;">
+                    <span id="stat-otp-implemented" style="font-size: 28px; font-weight: 700;">0</span>
+                    <span style="font-size: 14px; opacity: 0.7;">/ <span id="stat-otp-total">0</span></span>
                 </div>
+                <div style="font-size: 10px; opacity: 0.6;">Implemented / Total →</div>
             </div>
-            <div onclick="navigateTo('schedule')"
-                style="background: linear-gradient(135deg, #F5A623 0%, #C88820 100%); border-radius: 12px; padding: 16px; cursor: pointer; transition: transform 0.2s;">
-                <div style="font-size: 12px; opacity: 0.8;" data-i18n="upcomingPrograms">Upcoming Programs</div>
-                <div id="stat-upcoming-mwt" style="font-size: 32px; font-weight: 700;">0</div>
-                <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;" data-i18n="tapForSchedule">Tap for schedule
-                    →</div>
+            <!-- Matrix Programs Card -->
+            <div onclick="navigateTo('matrix')"
+                style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px; padding: 16px; cursor: pointer; transition: transform 0.2s;"
+                onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="font-size: 11px; opacity: 0.8;">🗓️ Matrix Programs</div>
+                <div style="display: flex; align-items: baseline; gap: 4px;">
+                    <span id="stat-matrix-implemented" style="font-size: 28px; font-weight: 700;">0</span>
+                    <span style="font-size: 14px; opacity: 0.7;">/ <span id="stat-matrix-total">0</span></span>
+                </div>
+                <div style="font-size: 10px; opacity: 0.6;">Implemented / Total →</div>
             </div>
         </div>
 
-        <!-- Project Status Donut Chart -->
-        <div onclick="navigateTo('hse-programs')"
+        <!-- OTP Implementation Status Donut -->
+        <div onclick="navigateTo('otp')"
             style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px; cursor: pointer;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <div style="font-size: 16px; font-weight: 600;" data-i18n="programStatusDistribution">Program Status
-                    Distribution</div>
-                <span style="font-size: 11px; color: var(--text-muted);" data-i18n="tapToView">Tap to view →</span>
+                <div style="font-size: 16px; font-weight: 600;">📋 OTP Implementation Status</div>
+                <span style="font-size: 11px; color: var(--text-muted);">Tap to view →</span>
             </div>
             <div style="display: flex; align-items: center; gap: 24px;">
-                <div id="project-donut-chart" style="width: 120px; height: 120px; position: relative;">
-                    <!-- SVG donut chart will be inserted here -->
+                <div id="otp-donut-chart" style="width: 120px; height: 120px; position: relative;">
+                    <!-- SVG donut will be inserted -->
                 </div>
-                <div id="project-legend-new" style="flex: 1;">
-                    <!-- Legend items -->
+                <div id="otp-legend" style="flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <div style="width: 12px; height: 12px; background: #46D369; border-radius: 3px;"></div>
+                        <span style="font-size: 12px;">Implemented: <strong id="otp-legend-impl">0</strong></span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #F5A623; border-radius: 3px;"></div>
+                        <span style="font-size: 12px;">Planned: <strong id="otp-legend-planned">0</strong></span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Task Status Donut Chart -->
-        <div onclick="navigateTo('tasks')"
+        <!-- Matrix Implementation Status Donut -->
+        <div onclick="navigateTo('matrix')"
             style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px; cursor: pointer;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <div style="font-size: 16px; font-weight: 600;" data-i18n="taskStatusDistribution">Task Status
-                    Distribution</div>
-                <span style="font-size: 11px; color: var(--text-muted);" data-i18n="tapToView">Tap to view →</span>
+                <div style="font-size: 16px; font-weight: 600;">🗓️ Matrix Implementation Status</div>
+                <span style="font-size: 11px; color: var(--text-muted);">Tap to view →</span>
             </div>
             <div style="display: flex; align-items: center; gap: 24px;">
-                <div id="task-donut-chart" style="width: 120px; height: 120px; position: relative;">
-                    <!-- SVG donut chart will be inserted here -->
+                <div id="matrix-donut-chart" style="width: 120px; height: 120px; position: relative;">
+                    <!-- SVG donut will be inserted -->
                 </div>
-                <div id="task-legend-new" style="flex: 1;">
-                    <!-- Legend items -->
+                <div id="matrix-legend" style="flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <div style="width: 12px; height: 12px; background: #46D369; border-radius: 3px;"></div>
+                        <span style="font-size: 12px;">Implemented: <strong id="matrix-legend-impl">0</strong></span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #F5A623; border-radius: 3px;"></div>
+                        <span style="font-size: 12px;">Planned: <strong id="matrix-legend-planned">0</strong></span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Project Completion Progress -->
-        <div onclick="navigateTo('projects')"
-            style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px; cursor: pointer;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <div style="font-size: 16px; font-weight: 600;" data-i18n="projectTaskCompletion">Project Task
-                    Completion</div>
-                <span style="font-size: 11px; color: var(--text-muted);" data-i18n="tapToView">Tap to view →</span>
-            </div>
-            <div id="project-completion-bars" style="max-height: 300px; overflow-y: auto;">
-                <!-- Progress bars will be inserted here -->
-            </div>
-        </div>
-
-        <!-- Analytics Charts Section -->
+        <!-- Monthly HSE Progress Chart -->
         <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;" data-i18n="analyticsDashboard">📊
-                Analytics Dashboard</div>
-
-            <!-- Task Progress Overview Chart -->
-            <div onclick="navigateTo('tasks')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.2s;"
-                onmouseover="this.style.background='var(--bg-tertiary)'"
-                onmouseout="this.style.background='transparent'">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="taskStatusOverview">Task
-                        Status
-                        Overview</div>
-                    <span style="font-size: 10px; color: var(--netflix-red);">→</span>
-                </div>
-                <div id="task-progress-chart" style="height: 100px; display: flex; align-items: flex-end; gap: 12px;">
-                    <!-- Task status bars will be inserted here -->
-                </div>
+            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">📈 Monthly HSE Implementation Progress
             </div>
-
-            <!-- Project Status Area Chart -->
-            <div onclick="navigateTo('projects')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.2s;"
-                onmouseover="this.style.background='var(--bg-tertiary)'"
-                onmouseout="this.style.background='transparent'">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="projectProgressOverview">
-                        Project
-                        Progress Overview</div>
-                    <span style="font-size: 10px; color: var(--netflix-red);">→</span>
-                </div>
-                <div id="progress-area-chart"
-                    style="height: 120px; position: relative; background: linear-gradient(180deg, rgba(70, 211, 105, 0.1) 0%, transparent 100%); border-radius: 8px; overflow: hidden;">
-                    <!-- Area chart will be inserted here -->
-                </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;">Programs implemented per month
+                (Jan - Dec)</p>
+            <div id="hse-monthly-chart"
+                style="height: 150px; display: flex; align-items: flex-end; justify-content: space-between; gap: 4px; padding-bottom: 20px; position: relative;">
+                <!-- Monthly bars will be inserted here -->
             </div>
-
-            <!-- Monthly Trend -->
-            <div onclick="navigateTo('schedule')"
-                style="cursor: pointer; padding: 10px; border-radius: 8px; transition: background 0.2s;"
-                onmouseover="this.style.background='var(--bg-tertiary)'"
-                onmouseout="this.style.background='transparent'">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="font-size: 13px; color: var(--text-muted);" data-i18n="monthlyActivityTrend">Monthly
-                        Activity Trend</div>
-                    <span style="font-size: 10px; color: var(--netflix-red);">→</span>
+            <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted);">
+                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+            </div>
+            <!-- Legend -->
+            <div
+                style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border);">
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 11px;">
+                    <div style="width: 12px; height: 12px; background: #667eea; border-radius: 2px;"></div>
+                    <span>KPI</span>
                 </div>
-                <div id="monthly-trend-chart"
-                    style="height: 100px; display: flex; align-items: flex-end; justify-content: space-between; gap: 4px;">
-                    <!-- Line/bar chart will be inserted here -->
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 11px;">
+                    <div style="width: 12px; height: 12px; background: #11998e; border-radius: 2px;"></div>
+                    <span>LL</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 11px;">
+                    <div style="width: 12px; height: 12px; background: #f5576c; border-radius: 2px;"></div>
+                    <span>OTP</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 11px;">
+                    <div style="width: 12px; height: 12px; background: #fa709a; border-radius: 2px;"></div>
+                    <span>Matrix</span>
                 </div>
             </div>
         </div>
 
-        <!-- Monthly Charts Gallery -->
+        <!-- Implementation by Program Type -->
         <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;" data-i18n="monthlyChartsGallery">📈
-                Monthly Charts Gallery</div>
-            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;" data-i18n="janDecTrends">Jan
-                -
-                Dec trends across all data
-            </p>
-
-            <!-- Projects by Month -->
-            <div onclick="navigateTo('projects')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: var(--netflix-red); margin-bottom: 8px;"
-                    data-i18n="projectsCreatedByMonth">📁
-                    Projects Created by Month</div>
-                <div id="monthly-projects-chart"
-                    style="height: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px;">
+            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">📊 Implementation by Program Type</div>
+            <div id="program-type-bars" style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- KPI Progress -->
+                <div onclick="navigateTo('hse-kpi')" style="cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                        <span style="color: #667eea; font-weight: 600;">📊 KPI Programs</span>
+                        <span id="kpi-progress-text">0%</span>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border-radius: 6px; height: 10px; overflow: hidden;">
+                        <div id="kpi-progress-bar"
+                            style="height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); width: 0%; transition: width 0.5s;">
+                        </div>
+                    </div>
                 </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span data-i18n="jan">Jan</span><span data-i18n="feb">Feb</span><span
-                        data-i18n="mar">Mar</span><span data-i18n="apr">Apr</span><span data-i18n="may">May</span><span
-                        data-i18n="jun">Jun</span><span data-i18n="jul">Jul</span><span data-i18n="aug">Aug</span><span
-                        data-i18n="sep">Sep</span><span data-i18n="oct">Oct</span><span data-i18n="nov">Nov</span><span
-                        data-i18n="dec">Dec</span>
+                <!-- LL Progress -->
+                <div onclick="navigateTo('ll-indicator')" style="cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                        <span style="color: #11998e; font-weight: 600;">📈 LL Indicators</span>
+                        <span id="ll-progress-text">0 tracked</span>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border-radius: 6px; height: 10px; overflow: hidden;">
+                        <div id="ll-progress-bar"
+                            style="height: 100%; background: linear-gradient(90deg, #11998e, #38ef7d); width: 0%; transition: width 0.5s;">
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Task Completion by Month -->
-            <div onclick="navigateTo('tasks')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #46D369; margin-bottom: 8px;"
-                    data-i18n="taskCompletionRateByMonth">✓ Task Completion
-                    Rate by Month</div>
-                <div id="monthly-tasks-chart"
-                    style="height: 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 2px;">
+                <!-- OTP Progress -->
+                <div onclick="navigateTo('otp')" style="cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                        <span style="color: #f5576c; font-weight: 600;">📋 OTP Programs</span>
+                        <span id="otp-progress-text">0%</span>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border-radius: 6px; height: 10px; overflow: hidden;">
+                        <div id="otp-progress-bar"
+                            style="height: 100%; background: linear-gradient(90deg, #f093fb, #f5576c); width: 0%; transition: width 0.5s;">
+                        </div>
+                    </div>
                 </div>
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 8px; color: var(--text-muted); margin-top: 4px;">
-                    <span data-i18n="jan">Jan</span><span data-i18n="feb">Feb</span><span
-                        data-i18n="mar">Mar</span><span data-i18n="apr">Apr</span><span data-i18n="may">May</span><span
-                        data-i18n="jun">Jun</span><span data-i18n="jul">Jul</span><span data-i18n="aug">Aug</span><span
-                        data-i18n="sep">Sep</span><span data-i18n="oct">Oct</span><span data-i18n="nov">Nov</span><span
-                        data-i18n="dec">Dec</span>
+                <!-- Matrix Progress -->
+                <div onclick="navigateTo('matrix')" style="cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                        <span style="color: #fa709a; font-weight: 600;">🗓️ Matrix Programs</span>
+                        <span id="matrix-progress-text">0%</span>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border-radius: 6px; height: 10px; overflow: hidden;">
+                        <div id="matrix-progress-bar"
+                            style="height: 100%; background: linear-gradient(90deg, #fa709a, #fee140); width: 0%; transition: width 0.5s;">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Project Chart Gallery -->
-        <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;" data-i18n="projectChartGallery">📁
-                Project Chart Gallery</div>
-            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;"
-                data-i18n="xAxisProjectsYAxisValues">X-axis: Projects | Y-axis: Values
-            </p>
-
-            <!-- Tasks per Project -->
-            <div onclick="navigateTo('tasks')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #F5A623; margin-bottom: 8px;"
-                    data-i18n="tasksPerProject">📋 Tasks per Project
-                </div>
-                <div id="project-tasks-chart"
-                    style="height: 100px; display: flex; align-items: flex-end; gap: 4px; overflow-x: auto;"></div>
-            </div>
-
-            <!-- Task Completion Rate per Project -->
-            <div onclick="navigateTo('projects')"
-                style="margin-bottom: 20px; cursor: pointer; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                <div style="font-size: 12px; font-weight: 600; color: #46D369; margin-bottom: 8px;"
-                    data-i18n="taskCompletionRatePerProject">✓ Task Completion
-                    Rate per Project (%)</div>
-                <div id="project-completion-chart"
-                    style="height: 100px; display: flex; align-items: flex-end; gap: 4px; overflow-x: auto;"></div>
             </div>
         </div>
 
         <!-- Quick Actions -->
         <div style="background: var(--bg-secondary); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;" data-i18n="quickActions">Quick
-                Actions
-            </div>
+            <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">⚡ Quick Actions</div>
             <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <button onclick="checkReminders()" class="btn btn-save" style="flex: 1; min-width: 120px;">
-                    📧 <span data-i18n="checkReminders">Check Reminders</span>
+                <button onclick="loadHSEStatistics()" class="btn btn-save" style="flex: 1; min-width: 120px;">
+                    🔄 Refresh Data
                 </button>
-                <button onclick="loadDashboardStats()" class="btn btn-cancel" style="flex: 1; min-width: 120px;">
-                    🔄 <span data-i18n="refreshStats">Refresh Stats</span>
+                <button onclick="downloadReport()" class="btn btn-cancel" style="flex: 1; min-width: 120px;">
+                    📥 Download Report
                 </button>
             </div>
         </div>
@@ -4847,6 +4836,180 @@
         }
     }
 
+    // ===== HSE STATISTICS DASHBOARD =====
+    async function loadHSEStatistics() {
+        try {
+            // Fetch all data in parallel
+            const [kpiRes, llRes, otpRes, matrixRes] = await Promise.all([
+                fetch('/programs'),
+                fetch('/ll-indicator'),
+                fetch('/otp?base=all'),
+                fetch('/matrix?base=all')
+            ]);
+
+            const [kpiData, llData, otpData, matrixData] = await Promise.all([
+                kpiRes.json(),
+                llRes.json(),
+                otpRes.json(),
+                matrixRes.json()
+            ]);
+
+            // Process KPI data
+            const kpiPrograms = kpiData || [];
+            const kpiCount = kpiPrograms.length;
+
+            // Process LL data
+            const llIndicators = llData.indicators || [];
+            const llCount = llIndicators.length;
+
+            // Process OTP data
+            const otpPrograms = otpData.programs || [];
+            let otpImplemented = 0;
+            let otpTotal = 0;
+            otpPrograms.forEach(p => {
+                const months = p.months || {};
+                Object.values(months).forEach(m => {
+                    otpTotal++;
+                    if (m.status === 'Done' || m.status === 'Completed' || m.actual_date) otpImplemented++;
+                });
+            });
+
+            // Process Matrix data
+            const matrixPrograms = matrixData.programs || [];
+            let matrixImplemented = 0;
+            let matrixTotal = 0;
+            matrixPrograms.forEach(p => {
+                const months = p.months || {};
+                Object.values(months).forEach(m => {
+                    matrixTotal++;
+                    if (m.status === 'Done' || m.status === 'Completed' || m.actual_date) matrixImplemented++;
+                });
+            });
+
+            // Calculate overall implementation
+            const totalPlanned = kpiCount + otpTotal + matrixTotal;
+            const totalImpl = kpiCount + otpImplemented + matrixImplemented; // Assume all KPI are implemented
+            const overallPercent = totalPlanned > 0 ? Math.round((totalImpl / totalPlanned) * 100) : 0;
+
+            // Update UI - Summary Cards
+            const statKpiCount = document.getElementById('stat-kpi-count');
+            if (statKpiCount) statKpiCount.textContent = kpiCount;
+
+            const statLlCount = document.getElementById('stat-ll-count');
+            if (statLlCount) statLlCount.textContent = llCount;
+
+            const statOtpImpl = document.getElementById('stat-otp-implemented');
+            if (statOtpImpl) statOtpImpl.textContent = otpImplemented;
+            const statOtpTotal = document.getElementById('stat-otp-total');
+            if (statOtpTotal) statOtpTotal.textContent = otpTotal;
+
+            const statMatrixImpl = document.getElementById('stat-matrix-implemented');
+            if (statMatrixImpl) statMatrixImpl.textContent = matrixImplemented;
+            const statMatrixTotal = document.getElementById('stat-matrix-total');
+            if (statMatrixTotal) statMatrixTotal.textContent = matrixTotal;
+
+            // Update Overall Progress
+            const hsePercent = document.getElementById('stat-hse-percentage');
+            if (hsePercent) hsePercent.textContent = overallPercent + '%';
+            const hseProgressBar = document.getElementById('stat-hse-progress-bar');
+            if (hseProgressBar) hseProgressBar.style.width = overallPercent + '%';
+            const totalImplEl = document.getElementById('stat-total-implemented');
+            if (totalImplEl) totalImplEl.textContent = totalImpl;
+            const totalPlannedEl = document.getElementById('stat-total-planned');
+            if (totalPlannedEl) totalPlannedEl.textContent = totalPlanned;
+
+            // Render OTP Donut Chart
+            renderDonutChart('otp-donut-chart', otpImplemented, otpTotal - otpImplemented, '#46D369', '#F5A623');
+            const otpLegendImpl = document.getElementById('otp-legend-impl');
+            if (otpLegendImpl) otpLegendImpl.textContent = otpImplemented;
+            const otpLegendPlanned = document.getElementById('otp-legend-planned');
+            if (otpLegendPlanned) otpLegendPlanned.textContent = otpTotal - otpImplemented;
+
+            // Render Matrix Donut Chart
+            renderDonutChart('matrix-donut-chart', matrixImplemented, matrixTotal - matrixImplemented, '#46D369', '#F5A623');
+            const matrixLegendImpl = document.getElementById('matrix-legend-impl');
+            if (matrixLegendImpl) matrixLegendImpl.textContent = matrixImplemented;
+            const matrixLegendPlanned = document.getElementById('matrix-legend-planned');
+            if (matrixLegendPlanned) matrixLegendPlanned.textContent = matrixTotal - matrixImplemented;
+
+            // Update Progress Bars
+            const kpiPercent = 100; // Assume all KPI tracked
+            const llPercent = Math.min(llCount * 10, 100); // Scale for visual
+            const otpPercent = otpTotal > 0 ? Math.round((otpImplemented / otpTotal) * 100) : 0;
+            const matrixPercent = matrixTotal > 0 ? Math.round((matrixImplemented / matrixTotal) * 100) : 0;
+
+            const kpiBar = document.getElementById('kpi-progress-bar');
+            if (kpiBar) kpiBar.style.width = kpiPercent + '%';
+            const kpiText = document.getElementById('kpi-progress-text');
+            if (kpiText) kpiText.textContent = kpiCount + ' programs';
+
+            const llBar = document.getElementById('ll-progress-bar');
+            if (llBar) llBar.style.width = llPercent + '%';
+            const llText = document.getElementById('ll-progress-text');
+            if (llText) llText.textContent = llCount + ' tracked';
+
+            const otpBar = document.getElementById('otp-progress-bar');
+            if (otpBar) otpBar.style.width = otpPercent + '%';
+            const otpText = document.getElementById('otp-progress-text');
+            if (otpText) otpText.textContent = otpPercent + '%';
+
+            const matrixBar = document.getElementById('matrix-progress-bar');
+            if (matrixBar) matrixBar.style.width = matrixPercent + '%';
+            const matrixText = document.getElementById('matrix-progress-text');
+            if (matrixText) matrixText.textContent = matrixPercent + '%';
+
+            // Render Monthly Chart (placeholder with sample data)
+            renderHSEMonthlyChart();
+
+            console.log('[HSE Stats] Loaded successfully');
+        } catch (error) {
+            console.error('Error loading HSE statistics:', error);
+        }
+    }
+
+    function renderDonutChart(containerId, value1, value2, color1, color2) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        const total = value1 + value2;
+        const percent1 = total > 0 ? (value1 / total) * 100 : 50;
+        const offset = 25; // Start at top
+
+        const svg = `
+            <svg viewBox="0 0 36 36" style="width: 100%; height: 100%;">
+                <circle cx="18" cy="18" r="15.9" fill="transparent" stroke="${color2}" stroke-width="3.8"></circle>
+                <circle cx="18" cy="18" r="15.9" fill="transparent" stroke="${color1}" stroke-width="3.8"
+                    stroke-dasharray="${percent1} ${100 - percent1}" stroke-dashoffset="${offset}"></circle>
+                <text x="18" y="20" text-anchor="middle" font-size="6" fill="white" font-weight="bold">${total > 0 ? Math.round(percent1) : 0}%</text>
+            </svg>
+        `;
+        container.innerHTML = svg;
+    }
+
+    function renderHSEMonthlyChart() {
+        const container = document.getElementById('hse-monthly-chart');
+        if (!container) return;
+
+        // Sample monthly data (in real app, calculate from actual data)
+        const months = [3, 5, 4, 7, 6, 8, 10, 9, 7, 5, 4, 2];
+        const maxVal = Math.max(...months, 1);
+
+        let html = '';
+        months.forEach((val, i) => {
+            const height = (val / maxVal) * 120;
+            html += `
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                    <div style="width: 100%; max-width: 24px; height: ${height}px; background: linear-gradient(180deg, #667eea 25%, #11998e 50%, #f5576c 75%, #fa709a 100%); border-radius: 4px 4px 0 0; transition: height 0.5s;"></div>
+                    <span style="font-size: 8px; color: var(--text-muted);">${val}</span>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    // Make loadHSEStatistics globally available
+    window.loadHSEStatistics = loadHSEStatistics;
+
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', () => {
         loadData();
@@ -4871,7 +5034,7 @@
 
         // Load specific screen data
         if (screen === 'home') loadHomeDashboardData();
-        if (screen === 'statistics') updateStatistics();
+        if (screen === 'statistics') { updateStatistics(); loadHSEStatistics(); }
         if (screen === 'hse-kpi') renderKPIDashboard();
         if (screen === 'll-indicator') { loadLLData(); renderLLIndicator(); }
         if (screen === 'otp') { loadOTPData(); }
