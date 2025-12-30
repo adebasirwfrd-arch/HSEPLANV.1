@@ -704,6 +704,10 @@ class OTPMonthUpdate(BaseModel):
     wpts_id: Optional[str] = None
     plan_date: Optional[str] = None
     impl_date: Optional[str] = None
+    pic_name: Optional[str] = None
+    pic_manager: Optional[str] = None
+    pic_email: Optional[str] = None
+    pic_manager_email: Optional[str] = None
 
 
 @app.put("/otp/{program_id}/month/{month}")
@@ -731,6 +735,14 @@ def update_otp_month(program_id: int, month: str, update: OTPMonthUpdate):
                 prog["months"][month.lower()]["plan_date"] = update.plan_date
             if update.impl_date is not None:
                 prog["months"][month.lower()]["impl_date"] = update.impl_date
+            if update.pic_name is not None:
+                prog["months"][month.lower()]["pic_name"] = update.pic_name
+            if update.pic_manager is not None:
+                prog["months"][month.lower()]["pic_manager"] = update.pic_manager
+            if update.pic_email is not None:
+                prog["months"][month.lower()]["pic_email"] = update.pic_email
+            if update.pic_manager_email is not None:
+                prog["months"][month.lower()]["pic_manager_email"] = update.pic_manager_email
             
             prog["progress"] = calculate_progress(prog)
             save_otp_data(data)
@@ -883,6 +895,10 @@ class OTPAsiaMonthUpdate(BaseModel):
     wpts_id: Optional[str] = None
     plan_date: Optional[str] = None
     impl_date: Optional[str] = None
+    pic_name: Optional[str] = None
+    pic_manager: Optional[str] = None
+    pic_email: Optional[str] = None
+    pic_manager_email: Optional[str] = None
 
 
 @app.put("/otp-asia/{program_id}/month/{month}")
@@ -910,6 +926,14 @@ def update_otp_asia_month(program_id: int, month: str, update: OTPAsiaMonthUpdat
                 prog["months"][month.lower()]["plan_date"] = update.plan_date
             if update.impl_date is not None:
                 prog["months"][month.lower()]["impl_date"] = update.impl_date
+            if update.pic_name is not None:
+                prog["months"][month.lower()]["pic_name"] = update.pic_name
+            if update.pic_manager is not None:
+                prog["months"][month.lower()]["pic_manager"] = update.pic_manager
+            if update.pic_email is not None:
+                prog["months"][month.lower()]["pic_email"] = update.pic_email
+            if update.pic_manager_email is not None:
+                prog["months"][month.lower()]["pic_manager_email"] = update.pic_manager_email
             
             prog["progress"] = calculate_progress_asia(prog)
             save_otp_asia_data(data)
@@ -1047,6 +1071,10 @@ class MatrixMonthUpdate(BaseModel):
     wpts_id: Optional[str] = ""
     plan_date: Optional[str] = ""
     impl_date: Optional[str] = ""
+    pic_name: Optional[str] = ""
+    pic_manager: Optional[str] = ""
+    pic_email: Optional[str] = ""
+    pic_manager_email: Optional[str] = ""
 
 class MatrixProgramCreate(BaseModel):
     name: str
@@ -1097,7 +1125,11 @@ def update_matrix_month(program_id: int, month: str, update: MatrixMonthUpdate, 
                 "actual": update.actual,
                 "wpts_id": update.wpts_id or "",
                 "plan_date": update.plan_date or "",
-                "impl_date": update.impl_date or ""
+                "impl_date": update.impl_date or "",
+                "pic_name": update.pic_name or "",
+                "pic_manager": update.pic_manager or "",
+                "pic_email": update.pic_email or "",
+                "pic_manager_email": update.pic_manager_email or ""
             }
             prog["progress"] = calculate_matrix_progress(prog)
             save_matrix_data(category, region, data)

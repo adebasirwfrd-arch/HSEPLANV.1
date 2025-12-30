@@ -2747,6 +2747,31 @@
                     <label class="form-label">Implementation Date</label>
                     <input type="date" class="form-input" id="otp-edit-impl-date">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">PIC Name <span
+                            style="font-weight:normal;color:var(--text-muted);">(optional)</span></label>
+                    <input type="text" class="form-input" id="otp-edit-pic-name" placeholder="Enter PIC name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PIC Manager <span
+                            style="font-weight:normal;color:var(--text-muted);">(optional)</span></label>
+                    <input type="text" class="form-input" id="otp-edit-pic-manager"
+                        placeholder="Enter PIC Manager name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PIC Email <span
+                            style="font-weight:normal;color:var(--text-muted);">(optional, separate multiple with
+                            comma)</span></label>
+                    <input type="text" class="form-input" id="otp-edit-pic-email"
+                        placeholder="email1@example.com, email2@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PIC Manager Email <span
+                            style="font-weight:normal;color:var(--text-muted);">(optional, separate multiple with
+                            comma)</span></label>
+                    <input type="text" class="form-input" id="otp-edit-pic-manager-email"
+                        placeholder="manager1@example.com, manager2@example.com">
+                </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeOTPEditModal()">Cancel</button>
                     <button type="submit" class="btn-primary">Save</button>
@@ -2999,6 +3024,31 @@
                 <div class="form-group">
                     <label class="form-label">Implementation Date</label>
                     <input type="date" class="form-input" id="matrix-edit-impl-date">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PIC Name <span
+                            style="font-weight:normal;color:var(--text-muted);">(optional)</span></label>
+                    <input type="text" class="form-input" id="matrix-edit-pic-name" placeholder="Enter PIC name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PIC Manager <span
+                            style="font-weight:normal;color:var(--text-muted);">(optional)</span></label>
+                    <input type="text" class="form-input" id="matrix-edit-pic-manager"
+                        placeholder="Enter PIC Manager name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PIC Email <span
+                            style="font-weight:normal;color:var(--text-muted);">(optional, separate multiple with
+                            comma)</span></label>
+                    <input type="text" class="form-input" id="matrix-edit-pic-email"
+                        placeholder="email1@example.com, email2@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PIC Manager Email <span
+                            style="font-weight:normal;color:var(--text-muted);">(optional, separate multiple with
+                            comma)</span></label>
+                    <input type="text" class="form-input" id="matrix-edit-pic-manager-email"
+                        placeholder="manager1@example.com, manager2@example.com">
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" onclick="closeMatrixEditModal()">Cancel</button>
@@ -8594,6 +8644,10 @@
         document.getElementById('otp-edit-wpts').value = monthData.wpts_id || '';
         document.getElementById('otp-edit-plan-date').value = monthData.plan_date || '';
         document.getElementById('otp-edit-impl-date').value = monthData.impl_date || '';
+        document.getElementById('otp-edit-pic-name').value = monthData.pic_name || '';
+        document.getElementById('otp-edit-pic-manager').value = monthData.pic_manager || '';
+        document.getElementById('otp-edit-pic-email').value = monthData.pic_email || '';
+        document.getElementById('otp-edit-pic-manager-email').value = monthData.pic_manager_email || '';
         document.getElementById('otp-edit-title').textContent = `Edit ${month.toUpperCase()} - ${prog.name.substring(0, 30)}...`;
 
         document.getElementById('otp-edit-modal').style.display = 'flex';
@@ -8612,13 +8666,17 @@
         const wpts_id = document.getElementById('otp-edit-wpts').value.trim();
         const plan_date = document.getElementById('otp-edit-plan-date').value;
         const impl_date = document.getElementById('otp-edit-impl-date').value;
+        const pic_name = document.getElementById('otp-edit-pic-name').value.trim();
+        const pic_manager = document.getElementById('otp-edit-pic-manager').value.trim();
+        const pic_email = document.getElementById('otp-edit-pic-email').value.trim();
+        const pic_manager_email = document.getElementById('otp-edit-pic-manager-email').value.trim();
 
         try {
             const endpoint = currentOTPRegion === 'asia' ? '/otp-asia' : '/otp';
             const res = await fetch(`${API_BASE}${endpoint}/${programId}/month/${month}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ plan, actual, wpts_id, plan_date, impl_date })
+                body: JSON.stringify({ plan, actual, wpts_id, plan_date, impl_date, pic_name, pic_manager, pic_email, pic_manager_email })
             });
 
             if (res.ok) {
@@ -9122,6 +9180,10 @@
         document.getElementById('matrix-edit-wpts').value = m.wpts_id || '';
         document.getElementById('matrix-edit-plan-date').value = m.plan_date || '';
         document.getElementById('matrix-edit-impl-date').value = m.impl_date || '';
+        document.getElementById('matrix-edit-pic-name').value = m.pic_name || '';
+        document.getElementById('matrix-edit-pic-manager').value = m.pic_manager || '';
+        document.getElementById('matrix-edit-pic-email').value = m.pic_email || '';
+        document.getElementById('matrix-edit-pic-manager-email').value = m.pic_manager_email || '';
         document.getElementById('matrix-edit-title').textContent = `Edit ${month.toUpperCase()} - ${prog.name}`;
         document.getElementById('matrix-edit-modal').style.display = 'flex';
     }
@@ -9137,11 +9199,15 @@
         const wpts_id = document.getElementById('matrix-edit-wpts').value.trim();
         const plan_date = document.getElementById('matrix-edit-plan-date').value;
         const impl_date = document.getElementById('matrix-edit-impl-date').value;
+        const pic_name = document.getElementById('matrix-edit-pic-name').value.trim();
+        const pic_manager = document.getElementById('matrix-edit-pic-manager').value.trim();
+        const pic_email = document.getElementById('matrix-edit-pic-email').value.trim();
+        const pic_manager_email = document.getElementById('matrix-edit-pic-manager-email').value.trim();
         try {
             const res = await fetch(`${API_BASE}/matrix/${programId}/month/${month}?category=${currentMatrixCategory}&region=${currentMatrixRegion}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ plan, actual, wpts_id, plan_date, impl_date })
+                body: JSON.stringify({ plan, actual, wpts_id, plan_date, impl_date, pic_name, pic_manager, pic_email, pic_manager_email })
             });
             if (res.ok) {
                 showToast('Matrix data updated!', 'success');
