@@ -2521,12 +2521,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" data-i18n="wellName">Well Name</label>
-                    <input type="text" class="form-input" name="well_name" id="doc-well-name"
-                        placeholder="Enter well name">
-                </div>
-
-                <div class="form-group">
                     <label class="form-label"><span data-i18n="documentName">Document Name</span> <span>*</span></label>
                     <input type="text" class="form-input" name="doc_name" required
                         placeholder="e.g. Safety Certificate">
@@ -6826,11 +6820,6 @@
             allProjects.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
     }
 
-    function onDocProjectChange(projectId) {
-        const project = allProjects.find(p => p.id === projectId);
-        document.getElementById('doc-well-name').value = project ? (project.well_name || project.well || '') : '';
-    }
-
     async function submitRelatedDoc() {
         const form = document.getElementById('related-doc-form');
         const projectId = form.project_id.value;
@@ -6845,7 +6834,6 @@
         try {
             const formData = new FormData();
             formData.append('project_id', projectId);
-            formData.append('well_name', form.well_name.value || '');
             formData.append('doc_name', docName);
             formData.append('file', fileInput.files[0]);
 
