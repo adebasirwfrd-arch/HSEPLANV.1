@@ -7489,14 +7489,15 @@
             const pic = event.pic_name || 'N/A';
             const name = event.program_name || 'Unknown';
 
-            // Navigate to appropriate screen on click
-            const navigateTarget = event.source === 'otp' ? 'screen-otp' : 'screen-matrix';
+            // Navigate to appropriate screen on click - use navigateTo without 'screen-' prefix
+            const navigateTarget = event.source === 'otp' ? 'otp' : 'matrix';
 
-            return `<div onclick="showScreen('${navigateTarget}')" 
+            return `<div onclick="navigateTo('${navigateTarget}')" 
                  style="background: ${color}22; border-left: 3px solid ${color}; 
-                        padding: 4px 6px; margin: 2px 0; border-radius: 4px; cursor: pointer; font-size: 9px;">
-                <div style="font-weight: 600; color: ${color}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${typeLabel} ${name}</div>
-                <div style="color: var(--text-muted); font-size: 8px;">${sourceLabel}${categoryLabel} • ${pic}</div>
+                        padding: 4px 6px; margin: 2px 0; border-radius: 4px; cursor: pointer; font-size: 9px;
+                        max-width: 100%; overflow: hidden; box-sizing: border-box;">
+                <div style="font-weight: 600; color: ${color}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%;">${typeLabel} ${name}</div>
+                <div style="color: var(--text-muted); font-size: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${sourceLabel}${categoryLabel} • ${pic}</div>
             </div>`;
         };
 
@@ -7537,12 +7538,12 @@
 
                 html += `
                     <div style="background: ${isToday ? 'rgba(229, 9, 20, 0.15)' : 'var(--bg-tertiary)'}; 
-                         border-radius: 8px; padding: 6px; min-height: 80px; ${isToday ? 'border: 2px solid var(--netflix-red);' : 'border: 1px solid var(--border);'}">
+                         border-radius: 8px; padding: 6px; min-height: 80px; overflow: hidden; ${isToday ? 'border: 2px solid var(--netflix-red);' : 'border: 1px solid var(--border);'}">
                         <div style="text-align: center; margin-bottom: 4px;">
                             <div style="font-size: 10px; color: var(--text-muted);">${dayName}</div>
                             <div style="font-size: 14px; font-weight: ${isToday ? '700' : '600'}; color: ${isToday ? 'var(--netflix-red)' : 'var(--text-primary)'};">${currentDay.getDate()}</div>
                         </div>
-                        <div style="max-height: 120px; overflow-y: auto;">${events || '<div style="font-size: 9px; color: var(--text-muted); text-align: center;">-</div>'}</div>
+                        <div style="max-height: 120px; overflow-y: auto; overflow-x: hidden;">${events || '<div style="font-size: 9px; color: var(--text-muted); text-align: center;">-</div>'}</div>
                     </div>
                 `;
             }
@@ -7584,9 +7585,9 @@
 
                 html += `
                     <div style="background: ${isToday ? 'rgba(229, 9, 20, 0.15)' : 'var(--bg-tertiary)'}; 
-                         border-radius: 6px; padding: 4px; min-height: 60px; ${isToday ? 'border: 2px solid var(--netflix-red);' : ''}">
+                         border-radius: 6px; padding: 4px; min-height: 60px; overflow: hidden; ${isToday ? 'border: 2px solid var(--netflix-red);' : ''}">
                         <div style="font-size: 11px; font-weight: ${isToday ? '700' : '500'}; color: ${isToday ? 'var(--netflix-red)' : 'var(--text-primary)'}; text-align: center; margin-bottom: 2px;">${day}</div>
-                        <div style="max-height: 80px; overflow-y: auto;">${events}</div>
+                        <div style="max-height: 80px; overflow-y: auto; overflow-x: hidden;">${events}</div>
                     </div>
                 `;
             }
